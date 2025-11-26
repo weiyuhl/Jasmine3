@@ -41,9 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
@@ -279,19 +277,7 @@ private fun MessagePartsBlock(
         }
     }
 
-    // 消息输出HapticFeedback
-    val hapticFeedback = LocalHapticFeedback.current
     val settings = LocalSettings.current
-    val partsState by rememberUpdatedState(parts)
-    LaunchedEffect(settings.displaySetting) {
-        snapshotFlow { partsState }
-            .debounce(50.milliseconds)
-            .collect { parts ->
-                if (parts.isNotEmpty() && loading && settings.displaySetting.enableMessageGenerationHapticEffect) {
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.KeyboardTap)
-                }
-            }
-    }
 
     // Reasoning
     parts.filterIsInstance<UIMessagePart.Reasoning>().fastForEach { reasoning ->
