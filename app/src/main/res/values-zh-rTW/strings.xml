@@ -358,8 +358,8 @@
   <string name="setting_display_page_create_new_conversation_on_start_title">啟動時新建對話</string>
   <string name="setting_display_page_developer_mode">開發者模式</string>
   <string name="setting_display_page_developer_mode_desc">顯示更多偵錯功能，不建議一般使用者開啟。</string>
-  <string name="setting_display_page_font_size_preview">這是一個**示例**的聊天文本</string>
-  <string name="setting_display_page_font_size_title">聊天字體大小</string>
+
+
   <string name="setting_display_page_notification_message_generated">在訊息產生後啟用通知</string>
   <string name="setting_display_page_notification_message_generated_desc">當應用程式不在前景時，若產生新訊息則顯示通知</string>
   <string name="setting_display_page_show_updates_desc">是否顯示應用更新通知</string>
@@ -422,7 +422,6 @@
   <string name="setting_page_built_in_tools_search_desc">啟用 Google 搜尋整合</string>
   <string name="setting_page_built_in_tools_url_context">URL 上下文</string>
   <string name="setting_page_built_in_tools_url_context_desc">啟用 URL 內容處理</string>
-  <string name="setting_page_chat_settings">聊天設定</string>
   <string name="setting_page_chat_storage">聊天記錄儲存</string>
   <string name="setting_page_chat_storage_desc">%1$d 個檔案，%2$.2f MB</string>
   <string name="setting_page_color_mode">顏色模式</string>

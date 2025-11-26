@@ -3,7 +3,6 @@ package com.lhzkml.jasmine.ui.pages.setting
 import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,10 +11,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -34,7 +31,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.DisplaySetting
 import com.lhzkml.jasmine.ui.components.nav.BackButton
-import com.lhzkml.jasmine.ui.components.richtext.MarkdownBlock
 import com.lhzkml.jasmine.ui.components.ui.permission.PermissionManager
 import com.lhzkml.jasmine.ui.components.ui.permission.PermissionNotification
 import com.lhzkml.jasmine.ui.components.ui.permission.rememberPermissionState
@@ -229,71 +225,6 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
 //                )
 //            }
 
-            stickyHeader {
-                Text(
-                    text = stringResource(R.string.setting_page_chat_settings),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                )
-            }
-
-            
-
-            // 移除：聊天列表模型图标与模型名称的开关（始终显示模型图标与名称）
-
-            
-
-            item {
-                
-            }
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            item {
-                ListItem(
-                    headlineContent = {
-                        Text(stringResource(R.string.setting_display_page_font_size_title))
-                    },
-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    Slider(
-                        value = displaySetting.fontSizeRatio,
-                        onValueChange = {
-                            updateDisplaySetting(displaySetting.copy(fontSizeRatio = it))
-                        },
-                        valueRange = 0.5f..2f,
-                        steps = 11,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Text(
-                        text = "${(displaySetting.fontSizeRatio * 100).toInt()}%",
-                    )
-                }
-                MarkdownBlock(
-                    content = stringResource(R.string.setting_display_page_font_size_preview),
-                    modifier = Modifier.padding(8.dp),
-                    style = LocalTextStyle.current.copy(
-                        fontSize = LocalTextStyle.current.fontSize * displaySetting.fontSizeRatio,
-                        lineHeight = LocalTextStyle.current.lineHeight * displaySetting.fontSizeRatio,
-                    )
-                )
-            }
         }
     }
 }

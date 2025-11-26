@@ -347,7 +347,7 @@ data class DisplaySetting(
     val userAvatar: Avatar = Avatar.Dummy,
     val userNickname: String = "",
     val showUpdates: Boolean = true,
-    val fontSizeRatio: Float = 1.0f,
+
     val enableNotificationOnMessageGeneration: Boolean = false,
 )
 

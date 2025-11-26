@@ -115,10 +115,7 @@ fun ChatMessage(
     val messageIndex = chatMessages.indexOf(message)
     val lastMessage = messageIndex == chatMessages.lastIndex
     val settings = LocalSettings.current.displaySetting
-    val textStyle = LocalTextStyle.current.copy(
-        fontSize = LocalTextStyle.current.fontSize * settings.fontSizeRatio,
-        lineHeight = LocalTextStyle.current.lineHeight * settings.fontSizeRatio
-    )
+    
     var showActionsSheet by remember { mutableStateOf(false) }
     var showSelectCopySheet by remember { mutableStateOf(false) }
     val navController = LocalNavController.current
@@ -155,24 +152,22 @@ fun ChatMessage(
                 )
             }
         }
-        ProvideTextStyle(textStyle) {
-            MessagePartsBlock(
-                assistant = assistant,
-                role = message.role,
-                parts = message.parts,
-                annotations = message.annotations,
-                messages = chatMessages,
-                messageIndex = messageIndex,
-                loading = loading,
-                model = model,
-            )
+        MessagePartsBlock(
+            assistant = assistant,
+            role = message.role,
+            parts = message.parts,
+            annotations = message.annotations,
+            messages = chatMessages,
+            messageIndex = messageIndex,
+            loading = loading,
+            model = model,
+        )
 
-            message.translation?.let { translation ->
-                CollapsibleTranslationText(
-                    content = translation,
-                    onClickCitation = {}
-                )
-            }
+        message.translation?.let { translation ->
+            CollapsibleTranslationText(
+                content = translation,
+                onClickCitation = {}
+            )
         }
 
         val showActions = if (lastMessage) {

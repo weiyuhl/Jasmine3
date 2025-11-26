@@ -324,8 +324,8 @@
   <string name="setting_display_page_show_updates_desc">Whether to display app update notifications</string>
     <string name="setting_display_page_create_new_conversation_on_start_title">New chat on launch</string>
     <string name="setting_display_page_create_new_conversation_on_start_desc">Create a new conversation when the app starts</string>
-    <string name="setting_display_page_font_size_title">Chat Font Size</string>
-  <string name="setting_display_page_font_size_preview">This is a **sample** chat text</string>
+
+
   <string name="setting_display_page_title">Display Settings</string>
 
   <!-- Share Handler Page -->
@@ -685,7 +685,6 @@
   <string name="setting_mcp_page_add_one_to_get_started">Add one to get started</string>
     <string name="setting_page_theme_setting">Theme Settings</string>
   <string name="setting_page_basic_settings">Basic Settings</string>
-  <string name="setting_page_chat_settings">Chat Settings</string>
   <string name="permission_required">Required</string>
   <string name="permission_permanently_denied">Permanently Denied</string>
   <string name="permission_go_to_settings">Go to Setting</string>
