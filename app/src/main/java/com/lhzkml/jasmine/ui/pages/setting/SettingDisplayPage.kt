@@ -292,25 +292,7 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                 )
             }
 
-            item {
-                ListItem(
-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                    headlineContent = {
-                        Text(stringResource(R.string.setting_display_page_code_block_auto_collapse_title))
-                    },
-                    supportingContent = {
-                        Text(stringResource(R.string.setting_display_page_code_block_auto_collapse_desc))
-                    },
-                    trailingContent = {
-                        Switch(
-                            checked = displaySetting.codeBlockAutoCollapse,
-                            onCheckedChange = {
-                                updateDisplaySetting(displaySetting.copy(codeBlockAutoCollapse = it))
-                            }
-                        )
-                    },
-                )
-            }
+            
 
             item {
                 ListItem(

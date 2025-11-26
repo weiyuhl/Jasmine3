@@ -221,9 +221,7 @@
   <string name="chat_page_today">今天</string>
   <string name="chat_page_yesterday">昨天</string>
   <string name="citations_count">%1$d 条引用</string>
-  <string name="code_block_collapse">折叠</string>
   <string name="code_block_copy">复制代码</string>
-  <string name="code_block_expand">展开</string>
   <string name="code_block_preview">预览</string>
   <string name="collapse_translation">折叠翻译</string>
   <string name="confirm">确认</string>
@@ -354,8 +352,7 @@
   <string name="search_picker_title">搜索设置</string>
   <string name="select_and_copy">选择复制</string>
   <string name="send">发送</string>
-  <string name="setting_display_page_code_block_auto_collapse_desc">默认自动折叠代码块</string>
-  <string name="setting_display_page_code_block_auto_collapse_title">代码块自动折叠</string>
+  
   <string name="setting_display_page_code_block_auto_wrap_desc">自动换行代码块中的长行</string>
   <string name="setting_display_page_code_block_auto_wrap_title">代码块自动换行</string>
   <string name="setting_display_page_create_new_conversation_on_start_desc">当应用启动时，自动创建一个新的对话</string>

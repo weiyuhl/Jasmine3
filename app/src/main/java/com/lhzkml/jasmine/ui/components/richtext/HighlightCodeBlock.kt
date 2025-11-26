@@ -49,9 +49,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.composables.icons.lucide.ChevronsDown
-import com.composables.icons.lucide.ChevronsUp
-import com.composables.icons.lucide.Lucide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -96,10 +93,6 @@ fun HighlightCodeBlock(
     val navController = LocalNavController.current
     val context = LocalContext.current
     val settings = LocalSettings.current
-
-    var isExpanded by remember(settings.displaySetting.codeBlockAutoCollapse) {
-        mutableStateOf(!settings.displaySetting.codeBlockAutoCollapse)
-    }
     val autoWrap = settings.displaySetting.codeBlockAutoWrap
 
     val createDocumentLauncher = rememberLauncherForActivityResult(
@@ -143,10 +136,9 @@ fun HighlightCodeBlock(
 
         val textStyle = LocalTextStyle.current.merge(style)
         val codeLines = remember(code) { code.lines() }
-        val collapsedCode = remember(codeLines) { codeLines.take(COLLAPSE_LINES).joinToString("\n") }
         SelectionContainer {
             HighlightText(
-                code = if (isExpanded) code else collapsedCode,
+                code = code,
                 language = language,
                 modifier = Modifier
                     .animateContentSize()
@@ -169,40 +161,6 @@ fun HighlightCodeBlock(
         }
 
         Spacer(Modifier.height(4.dp))
-        // 代码折叠按钮
-        if (settings.displaySetting.codeBlockAutoCollapse && codeLines.size > COLLAPSE_LINES) {
-            Box(
-                modifier = Modifier
-                    .onClick {
-                        isExpanded = !isExpanded
-                    }
-                    .fillMaxWidth(),
-            ) {
-                Row(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(vertical = 4.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = if (isExpanded) Lucide.ChevronsUp else Lucide.ChevronsDown,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                        modifier = Modifier.size(textStyle.fontSize.toDp())
-                    )
-                    Text(
-                        text = if (isExpanded) {
-                            stringResource(id = R.string.code_block_collapse)
-                        } else {
-                            stringResource(id = R.string.code_block_expand)
-                        },
-                        fontSize = textStyle.fontSize,
-                        lineHeight = textStyle.lineHeight,
-                    )
-                }
-            }
-        }
     }
 }
 

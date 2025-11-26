@@ -351,7 +351,6 @@ data class DisplaySetting(
     val skipCropImage: Boolean = false,
     val enableNotificationOnMessageGeneration: Boolean = false,
     val codeBlockAutoWrap: Boolean = false,
-    val codeBlockAutoCollapse: Boolean = false,
 )
 
 @Serializable
