@@ -276,45 +276,7 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                 )
             }
 
-            item {
-                ListItem(
-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                    headlineContent = {
-                        Text(stringResource(R.string.setting_display_page_chat_list_model_icon_title))
-                    },
-                    supportingContent = {
-                        Text(stringResource(R.string.setting_display_page_chat_list_model_icon_desc))
-                    },
-                    trailingContent = {
-                        Switch(
-                            checked = displaySetting.showModelIcon,
-                            onCheckedChange = {
-                                updateDisplaySetting(displaySetting.copy(showModelIcon = it))
-                            }
-                        )
-                    },
-                )
-            }
-
-            item {
-                ListItem(
-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                    headlineContent = {
-                        Text(stringResource(R.string.setting_display_page_show_model_name_title))
-                    },
-                    supportingContent = {
-                        Text(stringResource(R.string.setting_display_page_show_model_name_desc))
-                    },
-                    trailingContent = {
-                        Switch(
-                            checked = displaySetting.showModelName,
-                            onCheckedChange = {
-                                updateDisplaySetting(displaySetting.copy(showModelName = it))
-                            }
-                        )
-                    },
-                )
-            }
+            // 移除：聊天列表模型图标与模型名称的开关（始终显示模型图标与名称）
 
             item {
                 ListItem(

@@ -322,10 +322,6 @@
   <!-- Setting Display Page -->
   <string name="setting_display_page_show_user_avatar_title">Show User Avatar</string>
   <string name="setting_display_page_show_user_avatar_desc">Whether to display user avatar in chat messages</string>
-  <string name="setting_display_page_chat_list_model_icon_title">Chat List Model Icon</string>
-  <string name="setting_display_page_chat_list_model_icon_desc">Whether to display model icons in chat list messages</string>
-  <string name="setting_display_page_show_model_name_title">Show Model Name</string>
-  <string name="setting_display_page_show_model_name_desc">Whether to display model names in chat messages</string>
   <string name="setting_display_page_show_token_usage_title">Show Token &amp; Context Stats</string>
   <string name="setting_display_page_show_token_usage_desc">Display token usage and message count</string>
   <string name="setting_display_page_auto_collapse_thinking_title">Auto Collapse Thinking</string>
@@ -362,8 +358,6 @@
   <string name="assistant_page_tab_local_tools">Local Tools</string>
   <string name="assistant_page_stream_output">Stream Output</string>
   <string name="assistant_page_stream_output_desc">Whether to enable streaming output for messages</string>
-  <string name="assistant_page_use_assistant_avatar">Use Assistant Avatar</string>
-  <string name="assistant_page_use_assistant_avatar_desc">Use assistant avatar and name instead of model avatar and name in chats</string>
   <string name="assistant_page_chat_model">Chat Model</string>
   <string name="assistant_page_chat_model_desc">Set the default chat model for the assistant. If not set, the global default chat model will be used</string>
   <string name="assistant_page_preset_messages">Preset Chat Messages</string>

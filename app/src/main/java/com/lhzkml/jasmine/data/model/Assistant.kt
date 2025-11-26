@@ -14,7 +14,6 @@ data class Assistant(
     val chatModelId: Uuid? = null, // 如果为null, 使用全局默认模型
     val name: String = "",
     val avatar: Avatar = Avatar.Dummy,
-    val useAssistantAvatar: Boolean = false, // 使用助手头像替代模型头像
     val tags: List<Uuid> = emptyList(),
     val systemPrompt: String = "",
     val temperature: Float? = null,

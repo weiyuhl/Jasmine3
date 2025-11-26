@@ -82,7 +82,6 @@ fun ChatMessageAssistantAvatar(
     modifier: Modifier = Modifier,
 ) {
     val settings = LocalSettings.current
-    val showIcon = settings.displaySetting.showModelIcon
     val prevRole = if (messageIndex > 0) messages[messageIndex - 1].role else null
     if (message.role == MessageRole.ASSISTANT && prevRole != message.role && model != null) {
         Row(
@@ -90,80 +89,34 @@ fun ChatMessageAssistantAvatar(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (assistant?.useAssistantAvatar == true) {
-                if (showIcon) {
-                    UIAvatar(
-                        name = assistant.name,
-                        modifier = Modifier.size(36.dp),
-                        value = assistant.avatar,
-                        loading = loading,
-                    )
-                }
-                Column(
-                    modifier = Modifier.weight(1f)
+            AutoAIIcon(
+                name = model.modelId,
+                modifier = Modifier.size(36.dp),
+                loading = loading
+            )
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = model.displayName,
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    if(settings.displaySetting.showModelName) {
-                        Text(
-                            text = assistant.name.ifEmpty { stringResource(R.string.assistant_page_default_assistant) },
-                            style = MaterialTheme.typography.titleMedium,
-                            maxLines = 1,
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
+                    Text(
+                        text = message.createdAt.toJavaLocalDateTime().toLocalString(),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = LocalContentColor.current.copy(alpha = 0.8f)
+                    )
+                    if (settings.displaySetting.showTokenUsage) {
+                        message.usage?.let { usage ->
                             Text(
-                                text = message.createdAt.toJavaLocalDateTime().toLocalString(),
+                                text = if (usage.cachedTokens == 0) "${usage.totalTokens.formatNumber()} tokens" else "${usage.totalTokens.formatNumber()} tokens (${usage.cachedTokens.formatNumber()} cached)",
                                 style = MaterialTheme.typography.labelSmall,
                                 color = LocalContentColor.current.copy(alpha = 0.8f),
                                 maxLines = 1,
                             )
-                            if (settings.displaySetting.showTokenUsage) {
-                                message.usage?.let { usage ->
-                                    Text(
-                                        text = "${usage.totalTokens.formatNumber()} tokens",
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = LocalContentColor.current.copy(alpha = 0.8f),
-                                        maxLines = 1,
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (showIcon) {
-                    AutoAIIcon(
-                        name = model.modelId,
-                        modifier = Modifier.size(36.dp),
-                        loading = loading
-                    )
-                }
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    if(settings.displaySetting.showModelName) {
-                        Text(
-                            text = model.displayName,
-                            style = MaterialTheme.typography.titleSmall,
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            Text(
-                                text = message.createdAt.toJavaLocalDateTime().toLocalString(),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = LocalContentColor.current.copy(alpha = 0.8f)
-                            )
-                            if (settings.displaySetting.showTokenUsage) {
-                                message.usage?.let { usage ->
-                                    Text(
-                                        text = if (usage.cachedTokens == 0) "${usage.totalTokens.formatNumber()} tokens" else "${usage.totalTokens.formatNumber()} tokens (${usage.cachedTokens.formatNumber()} cached)",
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = LocalContentColor.current.copy(alpha = 0.8f),
-                                        maxLines = 1,
-                                    )
-                                }
-                            }
                         }
                     }
                 }
