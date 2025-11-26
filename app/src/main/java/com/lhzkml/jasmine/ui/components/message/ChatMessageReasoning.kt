@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -52,10 +51,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.ChevronDown
-import com.composables.icons.lucide.ChevronUp
-import com.composables.icons.lucide.Expand
-import com.composables.icons.lucide.Lucide
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import com.lhzkmlai.provider.Model
@@ -146,7 +141,7 @@ fun ChatMessageReasoning(
                         onClick = {
                             toggle()
                         },
-                        indication = LocalIndication.current,
+                        indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     )
                     .padding(horizontal = 8.dp)
@@ -182,16 +177,6 @@ fun ChatMessageReasoning(
                 }
                 Spacer(
                     modifier = if (expandState.expanded) Modifier.weight(1f) else Modifier.width(4.dp)
-                )
-                Icon(
-                    imageVector = when (expandState) {
-                        ReasoningCardState.Collapsed -> Lucide.ChevronDown
-                        ReasoningCardState.Expanded -> Lucide.ChevronUp
-                        ReasoningCardState.Preview -> Lucide.Expand
-                    },
-                    contentDescription = null,
-                    modifier = Modifier.size(14.dp),
-                    tint = MaterialTheme.colorScheme.secondary,
                 )
             }
 
