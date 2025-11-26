@@ -38,7 +38,7 @@ import com.lhzkml.jasmine.ui.components.richtext.MarkdownBlock
 import com.lhzkml.jasmine.ui.components.ui.permission.PermissionManager
 import com.lhzkml.jasmine.ui.components.ui.permission.PermissionNotification
 import com.lhzkml.jasmine.ui.components.ui.permission.rememberPermissionState
-import com.lhzkml.jasmine.ui.hooks.rememberAmoledDarkMode
+ 
 import com.lhzkml.jasmine.ui.hooks.rememberSharedPreferenceBoolean
 import com.lhzkml.jasmine.ui.pages.setting.components.PresetThemeButtonGroup
 import com.lhzkml.jasmine.utils.plus
@@ -48,7 +48,7 @@ import org.koin.androidx.compose.koinViewModel
 fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
     val settings by vm.settings.collectAsStateWithLifecycle()
     var displaySetting by remember(settings) { mutableStateOf(settings.displaySetting) }
-    var amoledDarkMode by rememberAmoledDarkMode()
+    
 
     fun updateDisplaySetting(setting: DisplaySetting) {
         displaySetting = setting
@@ -130,25 +130,7 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                 }
             }
 
-            item {
-                ListItem(
-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                    headlineContent = {
-                        Text(stringResource(R.string.setting_display_page_amoled_dark_mode_title))
-                    },
-                    supportingContent = {
-                        Text(stringResource(R.string.setting_display_page_amoled_dark_mode_desc))
-                    },
-                    trailingContent = {
-                        Switch(
-                            checked = amoledDarkMode,
-                            onCheckedChange = {
-                                amoledDarkMode = it
-                            }
-                        )
-                    },
-                )
-            }
+            
 
             stickyHeader {
                 Text(

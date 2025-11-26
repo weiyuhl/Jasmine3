@@ -12,13 +12,11 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import kotlinx.serialization.Serializable
-import com.lhzkml.jasmine.ui.hooks.rememberAmoledDarkMode
 import com.lhzkml.jasmine.ui.hooks.rememberColorMode
 import com.lhzkml.jasmine.ui.hooks.rememberUserSettingsState
 
@@ -27,8 +25,6 @@ private val ExtendDarkColors = darkExtendColors()
 val LocalExtendColors = compositionLocalOf { ExtendLightColors }
 
 val LocalDarkMode = compositionLocalOf { false }
-
-private val AMOLED_DARK_BACKGROUND = Color(0xFF000000)
 
 @Serializable
 enum class ColorMode {
@@ -49,8 +45,6 @@ fun jasmineTheme(
         ColorMode.LIGHT -> false
         ColorMode.DARK -> true
     }
-    val amoledDarkMode by rememberAmoledDarkMode()
-
     val colorScheme = when {
         settings.dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -59,16 +53,7 @@ fun jasmineTheme(
         darkTheme -> findPresetTheme(settings.themeId).getColorScheme(dark = true)
         else -> findPresetTheme(settings.themeId).getColorScheme(dark = false)
     }
-    val colorSchemeConverted = remember(darkTheme, amoledDarkMode, colorScheme) {
-        if (darkTheme && amoledDarkMode) {
-            colorScheme.copy(
-                background = AMOLED_DARK_BACKGROUND,
-                surface = AMOLED_DARK_BACKGROUND,
-            )
-        } else {
-            colorScheme
-        }
-    }
+    val colorSchemeConverted = colorScheme
     val extendColors = if (darkTheme) ExtendDarkColors else ExtendLightColors
 
     // 更新状态栏图标颜色
