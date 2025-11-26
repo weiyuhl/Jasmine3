@@ -348,7 +348,6 @@ data class DisplaySetting(
     val userNickname: String = "",
     val showUpdates: Boolean = true,
     val fontSizeRatio: Float = 1.0f,
-    val skipCropImage: Boolean = false,
     val enableNotificationOnMessageGeneration: Boolean = false,
 )
 

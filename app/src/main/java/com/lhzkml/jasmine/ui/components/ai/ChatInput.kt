@@ -1021,26 +1021,13 @@ private fun ImagePickButton(onAddImages: (List<Uri>) -> Unit = {}) {
     )
 
     val imagePickerLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.GetMultipleContents()
-    ) { selectedUris ->
-        if (selectedUris.isNotEmpty()) {
-            Log.d("ImagePickButton", "Selected URIs: $selectedUris")
-            // Check if we should skip crop based on settings
-            if (settings.displaySetting.skipCropImage) {
-                // Skip crop, directly add images
-                onAddImages(context.createChatFilesByContents(selectedUris))
-            } else {
-                // Show crop interface
-                if (selectedUris.size == 1) {
-                    // Single image - offer crop
-                    launchCrop(selectedUris.first())
-                } else {
-                    // Multiple images - no crop
-                    onAddImages(context.createChatFilesByContents(selectedUris))
-                }
-            }
+        ActivityResultContracts.GetContent()
+    ) { selectedUri ->
+        if (selectedUri != null) {
+            Log.d("ImagePickButton", "Selected URI: $selectedUri")
+            launchCrop(selectedUri)
         } else {
-            Log.d("ImagePickButton", "No images selected")
+            Log.d("ImagePickButton", "No image selected")
         }
     }
 
@@ -1081,18 +1068,7 @@ fun TakePicButton(onAddImages: (List<Uri>) -> Unit = {}) {
         ActivityResultContracts.TakePicture()
     ) { captureSuccessful ->
         if (captureSuccessful && cameraOutputUri != null) {
-            // Check if we should skip crop based on settings
-            if (settings.displaySetting.skipCropImage) {
-                // Skip crop, directly add image
-                onAddImages(context.createChatFilesByContents(listOf(cameraOutputUri!!)))
-                // Clean up camera temp file
-                cameraOutputFile?.delete()
-                cameraOutputFile = null
-                cameraOutputUri = null
-            } else {
-                // Show crop interface
-                launchCrop(cameraOutputUri!!)
-            }
+            launchCrop(cameraOutputUri!!)
         } else {
             // Clean up camera temp file if capture failed
             cameraOutputFile?.delete()

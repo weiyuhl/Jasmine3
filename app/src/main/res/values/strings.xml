@@ -326,8 +326,6 @@
     <string name="setting_display_page_create_new_conversation_on_start_desc">Create a new conversation when the app starts</string>
     <string name="setting_display_page_font_size_title">Chat Font Size</string>
   <string name="setting_display_page_font_size_preview">This is a **sample** chat text</string>
-  <string name="setting_display_page_skip_crop_image_title">Skip Image Editing</string>
-  <string name="setting_display_page_skip_crop_image_desc">Skip crop interface after importing images or taking photos</string>
   <string name="setting_display_page_title">Display Settings</string>
 
   <!-- Share Handler Page -->
