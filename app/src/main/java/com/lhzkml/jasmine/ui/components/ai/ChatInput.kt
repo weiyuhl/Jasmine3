@@ -498,11 +498,7 @@ private fun TextInputRow(
                             }
                         }
                     },
-                    leadingIcon = if (assistant.quickMessages.isNotEmpty()) {
-                        {
-                            QuickMessageButton(assistant = assistant, state = state)
-                        }
-                    } else null,
+                    
                 )
                 if (isFullScreen) {
                     FullScreenEditor(state = state) {
@@ -514,54 +510,7 @@ private fun TextInputRow(
     }
 }
 
-@Composable
-private fun QuickMessageButton(
-    assistant: Assistant,
-    state: ChatInputState,
-) {
-    var expanded by remember { mutableStateOf(false) }
-    IconButton(
-        onClick = {
-            expanded = !expanded
-        }
-    ) {
-        Icon(Lucide.Zap, null)
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .widthIn(min = 200.dp)
-                .width(IntrinsicSize.Min)
-        ) {
-            assistant.quickMessages.forEach { quickMessage ->
-                Surface(
-                    onClick = {
-                        state.appendText(quickMessage.content)
-                    },
-                    color = Color.Transparent,
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Column(
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Text(
-                            text = quickMessage.title,
-                            style = MaterialTheme.typography.titleMedium,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                        Text(
-                            text = quickMessage.content,
-                            style = MaterialTheme.typography.bodySmall,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
+ 
 
 @Composable
 private fun MediaFileInputRow(
