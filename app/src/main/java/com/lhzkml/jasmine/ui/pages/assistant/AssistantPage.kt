@@ -336,7 +336,7 @@ private fun AssistantItem(
                 showDeleteDialog = false
             },
             title = {
-                Text(stringResource(R.string.assistant_page_delete))
+                Text(stringResource(R.string.confirm_delete))
             },
             text = {
                 Text(stringResource(R.string.assistant_page_delete_dialog_text))
@@ -347,7 +347,7 @@ private fun AssistantItem(
                         showDeleteDialog = false
                         onDelete()
                     }) {
-                    Text(stringResource(R.string.confirm))
+                    Text(stringResource(R.string.delete))
                 }
             },
             dismissButton = {

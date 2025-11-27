@@ -162,7 +162,7 @@ fun HistoryPage(vm: HistoryVM = koinViewModel()) {
     if (showDeleteAllDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteAllDialog = false },
-            title = { Text(stringResource(R.string.history_page_delete_all_conversations)) },
+            title = { Text(stringResource(R.string.confirm_delete)) },
             text = { Text(stringResource(R.string.history_page_delete_all_confirmation)) },
             confirmButton = {
                 TextButton(
@@ -171,14 +171,14 @@ fun HistoryPage(vm: HistoryVM = koinViewModel()) {
                         showDeleteAllDialog = false
                     }
                 ) {
-                    Text(stringResource(R.string.history_page_delete))
+                    Text(stringResource(R.string.delete))
                 }
             },
             dismissButton = {
                 TextButton(
                     onClick = { showDeleteAllDialog = false }
                 ) {
-                    Text(stringResource(R.string.history_page_cancel))
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -188,6 +188,7 @@ fun HistoryPage(vm: HistoryVM = koinViewModel()) {
         AlertDialog(
             onDismissRequest = { pendingDeleteConversation = null },
             title = { Text(stringResource(R.string.confirm_delete)) },
+            text = { Text(stringResource(R.string.history_page_delete_confirmation)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -206,14 +207,14 @@ fun HistoryPage(vm: HistoryVM = koinViewModel()) {
                         }
                     }
                 ) {
-                    Text(stringResource(R.string.history_page_delete))
+                    Text(stringResource(R.string.delete))
                 }
             },
             dismissButton = {
                 TextButton(
                     onClick = { pendingDeleteConversation = null }
                 ) {
-                    Text(stringResource(R.string.history_page_cancel))
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )

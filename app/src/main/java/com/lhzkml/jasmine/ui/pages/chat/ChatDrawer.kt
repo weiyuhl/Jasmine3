@@ -137,7 +137,7 @@ fun ChatDrawerContent(
 
                         Icon(
                             imageVector = Lucide.Pencil,
-                            contentDescription = "Edit",
+                            contentDescription = stringResource(R.string.edit),
                             modifier = Modifier
                                 .onClick {
                                     nicknameEditState.open(settings.displaySetting.userNickname)
@@ -165,7 +165,7 @@ fun ChatDrawerContent(
                     modifier = Modifier.size(28.dp)
                 )
                 Text(
-                    text = "新建聊天",
+                    text = stringResource(R.string.chat_page_new_chat),
                     style = MaterialTheme.typography.titleLarge
                 )
             }

@@ -24,7 +24,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilledTonalIconButton
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +36,6 @@ import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -45,7 +44,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,7 +64,6 @@ import com.composables.icons.lucide.Plus
 import com.composables.icons.lucide.Settings
 import com.composables.icons.lucide.Terminal
 import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.X
 import kotlinx.coroutines.launch
 import com.lhzkmlai.core.InputSchema
 import com.lhzkml.jasmine.R
@@ -195,100 +192,93 @@ private fun McpServerItem(
 ) {
     val mcpManager = koinInject<McpManager>()
     val status by mcpManager.getStatus(item).collectAsStateWithLifecycle(McpStatus.Idle)
-    val dismissBoxState = rememberSwipeToDismissBoxState()
-    val scope = rememberCoroutineScope()
-    SwipeToDismissBox(
-        state = dismissBoxState,
-        backgroundContent = {
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
-            ) {
-                FilledTonalIconButton(
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text(stringResource(R.string.confirm_delete)) },
+            text = { Text(stringResource(R.string.setting_mcp_page_delete_dialog_text)) },
+            confirmButton = {
+                TextButton(
                     onClick = {
-                        scope.launch { dismissBoxState.reset() }
-                    }
-                ) {
-                    Icon(Lucide.X, null)
-                }
-                FilledTonalIconButton(
-                    onClick = {
+                        showDeleteDialog = false
                         onDelete()
                     }
                 ) {
-                    Icon(Lucide.Trash2, null)
+                    Text(stringResource(R.string.delete))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text(stringResource(R.string.cancel))
                 }
             }
-        },
-        enableDismissFromStartToEnd = false,
-        enableDismissFromEndToStart = true,
-        modifier = modifier
-    ) {
-        Card {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                when (status) {
-                    McpStatus.Idle -> Icon(Lucide.MessageSquareOff, null)
-                    McpStatus.Connecting -> CircularProgressIndicator(
-                        modifier = Modifier.size(
-                            24.dp
-                        )
-                    )
+        )
+    }
 
-                    McpStatus.Connected -> Icon(Lucide.Terminal, null)
-                    is McpStatus.Error -> Icon(Lucide.CircleAlert, null)
+    Card(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            when (status) {
+                McpStatus.Idle -> Icon(Lucide.MessageSquareOff, null)
+                McpStatus.Connecting -> CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp)
+                )
+                McpStatus.Connected -> Icon(Lucide.Terminal, null)
+                is McpStatus.Error -> Icon(Lucide.CircleAlert, null)
+            }
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = item.commonOptions.name,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    val dotColor =
+                        if (item.commonOptions.enable) MaterialTheme.extendColors.green6 else MaterialTheme.extendColors.red6
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .drawWithContent {
+                                drawCircle(color = dotColor)
+                            }
+                    )
                 }
 
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Text(
-                            text = item.commonOptions.name,
-                            style = MaterialTheme.typography.titleLarge,
-                        )
-                        val dotColor =
-                            if (item.commonOptions.enable) MaterialTheme.extendColors.green6 else MaterialTheme.extendColors.red6
-                        Box(
-                            modifier = Modifier
-                                .size(8.dp)
-                                .drawWithContent {
-                                    drawCircle(
-                                        color = dotColor
-                                    )
-                                }
-                        )
-                    }
-
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        Tag(type = TagType.SUCCESS) {
-                            when (item) {
-                                is McpServerConfig.SseTransportServer -> Text("SSE")
-                                is McpServerConfig.StreamableHTTPServer -> Text("Streamable HTTP")
-                            }
+                    Tag(type = TagType.SUCCESS) {
+                        when (item) {
+                            is McpServerConfig.SseTransportServer -> Text("SSE")
+                            is McpServerConfig.StreamableHTTPServer -> Text("Streamable HTTP")
                         }
                     }
                 }
+            }
 
-                IconButton(
-                    onClick = {
-                        onEdit(item)
-                    }
-                ) {
-                    Icon(Lucide.Settings, null)
-                }
+            IconButton(
+                onClick = { showDeleteDialog = true }
+            ) {
+                Icon(Lucide.Trash2, null)
+            }
+
+            IconButton(
+                onClick = { onEdit(item) }
+            ) {
+                Icon(Lucide.Settings, null)
             }
         }
     }
