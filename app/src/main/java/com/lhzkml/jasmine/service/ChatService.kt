@@ -353,8 +353,7 @@ class ChatService(
         runCatching {
             val conversation = getConversationFlow(conversationId).value
 
-            // reset suggestions
-            updateConversation(conversationId, conversation.copy(chatSuggestions = emptyList()))
+            // reset suggestions (removed)
 
             // memory tool
             if (!model.abilities.contains(ModelAbility.TOOL)) {
@@ -439,7 +438,6 @@ class ChatService(
             appScope.launch {
                 coroutineScope {
                     launch { generateTitle(conversationId, finalConversation) }
-                    launch { generateSuggestion(conversationId, finalConversation) }
                 }
             }.invokeOnCompletion {
                 removeConversationReference(conversationId) // 移除引用
@@ -662,51 +660,7 @@ class ChatService(
         }
     }
 
-    // 生成建议
-    suspend fun generateSuggestion(conversationId: Uuid, conversation: Conversation) {
-        runCatching {
-            val settings = settingsStore.settingsFlow.first()
-            val model = settings.findModelById(settings.suggestionModelId) ?: return
-            val provider = model.findProvider(settings.providers) ?: return
-
-            updateConversation(
-                conversationId,
-                getConversationFlow(conversationId).value.copy(chatSuggestions = emptyList())
-            )
-
-            val providerHandler = providerManager.getProviderByType(provider)
-            val result = providerHandler.generateText(
-                providerSetting = provider,
-                messages = listOf(
-                    UIMessage.user(
-                        settings.suggestionPrompt.applyPlaceholders(
-                            "locale" to Locale.getDefault().displayName,
-                            "content" to conversation.currentMessages.truncate(conversation.truncateIndex)
-                                .takeLast(8).joinToString("\n\n") { it.summaryAsText() }),
-                    )
-                ),
-                params = TextGenerationParams(
-                    model = model,
-                    temperature = 1.0f,
-                    thinkingBudget = 0,
-                ),
-            )
-            val suggestions =
-                result.choices[0].message?.toText()?.split("\n")?.map { it.trim() }
-                    ?.filter { it.isNotBlank() } ?: emptyList()
-
-            saveConversation(
-                conversationId,
-                getConversationFlow(conversationId).value.copy(
-                    chatSuggestions = suggestions.take(
-                        10
-                    )
-                )
-            )
-        }.onFailure {
-            it.printStackTrace()
-        }
-    }
+    // 生成建议功能已移除
 
     // 发送生成完成通知
     private fun sendGenerationDoneNotification(conversationId: Uuid) {

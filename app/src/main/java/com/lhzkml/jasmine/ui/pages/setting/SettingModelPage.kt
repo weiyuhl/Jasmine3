@@ -39,14 +39,12 @@ import com.composables.icons.lucide.Eye
 import com.composables.icons.lucide.GraduationCap
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.MessageCircle
-import com.composables.icons.lucide.MessageSquareMore
 import com.composables.icons.lucide.NotebookTabs
 import com.composables.icons.lucide.Settings2
 import com.lhzkmlai.provider.ModelType
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_OCR_PROMPT
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_SUGGESTION_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TRANSLATION_PROMPT
 import com.lhzkml.jasmine.data.datastore.Settings
@@ -85,7 +83,7 @@ fun SettingModelPage(vm: SettingVM = koinViewModel()) {
             }
 
             item {
-                DefaultSuggestionModelSetting(settings = settings, vm = vm)
+                // 建议模型设置项已移除
             }
 
             item {
@@ -198,101 +196,7 @@ private fun DefaultTranslationModelSetting(
     }
 }
 
-@Composable
-private fun DefaultSuggestionModelSetting(
-    settings: Settings,
-    vm: SettingVM
-) {
-    var showModal by remember { mutableStateOf(false) }
-    ModelFeatureCard(
-        title = {
-            Text(
-                text = stringResource(R.string.setting_model_page_suggestion_model),
-                maxLines = 1
-            )
-        },
-        description = {
-            Text(stringResource(R.string.setting_model_page_suggestion_model_desc))
-        },
-        icon = {
-            Icon(Lucide.MessageSquareMore, null)
-        },
-        actions = {
-            Box(modifier = Modifier.weight(1f)) {
-                ModelSelector(
-                    modelId = settings.suggestionModelId,
-                    type = ModelType.CHAT,
-                    onSelect = {
-                        vm.updateSettings(
-                            settings.copy(
-                                suggestionModelId = it.id
-                            )
-                        )
-                    },
-                    providers = settings.providers,
-                    allowClear = true,
-                    modifier = Modifier.wrapContentWidth()
-                )
-            }
-            IconButton(
-                onClick = {
-                    showModal = true
-                }
-            ) {
-                Icon(Lucide.Settings2, null)
-            }
-        }
-    )
-
-    if (showModal) {
-        ModalBottomSheet(
-            onDismissRequest = {
-                showModal = false
-            },
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                FormItem(
-                    label = {
-                        Text(stringResource(R.string.setting_model_page_prompt))
-                    },
-                    description = {
-                        Text(stringResource(R.string.setting_model_page_suggestion_prompt_vars))
-                    }
-                ) {
-                    OutlinedTextField(
-                        value = settings.suggestionPrompt,
-                        onValueChange = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    suggestionPrompt = it
-                                )
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        maxLines = 8
-                    )
-                    TextButton(
-                        onClick = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    suggestionPrompt = DEFAULT_SUGGESTION_PROMPT
-                                )
-                            )
-                        }
-                    ) {
-                        Text(stringResource(R.string.setting_model_page_reset_to_default))
-                    }
-                }
-            }
-        }
-    }
-}
+// DefaultSuggestionModelSetting 已移除
 
 @Composable
 private fun DefaultTitleModelSetting(

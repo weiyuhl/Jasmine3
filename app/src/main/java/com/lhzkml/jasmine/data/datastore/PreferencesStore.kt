@@ -22,7 +22,6 @@ import com.lhzkml.jasmine.AppScope
 import com.lhzkml.jasmine.data.ai.mcp.McpServerConfig
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_OCR_PROMPT
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_SUGGESTION_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TRANSLATION_PROMPT
 import com.lhzkml.jasmine.data.datastore.migration.PreferenceStoreV1Migration
@@ -70,11 +69,9 @@ class SettingsStore(
         val SELECT_MODEL = stringPreferencesKey("chat_model")
         val TITLE_MODEL = stringPreferencesKey("title_model")
         val TRANSLATE_MODEL = stringPreferencesKey("translate_model")
-        val SUGGESTION_MODEL = stringPreferencesKey("suggestion_model")
         val IMAGE_GENERATION_MODEL = stringPreferencesKey("image_generation_model")
         val TITLE_PROMPT = stringPreferencesKey("title_prompt")
         val TRANSLATION_PROMPT = stringPreferencesKey("translation_prompt")
-        val SUGGESTION_PROMPT = stringPreferencesKey("suggestion_prompt")
         val LEARNING_MODE_PROMPT = stringPreferencesKey("learning_mode_prompt")
         val OCR_MODEL = stringPreferencesKey("ocr_model")
         val OCR_PROMPT = stringPreferencesKey("ocr_prompt")
@@ -125,12 +122,9 @@ class SettingsStore(
                     ?: SILICONFLOW_QWEN3_8B_ID,
                 translateModeId = preferences[TRANSLATE_MODEL]?.let { Uuid.parse(it) }
                     ?: SILICONFLOW_QWEN3_8B_ID,
-                suggestionModelId = preferences[SUGGESTION_MODEL]?.let { Uuid.parse(it) }
-                    ?: SILICONFLOW_QWEN3_8B_ID,
                 imageGenerationModelId = preferences[IMAGE_GENERATION_MODEL]?.let { Uuid.parse(it) } ?: Uuid.random(),
                 titlePrompt = preferences[TITLE_PROMPT] ?: DEFAULT_TITLE_PROMPT,
                 translatePrompt = preferences[TRANSLATION_PROMPT] ?: DEFAULT_TRANSLATION_PROMPT,
-                suggestionPrompt = preferences[SUGGESTION_PROMPT] ?: DEFAULT_SUGGESTION_PROMPT,
                 learningModePrompt = preferences[LEARNING_MODE_PROMPT] ?: DEFAULT_LEARNING_MODE_PROMPT,
                 ocrModelId = preferences[OCR_MODEL]?.let { Uuid.parse(it) } ?: Uuid.random(),
                 ocrPrompt = preferences[OCR_PROMPT] ?: DEFAULT_OCR_PROMPT,
@@ -257,11 +251,9 @@ class SettingsStore(
             preferences[SELECT_MODEL] = settings.chatModelId.toString()
             preferences[TITLE_MODEL] = settings.titleModelId.toString()
             preferences[TRANSLATE_MODEL] = settings.translateModeId.toString()
-            preferences[SUGGESTION_MODEL] = settings.suggestionModelId.toString()
             preferences[IMAGE_GENERATION_MODEL] = settings.imageGenerationModelId.toString()
             preferences[TITLE_PROMPT] = settings.titlePrompt
             preferences[TRANSLATION_PROMPT] = settings.translatePrompt
-            preferences[SUGGESTION_PROMPT] = settings.suggestionPrompt
             preferences[LEARNING_MODE_PROMPT] = settings.learningModePrompt
             preferences[OCR_MODEL] = settings.ocrModelId.toString()
             preferences[OCR_PROMPT] = settings.ocrPrompt
@@ -316,8 +308,6 @@ data class Settings(
     val titlePrompt: String = DEFAULT_TITLE_PROMPT,
     val translateModeId: Uuid = Uuid.random(),
     val translatePrompt: String = DEFAULT_TRANSLATION_PROMPT,
-    val suggestionModelId: Uuid = Uuid.random(),
-    val suggestionPrompt: String = DEFAULT_SUGGESTION_PROMPT,
     val learningModePrompt: String = DEFAULT_LEARNING_MODE_PROMPT,
     val ocrModelId: Uuid = Uuid.random(),
     val ocrPrompt: String = DEFAULT_OCR_PROMPT,

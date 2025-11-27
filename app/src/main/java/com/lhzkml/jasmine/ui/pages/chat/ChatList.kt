@@ -118,7 +118,6 @@ fun ChatList(
     onForkMessage: (UIMessage) -> Unit = {},
     onDelete: (UIMessage) -> Unit = {},
     onUpdateMessage: (MessageNode) -> Unit = {},
-    onClickSuggestion: (String) -> Unit = {},
     onTranslate: ((UIMessage, java.util.Locale) -> Unit)? = null,
     onClearTranslation: (UIMessage) -> Unit = {},
     onJumpToMessage: (Int) -> Unit = {},
@@ -152,7 +151,6 @@ fun ChatList(
                     onForkMessage = onForkMessage,
                     onDelete = onDelete,
                     onUpdateMessage = onUpdateMessage,
-                    onClickSuggestion = onClickSuggestion,
                     onTranslate = onTranslate,
                     onClearTranslation = onClearTranslation,
                     onBlankAreaTap = onBlankAreaTap,
@@ -175,7 +173,6 @@ private fun SharedTransitionScope.ChatListNormal(
     onForkMessage: (UIMessage) -> Unit,
     onDelete: (UIMessage) -> Unit,
     onUpdateMessage: (MessageNode) -> Unit,
-    onClickSuggestion: (String) -> Unit,
     onTranslate: ((UIMessage, java.util.Locale) -> Unit)?,
     onClearTranslation: (UIMessage) -> Unit,
     onBlankAreaTap: () -> Unit,
@@ -417,14 +414,7 @@ private fun SharedTransitionScope.ChatListNormal(
 
             
 
-            // Suggestion
-            if (conversation.chatSuggestions.isNotEmpty() && !captureProgress) {
-                ChatSuggestionsRow(
-                    conversation = conversation,
-                    onClickSuggestion = onClickSuggestion,
-                    modifier = Modifier.align(Alignment.BottomCenter)
-                )
-            }
+            
         }
     }
 }
@@ -617,36 +607,6 @@ private fun SharedTransitionScope.ChatListPreview(
     }
 }
 
-@Composable
-private fun ChatSuggestionsRow(
-    modifier: Modifier = Modifier,
-    conversation: Conversation,
-    onClickSuggestion: (String) -> Unit
-) {
-    LazyRow(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        items(conversation.chatSuggestions) { suggestion ->
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(50))
-                    .clickable {
-                        onClickSuggestion(suggestion)
-                    }
-                    .background(MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp))
-                    .padding(vertical = 4.dp, horizontal = 8.dp),
-            ) {
-                Text(
-                    text = suggestion,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
-    }
-}
+
 
  

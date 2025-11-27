@@ -331,7 +331,6 @@ class ChatVM(
             val newConversation = conversation.value.copy(
                 truncateIndex = if (conversation.value.truncateIndex == lastTruncateIndex) -1 else lastTruncateIndex,
                 title = "",
-                chatSuggestions = emptyList(), // 清空建议
             )
             chatService.saveConversation(conversationId = _conversationId, conversation = newConversation)
         }
@@ -510,11 +509,7 @@ class ChatVM(
         }
     }
 
-    fun generateSuggestion(conversation: Conversation) {
-        viewModelScope.launch {
-            chatService.generateSuggestion(_conversationId, conversation)
-        }
-    }
+    // 建议生成功能已移除
 
     fun clearTranslationField(messageId: Uuid) {
         chatService.clearTranslationField(_conversationId, messageId)
