@@ -117,41 +117,6 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                 )
             }
 
-            item("colorMode") {
-                var colorMode by rememberColorMode()
-                ListItem(
-                    headlineContent = {
-                        Text(stringResource(R.string.setting_page_color_mode))
-                    },
-                    leadingContent = {
-                        Icon(Lucide.SunMoon, null)
-                    },
-                    trailingContent = {
-                        Select(
-                            options = ColorMode.entries,
-                            selectedOption = colorMode,
-                            onOptionSelected = {
-                                colorMode = it
-                                navController.navigate(Screen.Setting) {
-                                    launchSingleTop = true
-                                    popUpTo(Screen.Setting) {
-                                        inclusive = true
-                                    }
-                                }
-                            },
-                            optionToString = {
-                                when (it) {
-                                    ColorMode.SYSTEM -> stringResource(R.string.setting_page_color_mode_system)
-                                    ColorMode.LIGHT -> stringResource(R.string.setting_page_color_mode_light)
-                                    ColorMode.DARK -> stringResource(R.string.setting_page_color_mode_dark)
-                                }
-                            },
-                            modifier = Modifier.width(150.dp)
-                        )
-                    }
-                )
-            }
-
 
             item {
                 SettingItem(

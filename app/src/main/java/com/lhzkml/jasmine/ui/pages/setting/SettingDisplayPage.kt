@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -16,6 +17,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import com.composables.icons.lucide.Lucide
+import androidx.compose.material3.Icon
+import com.lhzkml.jasmine.Screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,15 +31,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import android.app.Activity
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.DisplaySetting
 import com.lhzkml.jasmine.ui.components.nav.BackButton
+import com.lhzkml.jasmine.ui.components.ui.Select
 import com.lhzkml.jasmine.ui.components.ui.permission.PermissionManager
 import com.lhzkml.jasmine.ui.components.ui.permission.PermissionNotification
 import com.lhzkml.jasmine.ui.components.ui.permission.rememberPermissionState
- 
+
+
 import com.lhzkml.jasmine.ui.hooks.rememberSharedPreferenceBoolean
+import com.lhzkml.jasmine.ui.hooks.rememberAppLanguage
+import com.lhzkml.jasmine.ui.hooks.rememberColorMode
+import com.lhzkml.jasmine.ui.theme.AppLanguage
+import com.lhzkml.jasmine.ui.theme.ColorMode
+import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.pages.setting.components.PresetThemeButtonGroup
 import com.lhzkml.jasmine.utils.plus
 import org.koin.androidx.compose.koinViewModel
@@ -95,6 +108,37 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
             }
 
             item {
+                val navController = LocalNavController.current
+                var colorMode by rememberColorMode()
+                ListItem(
+                    headlineContent = {
+                        Text(stringResource(R.string.setting_page_color_mode))
+                    },
+                    trailingContent = {
+                        Select(
+                            options = ColorMode.entries,
+                            selectedOption = colorMode,
+                            onOptionSelected = {
+                                colorMode = it
+                                navController.navigate(Screen.SettingDisplay) {
+                                    launchSingleTop = true
+                                    popUpTo(Screen.SettingDisplay) { inclusive = true }
+                                }
+                            },
+                            optionToString = {
+                                when (it) {
+                                    ColorMode.SYSTEM -> stringResource(R.string.setting_page_color_mode_system)
+                                    ColorMode.LIGHT -> stringResource(R.string.setting_page_color_mode_light)
+                                    ColorMode.DARK -> stringResource(R.string.setting_page_color_mode_dark)
+                                }
+                            },
+                            modifier = Modifier.width(150.dp)
+                        )
+                    }
+                )
+            }
+
+            item {
                 ListItem(
                     colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                     headlineContent = {
@@ -126,6 +170,38 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                 }
             }
 
+            item {
+                val context = LocalContext.current
+                val appLanguage = rememberAppLanguage()
+                ListItem(
+                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                    headlineContent = {
+                        Text(stringResource(R.string.setting_page_app_language))
+                    },
+                    trailingContent = {
+                        Select(
+                            options = AppLanguage.entries.toList(),
+                            selectedOption = appLanguage.value,
+                            onOptionSelected = { selected ->
+                                if (selected != appLanguage.value) {
+                                    appLanguage.value = selected
+                                    (context as? Activity)?.recreate()
+                                }
+                            },
+                            optionToString = { opt ->
+                                when (opt) {
+                                    AppLanguage.SYSTEM -> stringResource(R.string.language_system)
+                                    AppLanguage.ENGLISH -> stringResource(R.string.language_english)
+                                    AppLanguage.SIMPLIFIED_CHINESE -> stringResource(R.string.language_simplified_chinese)
+                                    AppLanguage.TRADITIONAL_CHINESE -> stringResource(R.string.language_traditional_chinese)
+                                }
+                            },
+                            modifier = Modifier.width(150.dp)
+                        )
+                    },
+                )
+            }
+
             
 
             stickyHeader {
@@ -136,6 +212,8 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 )
             }
+
+            
 
             item {
                 var createNewConversationOnStart by rememberSharedPreferenceBoolean(

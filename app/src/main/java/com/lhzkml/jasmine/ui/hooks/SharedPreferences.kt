@@ -13,6 +13,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.callbackFlow
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.setValue
+import com.lhzkml.jasmine.ui.theme.AppLanguage
 
 @Composable
 fun rememberSharedPreferenceString(
@@ -62,6 +65,27 @@ fun rememberSharedPreferenceBoolean(
 
             override fun component1(): Boolean = value
             override fun component2(): (Boolean) -> Unit = { value = it }
+        }
+    }
+}
+
+@Composable
+fun rememberAppLanguage(): MutableState<AppLanguage> {
+    var appLanguageValue by rememberSharedPreferenceString("app_language", "SYSTEM")
+    val appLanguageState = remember(appLanguageValue) {
+        derivedStateOf {
+            AppLanguage.entries.firstOrNull { it.name == appLanguageValue } ?: AppLanguage.SYSTEM
+        }
+    }
+    val current by appLanguageState
+    return remember {
+        object : MutableState<AppLanguage> {
+            override var value: AppLanguage
+                get() = current
+                set(value) { appLanguageValue = value.name }
+
+            override fun component1(): AppLanguage = value
+            override fun component2(): (AppLanguage) -> Unit = { value = it }
         }
     }
 }

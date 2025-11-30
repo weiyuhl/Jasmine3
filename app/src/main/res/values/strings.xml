@@ -62,6 +62,8 @@
 
   <string name="setting_page_display_setting">Display Settings</string>
   <string name="setting_page_display_setting_desc">Manage display settings</string>
+  <string name="setting_page_app_language">Language</string>
+  <string name="setting_page_app_language_desc">Switch app language</string>
   <string name="setting_page_dynamic_color">Dynamic Color</string>
   <string name="setting_page_dynamic_color_desc">Use dynamic color</string>
   <string name="setting_page_general_settings">General Settings</string>
@@ -588,9 +590,9 @@
   <string name="translating">Translating...</string>
 
   <!-- Language Names with Emojis -->
-  <string name="language_simplified_chinese">🇨🇳 简体中文</string>
-  <string name="language_english">🇺🇸 English</string>
-  <string name="language_traditional_chinese">🇨🇳 繁體中文</string>
+  <string name="language_simplified_chinese">简体中文</string>
+  <string name="language_english">English</string>
+  <string name="language_traditional_chinese">繁體中文</string>
   <string name="language_japanese">🇯🇵 日本語</string>
   <string name="language_korean">🇰🇷 한국어</string>
   <string name="language_french">🇫🇷 Français</string>
@@ -713,4 +715,5 @@
   
     <string name="video">Video</string>
   <string name="audio">Audio</string>
+  <string name="language_system">System Default</string>
 </resources>

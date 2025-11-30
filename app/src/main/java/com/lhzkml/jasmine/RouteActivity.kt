@@ -87,6 +87,43 @@ class RouteActivity : ComponentActivity() {
     private val settingsStore by inject<SettingsStore>()
     private var navStack by mutableStateOf<NavHostController?>(null)
 
+    override fun attachBaseContext(newBase: android.content.Context) {
+        val prefs = newBase.getSharedPreferences("jasmine.preferences", MODE_PRIVATE)
+        val languageValue = prefs.getString("app_language", "SYSTEM") ?: "SYSTEM"
+        if (languageValue == "SYSTEM") {
+            super.attachBaseContext(newBase)
+            return
+        }
+
+        val locale = when (languageValue) {
+            "ENGLISH" -> java.util.Locale.ENGLISH
+            "SIMPLIFIED_CHINESE" -> java.util.Locale.SIMPLIFIED_CHINESE
+            "TRADITIONAL_CHINESE" -> java.util.Locale.TRADITIONAL_CHINESE
+            else -> null
+        }
+
+        if (locale == null) {
+            super.attachBaseContext(newBase)
+            return
+        }
+
+        val res = newBase.resources
+        val config = android.content.res.Configuration(res.configuration)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            val localeList = android.os.LocaleList(locale)
+            android.os.LocaleList.setDefault(localeList)
+            config.setLocales(localeList)
+            val localizedContext = newBase.createConfigurationContext(config)
+            super.attachBaseContext(localizedContext)
+        } else {
+            java.util.Locale.setDefault(locale)
+            config.setLocale(locale)
+            @Suppress("DEPRECATION")
+            res.updateConfiguration(config, res.displayMetrics)
+            super.attachBaseContext(newBase)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         disableNavigationBarContrast()
