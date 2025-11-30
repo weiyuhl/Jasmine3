@@ -31,8 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import android.app.Activity
 import androidx.compose.ui.platform.LocalContext
+import com.dokar.sonner.ToastType
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.DisplaySetting
@@ -49,6 +49,7 @@ import com.lhzkml.jasmine.ui.hooks.rememberColorMode
 import com.lhzkml.jasmine.ui.theme.AppLanguage
 import com.lhzkml.jasmine.ui.theme.ColorMode
 import com.lhzkml.jasmine.ui.context.LocalNavController
+import com.lhzkml.jasmine.ui.context.LocalToaster
 import com.lhzkml.jasmine.ui.pages.setting.components.PresetThemeButtonGroup
 import com.lhzkml.jasmine.utils.plus
 import org.koin.androidx.compose.koinViewModel
@@ -172,6 +173,7 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
 
             item {
                 val context = LocalContext.current
+                val toaster = LocalToaster.current
                 val appLanguage = rememberAppLanguage()
                 ListItem(
                     colors = ListItemDefaults.colors(containerColor = Color.Transparent),
@@ -185,7 +187,10 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                             onOptionSelected = { selected ->
                                 if (selected != appLanguage.value) {
                                     appLanguage.value = selected
-                                    (context as? Activity)?.recreate()
+                                    toaster.show(
+                                        message = context.getString(R.string.setting_page_language_restart_desc),
+                                        type = ToastType.Info
+                                    )
                                 }
                             },
                             optionToString = { opt ->

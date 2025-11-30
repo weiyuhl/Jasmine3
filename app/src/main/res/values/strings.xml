@@ -600,6 +600,8 @@
   <string name="language_italian">🇮🇹 Italiano</string>
   <string name="language_spanish">🇪🇸 Español</string>
 
+  <string name="setting_page_language_restart_desc">Language will take effect after app restart.</string>
+
   <!-- Donate -->
   <string name="setting_page_donate">Donate</string>
   <string name="setting_page_donate_desc">If you like it, sponsor the author\'s work</string>
