@@ -46,10 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -63,7 +60,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.TextFields
@@ -89,8 +85,6 @@ import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.theme.extendColors
 import com.lhzkml.jasmine.utils.toDp
 import org.koin.compose.koinInject
-import sh.calvin.reorderable.ReorderableItem
-import sh.calvin.reorderable.rememberReorderableLazyListState
 import kotlin.uuid.Uuid
 
 @Composable
@@ -273,34 +267,7 @@ private fun ColumnScope.ModelList(
     val lazyListState = rememberLazyListState(
         initialFirstVisibleItemIndex = selectedModelPosition
     )
-    val reorderableState = rememberReorderableLazyListState(lazyListState) { from, to ->
-        // 计算favorite models在列表中的位置偏移
-        var favoriteStartIndex = 0
-        if (providers.isEmpty()) {
-            favoriteStartIndex = 1 // no providers item
-        }
-        if (favoriteModels.isNotEmpty()) {
-            favoriteStartIndex += 1 // favorite header
-        }
-
-        val fromIndex = from.index - favoriteStartIndex
-        val toIndex = to.index - favoriteStartIndex
-
-        // 只处理favorite models范围内的拖拽
-        if (fromIndex >= 0 && toIndex >= 0 &&
-            fromIndex < favoriteModels.size && toIndex < favoriteModels.size
-        ) {
-            val newFavoriteModels = settings.value.favoriteModels.toMutableList().apply {
-                add(toIndex, removeAt(fromIndex))
-            }
-            coroutineScope.launch {
-                settingsStore.update { oldSettings ->
-                    oldSettings.copy(favoriteModels = newFavoriteModels)
-                }
-            }
-        }
-    }
-    val haptic = LocalHapticFeedback.current
+    
 
     val providerPositions = remember(providers, favoriteModels) {
         var currentIndex = 0
@@ -385,57 +352,36 @@ private fun ColumnScope.ModelList(
                 items = favoriteModels,
                 key = { "favorite:" + it.first.id.toString() }
             ) { (model, provider) ->
-                ReorderableItem(
-                    state = reorderableState,
-                    key = "favorite:" + model.id.toString()
-                ) { isDragging ->
-                    ModelItem(
-                        model = model,
-                        onSelect = onSelect,
-                        modifier = Modifier
-                            .scale(if (isDragging) 0.95f else 1f)
-                            .animateItem(),
-                        providerSetting = provider,
-                        select = model.id == currentModel,
-                        onDismiss = {
-                            onDismiss()
-                        },
-                        tail = {
-                            IconButton(
-                                onClick = {
-                                    coroutineScope.launch {
-                                        settingsStore.update { settings ->
-                                            settings.copy(
-                                                favoriteModels = settings.favoriteModels.filter { it != model.id }
-                                            )
-                                        }
+                ModelItem(
+                    model = model,
+                    onSelect = onSelect,
+                    modifier = Modifier,
+                    providerSetting = provider,
+                    select = model.id == currentModel,
+                    onDismiss = {
+                        onDismiss()
+                    },
+                    tail = {
+                        IconButton(
+                            onClick = {
+                                coroutineScope.launch {
+                                    settingsStore.update { settings ->
+                                        settings.copy(
+                                            favoriteModels = settings.favoriteModels.filter { it != model.id }
+                                        )
                                     }
                                 }
-                            ) {
-                                Icon(
-                                    HeartIcon,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(20.dp),
-                                    tint = MaterialTheme.colorScheme.primary,
-                                )
                             }
-                        },
-                        dragHandle = {
-                                Icon(
-                                    imageVector = Icons.Filled.DragHandle,
-                                    contentDescription = null,
-                                    modifier = Modifier.longPressDraggableHandle(
-                                    onDragStarted = {
-                                        haptic.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
-                                    },
-                                    onDragStopped = {
-                                        haptic.performHapticFeedback(HapticFeedbackType.GestureEnd)
-                                    }
-                                )
+                        ) {
+                            Icon(
+                                HeartIcon,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp),
+                                tint = MaterialTheme.colorScheme.primary,
                             )
                         }
-                    )
-                }
+                    }
+                )
             }
         }
 
@@ -476,7 +422,7 @@ private fun ColumnScope.ModelList(
                 ModelItem(
                     model = model,
                     onSelect = onSelect,
-                    modifier = Modifier.animateItem(),
+                    modifier = Modifier,
                     providerSetting = providerSetting,
                     select = currentModel == model.id,
                     onDismiss = {

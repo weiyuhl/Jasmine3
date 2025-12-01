@@ -159,7 +159,7 @@ fun SettingMcpPage(vm: SettingVM = koinViewModel()) {
                                 )
                             )
                         },
-                        modifier = Modifier.animateItem()
+                        modifier = Modifier
                     )
                 }
             }

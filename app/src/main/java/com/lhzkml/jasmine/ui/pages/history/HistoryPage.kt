@@ -153,7 +153,6 @@ fun HistoryPage(vm: HistoryVM = koinViewModel()) {
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .animateItem()
                 )
             }
         }

@@ -40,14 +40,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.StopCircle
@@ -66,8 +62,6 @@ import com.lhzkml.jasmine.ui.pages.setting.components.TTSProviderConfigure
 import com.lhzkml.jasmine.utils.plus
 import com.lhzkmltts.provider.TTSProviderSetting
 import org.koin.androidx.compose.koinViewModel
-import sh.calvin.reorderable.ReorderableItem
-import sh.calvin.reorderable.rememberReorderableLazyListState
 
 @Composable
 fun SettingTTSPage(vm: SettingVM = koinViewModel()) {
@@ -97,12 +91,6 @@ fun SettingTTSPage(vm: SettingVM = koinViewModel()) {
         },
     ) { innerPadding ->
         val lazyListState = rememberLazyListState()
-        val reorderableState = rememberReorderableLazyListState(lazyListState) { from, to ->
-            val newProviders = settings.ttsProviders.toMutableList().apply {
-                add(to.index, removeAt(from.index))
-            }
-            vm.updateSettings(settings.copy(ttsProviders = newProviders))
-        }
 
         LazyColumn(
             modifier = Modifier
@@ -113,55 +101,29 @@ fun SettingTTSPage(vm: SettingVM = koinViewModel()) {
             state = lazyListState
         ) {
             items(settings.ttsProviders, key = { it.id }) { provider ->
-                ReorderableItem(
-                    state = reorderableState,
-                    key = provider.id
-                ) { isDragging ->
-                    TTSProviderItem(
-                        modifier = Modifier
-                            .scale(if (isDragging) 0.95f else 1f)
-                            .fillMaxWidth(),
-                        provider = provider,
-                        dragHandle = {
-                            val haptic = LocalHapticFeedback.current
-                            IconButton(
-                                onClick = {},
-                                modifier = Modifier
-                                    .longPressDraggableHandle(
-                                        onDragStarted = {
-                                            haptic.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
-                                        },
-                                        onDragStopped = {
-                                            haptic.performHapticFeedback(HapticFeedbackType.GestureEnd)
-                                        }
-                                    )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.DragHandle,
-                                    contentDescription = null
-                                )
-                            }
-                        },
-                        isSelected = settings.selectedTTSProviderId == provider.id,
-                        onSelect = {
-                            vm.updateSettings(settings.copy(selectedTTSProviderId = provider.id))
-                        },
-                        onEdit = {
-                            editingProvider = provider
-                        },
-                        onDelete = {
-                            val newProviders = settings.ttsProviders - provider
-                            val newSelectedId =
-                                if (settings.selectedTTSProviderId == provider.id) DEFAULT_SYSTEM_TTS_ID else settings.selectedTTSProviderId
-                            vm.updateSettings(
-                                settings.copy(
-                                    ttsProviders = newProviders,
-                                    selectedTTSProviderId = newSelectedId
-                                )
+                TTSProviderItem(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    provider = provider,
+                    isSelected = settings.selectedTTSProviderId == provider.id,
+                    onSelect = {
+                        vm.updateSettings(settings.copy(selectedTTSProviderId = provider.id))
+                    },
+                    onEdit = {
+                        editingProvider = provider
+                    },
+                    onDelete = {
+                        val newProviders = settings.ttsProviders - provider
+                        val newSelectedId =
+                            if (settings.selectedTTSProviderId == provider.id) DEFAULT_SYSTEM_TTS_ID else settings.selectedTTSProviderId
+                        vm.updateSettings(
+                            settings.copy(
+                                ttsProviders = newProviders,
+                                selectedTTSProviderId = newSelectedId
                             )
-                        }
-                    )
-                }
+                        )
+                    }
+                )
             }
         }
     }
@@ -309,7 +271,6 @@ private fun TTSProviderItem(
     provider: TTSProviderSetting,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
-    dragHandle: @Composable () -> Unit,
     onSelect: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit
@@ -371,8 +332,6 @@ private fun TTSProviderItem(
                     selected = isSelected,
                     onClick = onSelect
                 )
-
-                dragHandle()
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),

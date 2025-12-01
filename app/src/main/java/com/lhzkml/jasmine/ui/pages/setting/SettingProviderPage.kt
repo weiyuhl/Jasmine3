@@ -46,8 +46,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
@@ -61,7 +59,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.DragHandle
+ 
 import com.dokar.sonner.ToastType
 import io.github.g00fy2.quickie.QRResult
 import io.github.g00fy2.quickie.ScanQRCode
@@ -79,8 +77,7 @@ import com.lhzkml.jasmine.ui.hooks.useEditState
 import com.lhzkml.jasmine.ui.pages.setting.components.ProviderConfigure
 import com.lhzkml.jasmine.utils.ImageUtils
 import org.koin.androidx.compose.koinViewModel
-import sh.calvin.reorderable.ReorderableItem
-import sh.calvin.reorderable.rememberReorderableLazyStaggeredGridState
+ 
 import java.util.Locale
 import kotlinx.coroutines.launch
 
@@ -91,12 +88,6 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
     val scope = rememberCoroutineScope()
     var searchQuery by remember { mutableStateOf("") }
     val lazyListState = rememberLazyStaggeredGridState()
-    val reorderableState = rememberReorderableLazyStaggeredGridState(lazyListState) { from, to ->
-        val newProviders = settings.providers.toMutableList().apply {
-            add(to.index, removeAt(from.index))
-        }
-        vm.updateSettings(settings.copy(providers = newProviders))
-    }
 
     val filteredProviders = remember(settings.providers, searchQuery) {
         if (searchQuery.isBlank()) {
@@ -192,40 +183,15 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
                 columns = StaggeredGridCells.Fixed(2)
             ) {
                 items(filteredProviders, key = { it.id }) { provider ->
-                    ReorderableItem(
-                        state = reorderableState,
-                        key = provider.id
-                    ) { isDragging ->
-                        ProviderItem(
-                            modifier = Modifier
-                                .scale(if (isDragging) 0.95f else 1f)
-                                .fillMaxWidth(),
-                            provider = provider,
-                            dragHandle = {
-                                val haptic = LocalHapticFeedback.current
-                                IconButton(
-                                    onClick = {},
-                                    modifier = Modifier
-                                        .longPressDraggableHandle(
-                                            onDragStarted = {
-                                                haptic.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
-                                            },
-                                            onDragStopped = {
-                                                haptic.performHapticFeedback(HapticFeedbackType.GestureEnd)
-                                            }
-                                        )
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.DragHandle,
-                                        contentDescription = null
-                                    )
-                                }
-                            },
-                            onClick = {
-                                navController.navigate(Screen.SettingProviderDetail(providerId = provider.id.toString()))
-                            }
-                        )
-                    }
+                    ProviderItem(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        provider = provider,
+                        dragHandle = {},
+                        onClick = {
+                            navController.navigate(Screen.SettingProviderDetail(providerId = provider.id.toString()))
+                        }
+                    )
                 }
             }
         }

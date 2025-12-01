@@ -206,13 +206,13 @@ fun ColumnScope.ConversationList(
                 is ConversationListItem.DateHeader -> {
                     DateHeaderItem(
                         label = item.label,
-                        modifier = Modifier.animateItem()
+                        modifier = Modifier
                     )
                 }
 
                 is ConversationListItem.PinnedHeader -> {
                     PinnedHeader(
-                        modifier = Modifier.animateItem()
+                        modifier = Modifier
                     )
                 }
 
@@ -225,7 +225,7 @@ fun ColumnScope.ConversationList(
                         onDelete = onDelete,
                         onRegenerateTitle = onRegenerateTitle,
                         onPin = onPin,
-                        modifier = Modifier.animateItem()
+                        modifier = Modifier
                     )
                 }
 

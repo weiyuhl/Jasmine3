@@ -37,9 +37,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -48,7 +45,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Edit
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.Settings
@@ -64,8 +60,7 @@ import com.lhzkmlsearch.SearchCommonOptions
 import com.lhzkmlsearch.SearchService
 import com.lhzkmlsearch.SearchServiceOptions
 import org.koin.androidx.compose.koinViewModel
-import sh.calvin.reorderable.ReorderableItem
-import sh.calvin.reorderable.rememberReorderableLazyListState
+ 
 import kotlin.reflect.full.primaryConstructor
 
 @Composable
@@ -85,24 +80,6 @@ fun SettingSearchPage(vm: SettingVM = koinViewModel()) {
         }
     ) {
         val lazyListState = rememberLazyListState()
-        val reorderableState = rememberReorderableLazyListState(lazyListState) { from, to ->
-            // 需要考虑标题和按钮以及通用选项可能占用的位置
-            val offset = 1 // 第一个item是标题和按钮
-            val fromIndex = from.index - offset
-            val toIndex = to.index - offset
-
-            if (fromIndex >= 0 && toIndex >= 0 && fromIndex < settings.searchServices.size && toIndex < settings.searchServices.size) {
-                val newServices = settings.searchServices.toMutableList().apply {
-                    add(toIndex, removeAt(fromIndex))
-                }
-                vm.updateSettings(
-                    settings.copy(
-                        searchServices = newServices
-                    )
-                )
-            }
-        }
-        val haptic = LocalHapticFeedback.current
 
         LazyColumn(
             modifier = Modifier
@@ -145,52 +122,31 @@ fun SettingSearchPage(vm: SettingVM = koinViewModel()) {
             // 搜索提供商列表
             items(settings.searchServices, key = { it.id }) { service ->
                 val index = settings.searchServices.indexOf(service)
-                ReorderableItem(
-                    state = reorderableState,
-                    key = service.id
-                ) { isDragging ->
-                    SearchProviderCard(
-                        service = service,
-                        onUpdateService = { updatedService ->
+                SearchProviderCard(
+                    service = service,
+                    onUpdateService = { updatedService ->
+                        val newServices = settings.searchServices.toMutableList()
+                        newServices[index] = updatedService
+                        vm.updateSettings(
+                            settings.copy(
+                                searchServices = newServices
+                            )
+                        )
+                    },
+                    onDeleteService = {
+                        if (settings.searchServices.size > 1) {
                             val newServices = settings.searchServices.toMutableList()
-                            newServices[index] = updatedService
+                            newServices.removeAt(index)
                             vm.updateSettings(
                                 settings.copy(
                                     searchServices = newServices
                                 )
                             )
-                        },
-                        onDeleteService = {
-                            if (settings.searchServices.size > 1) {
-                                val newServices = settings.searchServices.toMutableList()
-                                newServices.removeAt(index)
-                                vm.updateSettings(
-                                    settings.copy(
-                                        searchServices = newServices
-                                    )
-                                )
-                            }
-                        },
-                        canDelete = settings.searchServices.size > 1,
-                        modifier = Modifier
-                            .scale(if (isDragging) 0.95f else 1f)
-                            .animateItem(),
-                        dragHandle = {
-                            Icon(
-                                imageVector = Icons.Filled.DragHandle,
-                                contentDescription = null,
-                                modifier = Modifier.longPressDraggableHandle(
-                                    onDragStarted = {
-                                        haptic.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
-                                    },
-                                    onDragStopped = {
-                                        haptic.performHapticFeedback(HapticFeedbackType.GestureEnd)
-                                    }
-                                )
-                            )
                         }
-                    )
-                }
+                    },
+                    canDelete = settings.searchServices.size > 1,
+                    modifier = Modifier
+                )
             }
 
             // 通用选项
@@ -218,7 +174,7 @@ private fun SearchProviderCard(
     onDeleteService: () -> Unit,
     canDelete: Boolean,
     modifier: Modifier = Modifier,
-    dragHandle: @Composable () -> Unit = {}
+    
 ) {
     var options by remember(service) {
         mutableStateOf(service)
@@ -390,11 +346,7 @@ private fun SearchProviderCard(
 
                 Spacer(Modifier.weight(1f))
 
-                IconButton(
-                    onClick = {}
-                ) {
-                    dragHandle()
-                }
+                // 移除拖拽句柄
             }
         }
     }

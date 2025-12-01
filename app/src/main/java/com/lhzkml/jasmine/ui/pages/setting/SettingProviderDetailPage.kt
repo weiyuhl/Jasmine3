@@ -127,8 +127,7 @@ import com.lhzkml.jasmine.utils.UiState
 import com.lhzkml.jasmine.utils.plus
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
-import sh.calvin.reorderable.ReorderableItem
-import sh.calvin.reorderable.rememberReorderableLazyListState
+ 
 import kotlin.uuid.Uuid
 
 @Composable
@@ -605,9 +604,7 @@ private fun ModelList(
     }
     var expanded by rememberSaveable { mutableStateOf(true) }
     val lazyListState = rememberLazyListState()
-    val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
-        onUpdateProvider(providerSetting.moveMove(from.index, to.index))
-    }
+    
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -647,32 +644,17 @@ private fun ModelList(
                 }
             } else {
                 items(providerSetting.models, key = { it.id }) { item ->
-                    ReorderableItem(
-                        state = reorderableLazyListState,
-                        key = item.id
-                    ) { isDragging ->
-                        ModelCard(
-                            model = item,
-                            onDelete = {
-                                onUpdateProvider(providerSetting.delModel(item))
-                            },
-                            onEdit = { editedModel ->
-                                onUpdateProvider(providerSetting.editModel(editedModel))
-                            },
-                            parentProvider = providerSetting,
-                            modifier = Modifier
-                                .longPressDraggableHandle()
-                                .graphicsLayer {
-                                    if (isDragging) {
-                                        scaleX = 1.05f
-                                        scaleY = 1.05f
-                                    } else {
-                                        scaleX = 1f
-                                        scaleY = 1f
-                                    }
-                                },
-                        )
-                    }
+                    ModelCard(
+                        model = item,
+                        onDelete = {
+                            onUpdateProvider(providerSetting.delModel(item))
+                        },
+                        onEdit = { editedModel ->
+                            onUpdateProvider(providerSetting.editModel(editedModel))
+                        },
+                        parentProvider = providerSetting,
+                        modifier = Modifier,
+                    )
                 }
             }
         }

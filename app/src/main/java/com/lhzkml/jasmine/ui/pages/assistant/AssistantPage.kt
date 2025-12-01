@@ -40,9 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
+ 
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -50,7 +48,7 @@ import androidx.compose.ui.util.fastForEach
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.DragHandle
+ 
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
 import com.lhzkml.jasmine.data.datastore.DEFAULT_ASSISTANTS_IDS
@@ -70,9 +68,7 @@ import com.lhzkml.jasmine.ui.hooks.useEditState
 import com.lhzkml.jasmine.ui.modifier.onClick
 import com.lhzkml.jasmine.ui.pages.assistant.detail.AssistantImporter
 import org.koin.androidx.compose.koinViewModel
-import sh.calvin.reorderable.ReorderableItem
-import sh.calvin.reorderable.rememberReorderableLazyListState
-import sh.calvin.reorderable.rememberReorderableLazyStaggeredGridState
+ 
 import kotlin.uuid.Uuid
 import androidx.compose.foundation.lazy.items as lazyItems
 import androidx.compose.material.icons.Icons
@@ -111,13 +107,6 @@ fun AssistantPage(vm: AssistantVM = koinViewModel()) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             val lazyListState = rememberLazyStaggeredGridState()
-            val reorderableState = rememberReorderableLazyStaggeredGridState(lazyListState) { from, to ->
-                val newAssistants = settings.assistants.toMutableList().apply {
-                    add(to.index, removeAt(from.index))
-                }
-                vm.updateSettings(settings.copy(assistants = newAssistants))
-            }
-            val haptic = LocalHapticFeedback.current
 
             
 
@@ -132,46 +121,30 @@ fun AssistantPage(vm: AssistantVM = koinViewModel()) {
                 columns = StaggeredGridCells.Fixed(2)
             ) {
                 items(filteredAssistants, key = { assistant -> assistant.id }) { assistant ->
-                    ReorderableItem(
-                        state = reorderableState, key = assistant.id
-                    ) { isDragging ->
-                        val memories by vm.getMemories(assistant).collectAsStateWithLifecycle(
-                            initialValue = emptyList(),
-                        )
-                        AssistantItem(
-                            assistant = assistant,
-                            settings = settings,
-                            memories = memories,
-                            onEdit = {
-                                navController.navigate(Screen.AssistantDetail(id = assistant.id.toString()))
-                            },
-                            onDelete = {
-                                vm.removeAssistant(assistant)
-                            },
-                            onCopy = {
-                                vm.copyAssistant(assistant)
-                            },
-                            modifier = Modifier
-                                .scale(if (isDragging) 0.95f else 1f)
-                                .fillMaxWidth()
-                                .animateItem(),
-                            dragHandle = {
-                                Icon(
-                                    imageVector = Icons.Filled.DragHandle,
-                                    contentDescription = null,
-                                    modifier = Modifier.longPressDraggableHandle(onDragStarted = {
-                                        haptic.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
-                                    }, onDragStopped = {
-                                        haptic.performHapticFeedback(HapticFeedbackType.GestureEnd)
-                                    })
-                                )
-                })
+                    val memories by vm.getMemories(assistant).collectAsStateWithLifecycle(
+                        initialValue = emptyList(),
+                    )
+                    AssistantItem(
+                        assistant = assistant,
+                        settings = settings,
+                        memories = memories,
+                        onEdit = {
+                            navController.navigate(Screen.AssistantDetail(id = assistant.id.toString()))
+                        },
+                        onDelete = {
+                            vm.removeAssistant(assistant)
+                        },
+                        onCopy = {
+                            vm.copyAssistant(assistant)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        dragHandle = {}
+                    )
+                }
             }
         }
     }
-        }
-    }
-
     AssistantCreationSheet(createState)
 }
 

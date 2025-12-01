@@ -191,7 +191,7 @@ fun AssistantPickerSheet(
                     val checked = assistant.id == currentAssistant.id
                     Card(
                         onClick = { onAssistantSelected(assistant) },
-                        modifier = Modifier.animateItem(),
+                        modifier = Modifier,
                         shape = MaterialTheme.shapes.large,
                         colors = CardDefaults.cardColors(
                             containerColor = if (checked) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
