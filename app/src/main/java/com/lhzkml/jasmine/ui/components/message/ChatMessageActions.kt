@@ -60,6 +60,8 @@ import com.lhzkml.jasmine.ui.context.LocalTTSState
 import com.lhzkml.jasmine.utils.copyMessageToClipboard
 import com.lhzkml.jasmine.utils.toLocalString
 import java.util.Locale
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 
 @Composable
 fun ColumnScope.ChatMessageActionButtons(
@@ -370,7 +372,7 @@ fun ChatMessageActionsSheet(
                         .fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Lucide.Trash2,
+                        imageVector = Icons.Filled.Delete,
                         contentDescription = null,
                         modifier = Modifier.padding(4.dp)
                     )

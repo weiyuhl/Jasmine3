@@ -62,6 +62,7 @@ import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import com.composables.icons.lucide.ChevronDown
 import com.composables.icons.lucide.ChevronUp
 import androidx.compose.material.icons.filled.Fullscreen
@@ -655,7 +656,7 @@ private fun AssistantRegexCard(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
-                        Icon(Lucide.Trash2, null)
+                        Icon(Icons.Filled.Delete, null)
                         Text(stringResource(R.string.delete))
                     }
                 }

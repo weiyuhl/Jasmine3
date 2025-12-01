@@ -49,11 +49,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Pin
-import com.composables.icons.lucide.PinOff
-import com.composables.icons.lucide.Search
-import com.composables.icons.lucide.Trash2
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.PushPin
+import androidx.compose.material.icons.outlined.PushPin
 import kotlinx.coroutines.launch
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.model.Conversation
@@ -111,14 +110,14 @@ fun HistoryPage(vm: HistoryVM = koinViewModel()) {
                                 }
                             }
                         ) {
-                            Icon(Lucide.Search, contentDescription = stringResource(R.string.history_page_search))
+                            Icon(Icons.Filled.Search, contentDescription = stringResource(R.string.history_page_search))
                         }
                         IconButton(
                             onClick = {
                                 showDeleteAllDialog = true
                             }
                         ) {
-                            Icon(Lucide.Trash2, contentDescription = stringResource(R.string.history_page_delete_all))
+                            Icon(Icons.Filled.Delete, contentDescription = stringResource(R.string.history_page_delete_all))
                         }
                     }
                 )
@@ -280,7 +279,7 @@ private fun ConversationItem(
                 ) {
                     if (conversation.isPinned) {
                         Icon(
-                            imageVector = Lucide.Pin,
+                            imageVector = Icons.Filled.PushPin,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(16.dp),
@@ -304,7 +303,7 @@ private fun ConversationItem(
                         onClick = onTogglePin
                     ) {
                         Icon(
-                            if (conversation.isPinned) Lucide.PinOff else Lucide.Pin,
+                            if (conversation.isPinned) Icons.Outlined.PushPin else Icons.Filled.PushPin,
                             contentDescription = if (conversation.isPinned) stringResource(R.string.history_page_unpin) else stringResource(
                                 R.string.history_page_pin
                             )
@@ -314,7 +313,7 @@ private fun ConversationItem(
                         onClick = onDelete
                     ) {
                         Icon(
-                            Lucide.Trash2,
+                            Icons.Filled.Delete,
                             contentDescription = stringResource(R.string.history_page_delete)
                         )
                     }

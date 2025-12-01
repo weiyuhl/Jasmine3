@@ -60,6 +60,7 @@ import androidx.compose.ui.util.fastForEach
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import com.composables.icons.lucide.Boxes
 import com.composables.icons.lucide.ChevronRight
 import com.composables.icons.lucide.GripHorizontal
@@ -346,7 +347,7 @@ private fun ColumnScope.ModelList(
                 unfocusedContainerColor = Color.Transparent,
             ),
             leadingIcon = {
-                Icon(Lucide.Search, null)
+                Icon(Icons.Filled.Search, null)
             },
             maxLines = 1,
         )

@@ -53,12 +53,12 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.composables.icons.lucide.History
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Pin
-import com.composables.icons.lucide.PinOff
 import com.composables.icons.lucide.RefreshCw
-import com.composables.icons.lucide.Trash2
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.PushPin
+import androidx.compose.material.icons.outlined.PushPin
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
 import com.lhzkml.jasmine.data.model.Conversation
@@ -271,7 +271,7 @@ private fun PinnedHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            imageVector = Lucide.Pin,
+            imageVector = Icons.Filled.PushPin,
             contentDescription = null,
             modifier = Modifier.size(16.dp),
             tint = MaterialTheme.colorScheme.primary
@@ -335,7 +335,7 @@ private fun ConversationItem(
             // 置顶图标
             AnimatedVisibility(conversation.isPinned) {
                 Icon(
-                    imageVector = Lucide.Pin,
+                    imageVector = Icons.Filled.PushPin,
                     contentDescription = "Pinned",
                     modifier = Modifier.size(12.dp),
                     tint = MaterialTheme.colorScheme.primary
@@ -368,7 +368,7 @@ private fun ConversationItem(
                     },
                     leadingIcon = {
                         Icon(
-                            if (conversation.isPinned) Lucide.PinOff else Lucide.Pin,
+                            if (conversation.isPinned) Icons.Outlined.PushPin else Icons.Filled.PushPin,
                             null
                         )
                     }
@@ -396,7 +396,7 @@ private fun ConversationItem(
                         showDropdownMenu = false
                     },
                     leadingIcon = {
-                        Icon(Lucide.Trash2, null)
+                        Icon(Icons.Filled.Delete, null)
                     }
                 )
             }

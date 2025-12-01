@@ -37,6 +37,8 @@ import com.lhzkml.jasmine.data.model.AssistantMemory
 import com.lhzkml.jasmine.ui.components.ui.FormItem
 import com.lhzkml.jasmine.ui.hooks.EditStateContent
 import com.lhzkml.jasmine.ui.hooks.useEditState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 
 @Composable
 fun AssistantMemorySettings(
@@ -228,7 +230,7 @@ private fun MemoryItem(
                 onClick = { onDeleteMemory(memory) }
             ) {
                 Icon(
-                    Lucide.Trash2,
+                    Icons.Filled.Delete,
                     stringResource(R.string.assistant_page_delete)
                 )
             }

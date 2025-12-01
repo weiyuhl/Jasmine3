@@ -53,8 +53,9 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Pencil
 import com.composables.icons.lucide.Plus
 import com.composables.icons.lucide.Settings2
-import com.composables.icons.lucide.Trash2
 import com.composables.icons.lucide.Volume2
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.DEFAULT_SYSTEM_TTS_ID
 import com.lhzkml.jasmine.ui.components.nav.BackButton
@@ -437,7 +438,7 @@ private fun TTSProviderItem(
                                 onDelete()
                             },
                             leadingIcon = {
-                                Icon(Lucide.Trash2, contentDescription = null)
+                                Icon(Icons.Filled.Delete, contentDescription = null)
                             },
                             enabled = provider.id != DEFAULT_SYSTEM_TTS_ID
                         )

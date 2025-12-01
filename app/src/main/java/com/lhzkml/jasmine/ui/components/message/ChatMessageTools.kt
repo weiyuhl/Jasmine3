@@ -67,6 +67,8 @@ import com.lhzkml.jasmine.ui.modifier.shimmer
 import com.lhzkml.jasmine.utils.JsonInstantPretty
 import com.lhzkml.jasmine.utils.jsonPrimitiveOrNull
 import org.koin.compose.koinInject
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 
 @Composable
 fun ToolCallItem(
@@ -393,7 +395,7 @@ private fun ToolCallPreviewSheet(
                                     }
                                 ) {
                                     Icon(
-                                        Lucide.Trash2,
+                                        Icons.Filled.Delete,
                                         contentDescription = "Delete memory"
                                     )
                                 }

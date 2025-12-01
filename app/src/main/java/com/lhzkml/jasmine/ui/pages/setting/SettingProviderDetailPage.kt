@@ -86,9 +86,9 @@ import com.composables.icons.lucide.Network
 import com.composables.icons.lucide.Plus
 import com.composables.icons.lucide.Settings2
 import com.composables.icons.lucide.Share
-import com.composables.icons.lucide.Trash2
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -318,7 +318,7 @@ private fun SettingProviderConfigPage(
                         showDeleteDialog = true
                     },
                 ) {
-                    Icon(Lucide.Trash2, "Delete")
+                    Icon(Icons.Filled.Delete, "Delete")
                 }
             }
 
@@ -1423,7 +1423,7 @@ private fun ModelCard(
                     }
                 ) {
                     Icon(
-                        Lucide.Trash2,
+                        Icons.Filled.Delete,
                         contentDescription = stringResource(R.string.chat_page_delete)
                     )
                 }

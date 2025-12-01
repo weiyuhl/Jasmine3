@@ -85,6 +85,8 @@ import com.composables.icons.lucide.Trash2
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import com.lhzkmlai.provider.ModelType
 import com.lhzkmlai.ui.ImageAspectRatio
 import com.lhzkml.jasmine.R
@@ -494,7 +496,7 @@ private fun ImageGalleryScreen(
                                             modifier = Modifier.size(32.dp)
                                         ) {
                                             Icon(
-                                                imageVector = Lucide.Trash2,
+                                                imageVector = Icons.Filled.Delete,
                                                 contentDescription = stringResource(R.string.imggen_page_delete),
                                                 modifier = Modifier.size(16.dp),
                                                 tint = MaterialTheme.colorScheme.error

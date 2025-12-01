@@ -77,6 +77,8 @@ import sh.calvin.reorderable.rememberReorderableLazyListState
 import sh.calvin.reorderable.rememberReorderableLazyStaggeredGridState
 import kotlin.uuid.Uuid
 import androidx.compose.foundation.lazy.items as lazyItems
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 
 @Composable
 fun AssistantPage(vm: AssistantVM = koinViewModel()) {
@@ -305,7 +307,7 @@ private fun AssistantItem(
                 if (assistant.id !in DEFAULT_ASSISTANTS_IDS) {
                     Tooltip(tooltip = { Text(stringResource(R.string.assistant_page_delete)) }) {
                         Icon(
-                            imageVector = Lucide.Trash2,
+                            imageVector = Icons.Filled.Delete,
                             contentDescription = stringResource(R.string.assistant_page_delete),
                             modifier = Modifier
                                 .onClick {

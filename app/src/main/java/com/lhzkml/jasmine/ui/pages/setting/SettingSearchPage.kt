@@ -51,6 +51,7 @@ import com.composables.icons.lucide.SquarePen
 import com.composables.icons.lucide.Trash2
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.Settings
 import com.lhzkml.jasmine.ui.components.nav.BackButton
@@ -383,7 +384,7 @@ private fun SearchProviderCard(
                         onClick = onDeleteService
                     ) {
                         Icon(
-                            Lucide.Trash2,
+                            Icons.Filled.Delete,
                             contentDescription = stringResource(R.string.setting_page_search_delete_provider)
                         )
                     }
