@@ -7,7 +7,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -32,20 +30,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Code
-import androidx.compose.material.icons.filled.Description
-import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Smartphone
 import com.lhzkml.jasmine.BuildConfig
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
 import com.lhzkml.jasmine.ui.components.nav.BackButton
-import com.lhzkml.jasmine.ui.components.ui.icons.DiscordIcon
-import com.lhzkml.jasmine.ui.components.ui.icons.TencentQQIcon
 import com.lhzkml.jasmine.ui.context.LocalNavController
-import com.lhzkml.jasmine.utils.joinQQGroup
-import com.lhzkml.jasmine.utils.openUrl
+ 
 import com.lhzkml.jasmine.utils.plus
 
 @Composable
@@ -91,39 +83,6 @@ fun SettingAboutPage() {
                         text = "jasmine",
                         style = MaterialTheme.typography.displaySmall,
                     )
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(
-                            8.dp,
-                            Alignment.CenterHorizontally
-                        ),
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        IconButton(
-                            onClick = {
-                                context.joinQQGroup("wMdqlDETtzIz6o49HrBR2TeQlwcX6RH9")
-                            }
-                        ) {
-                            Icon(
-                                imageVector = TencentQQIcon,
-                                contentDescription = "QQ",
-                                tint = MaterialTheme.colorScheme.secondary
-                            )
-                        }
-
-                        IconButton(
-                            onClick = {
-                                context.openUrl("https://discord.gg/9weBqxe5c4")
-                            }
-                        ) {
-                            Icon(
-                                imageVector = DiscordIcon,
-                                contentDescription = "Discord",
-                                tint = MaterialTheme.colorScheme.secondary
-                            )
-                        }
-                    }
                 }
             }
 
@@ -167,60 +126,7 @@ fun SettingAboutPage() {
                 )
             }
 
-            item {
-                ListItem(
-                    headlineContent = {
-                        Text(stringResource(R.string.about_page_website))
-                    },
-                    supportingContent = {
-                        Text(
-                            text = "https://rikka-ai.com"
-                        )
-                    },
-                    modifier = Modifier.clickable {
-                        context.openUrl("https://rikka-ai.com/")
-                    },
-                    leadingContent = {
-                        Icon(androidx.compose.material.icons.Icons.Filled.Public, null)
-                    }
-                )
-            }
-
-            item {
-                ListItem(
-                    headlineContent = {
-                        Text(stringResource(R.string.about_page_github))
-                    },
-                    supportingContent = {
-                        Text(
-                            text = "https://github.com/jasmine/jasmine"
-                        )
-                    },
-                    modifier = Modifier.clickable {
-                        context.openUrl("https://github.com/jasmine/jasmine")
-                    },
-                    leadingContent = {
-                        Icon(androidx.compose.material.icons.Icons.Filled.Code, null)
-                    }
-                )
-            }
-
-            item {
-                ListItem(
-                    headlineContent = {
-                        Text(stringResource(R.string.about_page_license))
-                    },
-                    supportingContent = {
-                        Text("https://github.com/jasmine/jasmine/blob/master/LICENSE")
-                    },
-                    leadingContent = {
-                        Icon(androidx.compose.material.icons.Icons.Filled.Description, null)
-                    },
-                    modifier = Modifier.clickable {
-                        context.openUrl("https://github.com/jasmine/jasmine/blob/master/LICENSE")
-                    }
-                )
-            }
+            
         }
     }
 }
