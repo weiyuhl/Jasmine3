@@ -64,7 +64,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import com.composables.icons.lucide.ChevronDown
 import com.composables.icons.lucide.ChevronUp
-import com.composables.icons.lucide.Fullscreen
+import androidx.compose.material.icons.filled.Fullscreen
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Plus
 import com.composables.icons.lucide.Trash2
@@ -145,7 +145,7 @@ fun AssistantPromptSubPage(
                                     isFullScreen = !isFullScreen
                                 }
                             ) {
-                                Icon(Lucide.Fullscreen, null)
+                                Icon(Icons.Filled.Fullscreen, null)
                             }
                         }
                     },

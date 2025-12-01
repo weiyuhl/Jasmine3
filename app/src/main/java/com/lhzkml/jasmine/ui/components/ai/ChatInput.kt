@@ -93,7 +93,7 @@ import androidx.core.net.toFile
 import androidx.core.net.toUri
 import coil3.compose.AsyncImage
 import com.composables.icons.lucide.ArrowUp
-import com.composables.icons.lucide.Fullscreen
+import androidx.compose.material.icons.filled.Fullscreen
 import com.composables.icons.lucide.Lucide
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
@@ -494,7 +494,7 @@ private fun TextInputRow(
                                     isFullScreen = !isFullScreen
                                 }
                             ) {
-                                Icon(Lucide.Fullscreen, null)
+                                Icon(Icons.Filled.Fullscreen, null)
                             }
                         }
                     },
