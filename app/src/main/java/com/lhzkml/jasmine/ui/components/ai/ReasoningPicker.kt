@@ -28,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,10 +36,6 @@ import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.TipsAndUpdates
 import androidx.compose.material.icons.outlined.Lightbulb
-import com.composables.icons.lucide.Lightbulb
-import com.composables.icons.lucide.LightbulbOff
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Sparkle
 import com.lhzkmlai.core.ReasoningLevel
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.ui.components.ui.ToggleSurface
