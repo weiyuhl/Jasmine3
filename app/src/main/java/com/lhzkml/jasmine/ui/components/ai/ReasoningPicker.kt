@@ -32,6 +32,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Psychology
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.TipsAndUpdates
+import androidx.compose.material.icons.outlined.Lightbulb
 import com.composables.icons.lucide.Lightbulb
 import com.composables.icons.lucide.LightbulbOff
 import com.composables.icons.lucide.Lucide
@@ -75,8 +80,8 @@ fun ReasoningButton(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.deepthink),
-                    contentDescription = null,
+                    imageVector = Icons.Filled.Psychology,
+                    contentDescription = stringResource(R.string.setting_provider_page_reasoning),
                 )
             }
             if (!onlyIcon) Text(stringResource(R.string.setting_provider_page_reasoning))
@@ -107,7 +112,7 @@ fun ReasoningPicker(
             ReasoningLevelCard(
                 selected = currentLevel == ReasoningLevel.OFF,
                 icon = {
-                    Icon(Lucide.LightbulbOff, null)
+                    Icon(Icons.Outlined.Lightbulb, null)
                 },
                 title = {
                     Text(stringResource(id = R.string.reasoning_off))
@@ -122,7 +127,7 @@ fun ReasoningPicker(
             ReasoningLevelCard(
                 selected = currentLevel == ReasoningLevel.AUTO,
                 icon = {
-                    Icon(Lucide.Sparkle, null)
+                    Icon(Icons.Filled.AutoAwesome, null)
                 },
                 title = {
                     Text(stringResource(id = R.string.reasoning_auto))
@@ -137,7 +142,7 @@ fun ReasoningPicker(
             ReasoningLevelCard(
                 selected = currentLevel == ReasoningLevel.LOW,
                 icon = {
-                    Icon(Lucide.Lightbulb, null)
+                    Icon(Icons.Filled.TipsAndUpdates, null)
                 },
                 title = {
                     Text(stringResource(id = R.string.reasoning_light))
@@ -152,7 +157,7 @@ fun ReasoningPicker(
             ReasoningLevelCard(
                 selected = currentLevel == ReasoningLevel.MEDIUM,
                 icon = {
-                    Icon(Lucide.Lightbulb, null)
+                    Icon(Icons.Filled.TipsAndUpdates, null)
                 },
                 title = {
                     Text(stringResource(id = R.string.reasoning_medium))
@@ -167,7 +172,7 @@ fun ReasoningPicker(
             ReasoningLevelCard(
                 selected = currentLevel == ReasoningLevel.HIGH,
                 icon = {
-                    Icon(Lucide.Lightbulb, null)
+                    Icon(Icons.Filled.TipsAndUpdates, null)
                 },
                 title = {
                     Text(stringResource(id = R.string.reasoning_heavy))
