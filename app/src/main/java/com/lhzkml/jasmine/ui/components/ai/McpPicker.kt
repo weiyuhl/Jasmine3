@@ -36,10 +36,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastFilter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.composables.icons.lucide.CircleAlert
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.MessageSquareOff
-import com.composables.icons.lucide.Terminal
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Storage
+import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.LinkOff
+import androidx.compose.material.icons.outlined.Report
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.ai.mcp.McpManager
 import com.lhzkml.jasmine.data.ai.mcp.McpServerConfig
@@ -98,7 +99,7 @@ fun McpPickerButton(
                         }
                     ) {
                         Icon(
-                            imageVector = Lucide.Terminal,
+                            imageVector = Icons.Filled.Storage,
                             contentDescription = stringResource(R.string.mcp_picker_title),
                         )
                     }
@@ -176,16 +177,18 @@ fun McpPicker(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    when (status) {
-                        McpStatus.Idle -> Icon(Lucide.MessageSquareOff, null)
-                        McpStatus.Connecting -> CircularProgressIndicator(
-                            modifier = Modifier.size(
-                                24.dp
+                    val enabled = assistant.mcpServers.contains(server.id)
+                    if (!enabled) {
+                        Icon(Icons.Filled.LinkOff, null)
+                    } else {
+                        when (status) {
+                            McpStatus.Idle -> Icon(Icons.Filled.LinkOff, null)
+                            McpStatus.Connecting -> CircularProgressIndicator(
+                                modifier = Modifier.size(24.dp)
                             )
-                        )
-
-                        McpStatus.Connected -> Icon(Lucide.Terminal, null)
-                        is McpStatus.Error -> Icon(Lucide.CircleAlert, null)
+                            McpStatus.Connected -> Icon(Icons.Filled.Link, null)
+                            is McpStatus.Error -> Icon(Icons.Outlined.Report, null)
+                        }
                     }
                     Column(
                         modifier = Modifier.weight(1f),

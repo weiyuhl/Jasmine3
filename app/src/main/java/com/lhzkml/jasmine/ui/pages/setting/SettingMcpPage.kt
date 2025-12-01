@@ -57,13 +57,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.composables.icons.lucide.CircleAlert
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.MessageSquareOff
-import com.composables.icons.lucide.Plus
-import com.composables.icons.lucide.Settings
-import com.composables.icons.lucide.Terminal
-import com.composables.icons.lucide.Trash2
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.LinkOff
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Report
 import kotlinx.coroutines.launch
 import com.lhzkmlai.core.InputSchema
 import com.lhzkml.jasmine.R
@@ -119,7 +119,7 @@ fun SettingMcpPage(vm: SettingVM = koinViewModel()) {
                             creationState.open(McpServerConfig.SseTransportServer())
                         }
                     ) {
-                        Icon(Lucide.Plus, null)
+                        Icon(Icons.Filled.Add, null)
                     }
                 }
             )
@@ -226,12 +226,12 @@ private fun McpServerItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             when (status) {
-                McpStatus.Idle -> Icon(Lucide.MessageSquareOff, null)
+                McpStatus.Idle -> Icon(Icons.Filled.LinkOff, null)
                 McpStatus.Connecting -> CircularProgressIndicator(
                     modifier = Modifier.size(24.dp)
                 )
-                McpStatus.Connected -> Icon(Lucide.Terminal, null)
-                is McpStatus.Error -> Icon(Lucide.CircleAlert, null)
+                McpStatus.Connected -> Icon(Icons.Filled.Link, null)
+                is McpStatus.Error -> Icon(Icons.Outlined.Report, null)
             }
 
             Column(
@@ -272,13 +272,13 @@ private fun McpServerItem(
             IconButton(
                 onClick = { showDeleteDialog = true }
             ) {
-                Icon(Lucide.Trash2, null)
+                Icon(Icons.Filled.Delete, null)
             }
 
             IconButton(
                 onClick = { onEdit(item) }
             ) {
-                Icon(Lucide.Settings, null)
+                Icon(Icons.Filled.Settings, null)
             }
         }
     }
@@ -640,7 +640,7 @@ private fun McpCommonOptionsConfigure(
                             )
                         }) {
                             Icon(
-                                Lucide.Trash2,
+                                Icons.Filled.Delete,
                                 contentDescription = stringResource(R.string.setting_mcp_page_delete_header)
                             )
                         }
@@ -666,7 +666,7 @@ private fun McpCommonOptionsConfigure(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Icon(
-                        Lucide.Plus,
+                        Icons.Filled.Add,
                         contentDescription = stringResource(R.string.setting_mcp_page_add_header)
                     )
                     Spacer(Modifier.width(4.dp))

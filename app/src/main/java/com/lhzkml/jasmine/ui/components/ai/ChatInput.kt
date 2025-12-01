@@ -86,6 +86,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.HomeRepairService
 import androidx.core.content.FileProvider
 import androidx.core.net.toFile
 import androidx.core.net.toUri
@@ -278,7 +280,7 @@ fun ChatInput(
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
-                                imageVector = Lucide.Zap,
+                                imageVector = Icons.Filled.HomeRepairService,
                                 contentDescription = stringResource(R.string.settings)
                             )
                         }

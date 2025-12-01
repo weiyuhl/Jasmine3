@@ -37,6 +37,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.TravelExplore
 import com.composables.icons.lucide.Earth
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Search
@@ -95,7 +97,7 @@ fun SearchPickerButton(
                     )
                 } else {
                     Icon(
-                        imageVector = Lucide.Earth,
+                        imageVector = Icons.Rounded.TravelExplore,
                         contentDescription = stringResource(R.string.use_web_search),
                     )
                 }
@@ -192,7 +194,7 @@ private fun AppSearchSettings(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(Lucide.Earth, null)
+            Icon(Icons.Rounded.TravelExplore, null)
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)

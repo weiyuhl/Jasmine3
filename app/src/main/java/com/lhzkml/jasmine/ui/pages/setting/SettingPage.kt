@@ -41,7 +41,7 @@ import com.composables.icons.lucide.BadgeInfo
 import com.composables.icons.lucide.Boxes
 import com.composables.icons.lucide.Database
 import com.composables.icons.lucide.Drama
-import com.composables.icons.lucide.Earth
+import androidx.compose.material.icons.rounded.TravelExplore
 import com.composables.icons.lucide.Hammer
 import com.composables.icons.lucide.HardDrive
 import com.composables.icons.lucide.Heart
@@ -52,7 +52,8 @@ import com.composables.icons.lucide.Monitor
 import com.composables.icons.lucide.Palette
 import com.composables.icons.lucide.Share2
 import com.composables.icons.lucide.SunMoon
-import com.composables.icons.lucide.Terminal
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Storage
 import com.composables.icons.lucide.Volume2
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
@@ -172,7 +173,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_search_service)) },
                     description = { Text(stringResource(R.string.setting_page_search_service_desc)) },
-                    icon = { Icon(Lucide.Earth, "Search") },
+                    icon = { Icon(Icons.Rounded.TravelExplore, "Search") },
                     link = Screen.SettingSearch
                 )
             }
@@ -192,7 +193,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_mcp)) },
                     description = { Text(stringResource(R.string.setting_page_mcp_desc)) },
-                    icon = { Icon(Lucide.Terminal, "MCP") },
+                    icon = { Icon(Icons.Filled.Storage, "MCP") },
                     link = Screen.SettingMcp
                 )
             }
