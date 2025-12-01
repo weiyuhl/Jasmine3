@@ -82,7 +82,6 @@ import com.composables.icons.lucide.ChevronsDown
 import com.composables.icons.lucide.ChevronsUp
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.MousePointer2
-import com.composables.icons.lucide.Search
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import kotlinx.coroutines.CoroutineScope
@@ -519,13 +518,6 @@ private fun SharedTransitionScope.ChatListPreview(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             placeholder = { Text(stringResource(R.string.history_page_search)) },
-            leadingIcon = {
-                Icon(
-                    imageVector = Lucide.Search,
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-            },
             trailingIcon = {
                 if (searchQuery.isNotEmpty()) {
                     IconButton(onClick = { searchQuery = "" }) {

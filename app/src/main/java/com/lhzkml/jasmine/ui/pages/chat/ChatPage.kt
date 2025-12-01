@@ -46,13 +46,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.composables.icons.lucide.List
 import com.composables.icons.lucide.ListTree
-import com.composables.icons.lucide.Search
 import com.composables.icons.lucide.Menu
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Option
 import com.composables.icons.lucide.Sparkles
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -495,7 +495,7 @@ private fun TopBar(
                     onClickMenu()
                 }
             ) {
-                Icon(if (previewMode) Icons.Filled.Close else Lucide.Search, if (previewMode) "Close Search" else "Search")
+                Icon(if (previewMode) Icons.Filled.Close else Icons.Filled.Search, if (previewMode) "Close Search" else "Search")
             }
 
             UIAvatar(
