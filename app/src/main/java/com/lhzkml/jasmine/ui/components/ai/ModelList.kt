@@ -61,15 +61,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import com.composables.icons.lucide.Boxes
-import com.composables.icons.lucide.ChevronRight
-import com.composables.icons.lucide.GripHorizontal
-import com.composables.icons.lucide.Hammer
-import com.composables.icons.lucide.Heart
-import com.composables.icons.lucide.Image
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Search
-import com.composables.icons.lucide.Type
+import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.DragHandle
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.TextFields
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -159,7 +157,7 @@ fun ModelSelector(
                 )
             } else {
                 Icon(
-                    Lucide.Boxes,
+                    Icons.Filled.Category,
                     contentDescription = stringResource(R.string.setting_model_page_chat_model),
                     modifier = Modifier.size(20.dp)
                 )
@@ -423,10 +421,10 @@ private fun ColumnScope.ModelList(
                             }
                         },
                         dragHandle = {
-                            Icon(
-                                imageVector = Lucide.GripHorizontal,
-                                contentDescription = null,
-                                modifier = Modifier.longPressDraggableHandle(
+                                Icon(
+                                    imageVector = Icons.Filled.DragHandle,
+                                    contentDescription = null,
+                                    modifier = Modifier.longPressDraggableHandle(
                                     onDragStarted = {
                                         haptic.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
                                     },
@@ -512,7 +510,7 @@ private fun ColumnScope.ModelList(
                                 )
                             } else {
                                 Icon(
-                                    Lucide.Heart,
+                                    Icons.Outlined.FavoriteBorder,
                                     contentDescription = null,
                                     modifier = Modifier.size(20.dp)
                                 )
@@ -688,8 +686,8 @@ fun ModelModalityTag(model: Model) {
         model.inputModalities.fastForEach { modality ->
             Icon(
                 imageVector = when (modality) {
-                    Modality.TEXT -> Lucide.Type
-                    Modality.IMAGE -> Lucide.Image
+                    Modality.TEXT -> Icons.Filled.TextFields
+                    Modality.IMAGE -> Icons.Filled.Image
                 },
                 contentDescription = null,
                 modifier = Modifier
@@ -698,15 +696,15 @@ fun ModelModalityTag(model: Model) {
             )
         }
         Icon(
-            imageVector = Lucide.ChevronRight,
+            imageVector = Icons.Filled.ChevronRight,
             contentDescription = null,
             modifier = Modifier.size(LocalTextStyle.current.lineHeight.toDp())
         )
         model.outputModalities.fastForEach { modality ->
             Icon(
                 imageVector = when (modality) {
-                    Modality.TEXT -> Lucide.Type
-                    Modality.IMAGE -> Lucide.Image
+                    Modality.TEXT -> Icons.Filled.TextFields
+                    Modality.IMAGE -> Icons.Filled.Image
                 },
                 contentDescription = null,
                 modifier = Modifier
@@ -726,7 +724,7 @@ fun ModelAbilityTag(model: Model) {
                     type = TagType.WARNING
                 ) {
                     Icon(
-                        imageVector = Lucide.Hammer,
+                        imageVector = Icons.Filled.Build,
                         contentDescription = null,
                         modifier = Modifier.size(LocalTextStyle.current.lineHeight.toDp())
                     )

@@ -27,17 +27,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Pencil
-import com.composables.icons.lucide.Plus
-import com.composables.icons.lucide.Trash2
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.model.Assistant
 import com.lhzkml.jasmine.data.model.AssistantMemory
 import com.lhzkml.jasmine.ui.components.ui.FormItem
 import com.lhzkml.jasmine.ui.hooks.EditStateContent
 import com.lhzkml.jasmine.ui.hooks.useEditState
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 
 @Composable
@@ -180,7 +178,7 @@ fun AssistantMemorySettings(
                 modifier = Modifier.align(Alignment.CenterEnd)
             ) {
                 Icon(
-                    imageVector = Lucide.Plus,
+                    imageVector = Icons.Filled.Add,
                     contentDescription = null
                 )
             }
@@ -237,7 +235,7 @@ private fun MemoryItem(
             IconButton(
                 onClick = { onEditMemory(memory) }
             ) {
-                Icon(Lucide.Pencil, null)
+                Icon(Icons.Filled.Edit, null)
             }
             Switch(
                 checked = enabled,

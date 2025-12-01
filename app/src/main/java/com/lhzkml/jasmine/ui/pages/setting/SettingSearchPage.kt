@@ -44,14 +44,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.composables.icons.lucide.GripHorizontal
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Plus
-import com.composables.icons.lucide.SquarePen
-import com.composables.icons.lucide.Trash2
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DragHandle
+import androidx.compose.material.icons.filled.Edit
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.Settings
 import com.lhzkml.jasmine.ui.components.nav.BackButton
@@ -135,7 +133,7 @@ fun SettingSearchPage(vm: SettingVM = koinViewModel()) {
                         }
                     ) {
                         Icon(
-                            Lucide.Plus,
+                            Icons.Filled.Add,
                             contentDescription = null,
                             modifier = Modifier.size(18.dp)
                         )
@@ -179,7 +177,7 @@ fun SettingSearchPage(vm: SettingVM = koinViewModel()) {
                             .animateItem(),
                         dragHandle = {
                             Icon(
-                                imageVector = Lucide.GripHorizontal,
+                                imageVector = Icons.Filled.DragHandle,
                                 contentDescription = null,
                                 modifier = Modifier.longPressDraggableHandle(
                                     onDragStarted = {
@@ -268,7 +266,7 @@ private fun SearchProviderCard(
                     }
                 ) {
                     Icon(
-                        imageVector = if (expand) Icons.Filled.Close else Lucide.SquarePen,
+                        imageVector = if (expand) Icons.Filled.Close else Icons.Filled.Edit,
                         contentDescription = if (expand) "Hide details" else "Show details"
                     )
                 }

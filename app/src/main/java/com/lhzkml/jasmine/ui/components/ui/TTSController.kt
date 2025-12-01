@@ -28,12 +28,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import com.composables.icons.lucide.ChevronLeft
-import com.composables.icons.lucide.ChevronRight
-import com.composables.icons.lucide.FastForward
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Pause
-import com.composables.icons.lucide.Play
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.FastForward
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
 import com.lhzkml.jasmine.ui.context.LocalTTSState
 import com.lhzkml.jasmine.ui.hooks.CustomTtsState
 import com.lhzkmltts.model.PlaybackState
@@ -103,7 +102,7 @@ fun TTSController() {
                     }
                 ) {
                     Icon(
-                        imageVector = if (expand) Lucide.ChevronLeft else Lucide.ChevronRight,
+                        imageVector = if (expand) Icons.Filled.ChevronLeft else Icons.Filled.ChevronRight,
                         contentDescription = null,
                     )
                 }
@@ -120,7 +119,7 @@ private fun FastForwardButton(ttsState: CustomTtsState) {
         }
     ) {
         Icon(
-            imageVector = Lucide.FastForward,
+            imageVector = Icons.Filled.FastForward,
             contentDescription = null,
         )
     }
@@ -149,7 +148,7 @@ private fun PlayPauseButton(
         )
     ) {
         Icon(
-            imageVector = if (playbackState.status == PlaybackStatus.Playing) Lucide.Pause else Lucide.Play,
+            imageVector = if (playbackState.status == PlaybackStatus.Playing) Icons.Filled.Pause else Icons.Filled.PlayArrow,
             contentDescription = null,
         )
         if (playbackState.status == PlaybackStatus.Playing || playbackState.status == PlaybackStatus.Buffering || playbackState.status == PlaybackStatus.Paused) {

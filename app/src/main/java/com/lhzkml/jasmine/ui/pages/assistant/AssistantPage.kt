@@ -48,11 +48,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.composables.icons.lucide.Copy
-import com.composables.icons.lucide.GripHorizontal
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Plus
-import com.composables.icons.lucide.Trash2
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.DragHandle
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
 import com.lhzkml.jasmine.data.datastore.DEFAULT_ASSISTANTS_IDS
@@ -101,7 +99,7 @@ fun AssistantPage(vm: AssistantVM = koinViewModel()) {
                     onClick = {
                         createState.open(Assistant())
                     }) {
-                    Icon(Lucide.Plus, stringResource(R.string.assistant_page_add))
+                    Icon(Icons.Filled.Add, stringResource(R.string.assistant_page_add))
                 }
             })
         }) {
@@ -159,7 +157,7 @@ fun AssistantPage(vm: AssistantVM = koinViewModel()) {
                                 .animateItem(),
                             dragHandle = {
                                 Icon(
-                                    imageVector = Lucide.GripHorizontal,
+                                    imageVector = Icons.Filled.DragHandle,
                                     contentDescription = null,
                                     modifier = Modifier.longPressDraggableHandle(onDragStarted = {
                                         haptic.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
@@ -320,7 +318,7 @@ private fun AssistantItem(
                 }
                 Tooltip(tooltip = { Text(stringResource(R.string.assistant_page_clone)) }) {
                     Icon(
-                        imageVector = Lucide.Copy,
+                        imageVector = Icons.Filled.ContentCopy,
                         contentDescription = stringResource(R.string.assistant_page_clone),
                         modifier = Modifier
                             .onClick {

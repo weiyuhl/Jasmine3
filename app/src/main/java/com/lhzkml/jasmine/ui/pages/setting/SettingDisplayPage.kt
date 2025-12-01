@@ -17,7 +17,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import com.composables.icons.lucide.Lucide
 import androidx.compose.material3.Icon
 import com.lhzkml.jasmine.Screen
 import androidx.compose.runtime.Composable

@@ -34,9 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import com.composables.icons.lucide.Download
-import com.composables.icons.lucide.Eye
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Visibility
 import com.dokar.sonner.ToastType
 import com.google.common.cache.CacheBuilder
 import com.lhzkml.jasmine.R
@@ -164,7 +163,7 @@ fun Mermaid(
                     },
                 ) {
                     Icon(
-                        Lucide.Eye,
+                        Icons.Filled.Visibility,
                         contentDescription = "Prewview"
                     )
                 }
@@ -177,7 +176,7 @@ fun Mermaid(
                     },
                 ) {
                     Icon(
-                        Lucide.Download,
+                        Icons.Filled.Download,
                         contentDescription = stringResource(R.string.mermaid_export)
                     )
                 }

@@ -47,10 +47,10 @@ import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.composables.icons.lucide.ClipboardCopy
-import com.composables.icons.lucide.ClipboardPaste
-import com.composables.icons.lucide.Languages
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.ContentPaste
+import androidx.compose.material.icons.filled.Translate
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.launch
 import com.lhzkmlai.provider.ModelType
@@ -151,7 +151,7 @@ fun TranslatorPage(vm: TranslatorVM = koinViewModel()) {
                         }
                     }
                 ) {
-                    Icon(Lucide.ClipboardPaste, null)
+                    Icon(androidx.compose.material.icons.Icons.Filled.ContentPaste, null)
                     Text("粘贴文本", modifier = Modifier.padding(start = 4.dp))
                 }
             }
@@ -196,7 +196,7 @@ fun TranslatorPage(vm: TranslatorVM = koinViewModel()) {
                         }
                     }
                 ) {
-                    Icon(Lucide.ClipboardCopy, null)
+                    Icon(androidx.compose.material.icons.Icons.Filled.ContentCopy, null)
                     Text("复制翻译结果", modifier = Modifier.padding(start = 4.dp))
                 }
             }
@@ -316,7 +316,7 @@ private fun BottomBar(
                         modifier = Modifier.padding(horizontal = 8.dp)
                     ) {
                         Icon(
-                            Lucide.Languages,
+                            androidx.compose.material.icons.Icons.Filled.Translate,
                             contentDescription = null,
                             modifier = Modifier.size(20.dp)
                         )

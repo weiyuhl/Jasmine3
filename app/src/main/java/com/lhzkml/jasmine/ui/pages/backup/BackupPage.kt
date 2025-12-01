@@ -59,13 +59,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.composables.icons.lucide.DatabaseBackup
-import com.composables.icons.lucide.Eye
-import com.composables.icons.lucide.EyeOff
-import com.composables.icons.lucide.File
-import com.composables.icons.lucide.Import
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Upload
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Backup
+import androidx.compose.material.icons.filled.CloudUpload
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.launch
 import com.lhzkml.jasmine.R
@@ -108,7 +108,7 @@ fun BackupPage(vm: BackupVM = koinViewModel()) {
                 NavigationBarItem(
                     selected = pagerState.currentPage == 0,
                     icon = {
-                        Icon(Lucide.DatabaseBackup, null)
+                        Icon(Icons.Filled.Backup, null)
                     },
                     label = {
                         Text(stringResource(R.string.backup_page_webdav_backup))
@@ -120,7 +120,7 @@ fun BackupPage(vm: BackupVM = koinViewModel()) {
                 NavigationBarItem(
                     selected = pagerState.currentPage == 1,
                     icon = {
-                        Icon(Lucide.Import, null)
+                        Icon(Icons.Filled.FileDownload, null)
                     },
                     label = {
                         Text(stringResource(R.string.backup_page_import_export))
@@ -219,9 +219,9 @@ private fun WebDavPage(
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         trailingIcon = {
                             val image = if (passwordVisible)
-                                Lucide.EyeOff
+                                Icons.Filled.VisibilityOff
                             else
-                                Lucide.Eye
+                                Icons.Filled.Visibility
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                                 Icon(imageVector = image, null)
                             }
@@ -345,7 +345,7 @@ private fun WebDavPage(
                         modifier = Modifier.size(18.dp)
                     )
                 } else {
-                    Icon(Lucide.Upload, null, modifier = Modifier.size(18.dp))
+                    Icon(Icons.Filled.CloudUpload, null, modifier = Modifier.size(18.dp))
                 }
                 Spacer(Modifier.width(8.dp))
                 Text(if (isBackingUp) stringResource(R.string.backup_page_backing_up) else stringResource(R.string.backup_page_backup_now))
@@ -679,7 +679,7 @@ private fun ImportExportPage(
                                 modifier = Modifier.size(24.dp)
                             )
                         } else {
-                            Icon(Lucide.File, null)
+                            Icon(Icons.Filled.Description, null)
                         }
                     }
                 )
@@ -713,7 +713,7 @@ private fun ImportExportPage(
                                 modifier = Modifier.size(24.dp)
                             )
                         } else {
-                            Icon(Lucide.Import, null)
+                            Icon(Icons.Filled.FileDownload, null)
                         }
                     }
                 )
@@ -749,7 +749,7 @@ private fun ImportExportPage(
                                 modifier = Modifier.size(24.dp)
                             )
                         } else {
-                            Icon(Lucide.Import, null)
+                            Icon(Icons.Filled.FileDownload, null)
                         }
                     }
                 )

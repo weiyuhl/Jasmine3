@@ -46,14 +46,12 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.composables.icons.lucide.Check
-import com.composables.icons.lucide.CircleStop
-import com.composables.icons.lucide.GripHorizontal
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Pencil
-import com.composables.icons.lucide.Plus
-import com.composables.icons.lucide.Settings2
-import com.composables.icons.lucide.Volume2
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DragHandle
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.StopCircle
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import com.lhzkml.jasmine.R
@@ -139,7 +137,7 @@ fun SettingTTSPage(vm: SettingVM = koinViewModel()) {
                                     )
                             ) {
                                 Icon(
-                                    imageVector = Lucide.GripHorizontal,
+                                    imageVector = Icons.Filled.DragHandle,
                                     contentDescription = null
                                 )
                             }
@@ -244,7 +242,7 @@ private fun AddTTSProviderButton(onAdd: (TTSProviderSetting) -> Unit) {
             showBottomSheet = true
         }
     ) {
-        Icon(Lucide.Plus, stringResource(R.string.setting_tts_page_add_provider_content_description))
+        Icon(Icons.Filled.Add, stringResource(R.string.setting_tts_page_add_provider_content_description))
     }
 
     if (showBottomSheet) {
@@ -403,7 +401,7 @@ private fun TTSProviderItem(
                         }
                     ) {
                         Icon(
-                            imageVector = if (isSpeaking) Lucide.CircleStop else Lucide.Volume2,
+                            imageVector = if (isSpeaking) Icons.Filled.StopCircle else Icons.Filled.VolumeUp,
                             contentDescription = if (isSpeaking) stringResource(R.string.stop) else stringResource(R.string.test_tts),
                             tint = if (isSpeaking) MaterialTheme.colorScheme.error else LocalContentColor.current
                         )
@@ -414,7 +412,7 @@ private fun TTSProviderItem(
                     onClick = { showDropdownMenu = true }
                 ) {
                     Icon(
-                        imageVector = Lucide.Settings2,
+                        imageVector = Icons.Filled.Settings,
                         contentDescription = stringResource(R.string.setting_tts_page_more_options_content_description)
                     )
                     DropdownMenu(
@@ -428,7 +426,7 @@ private fun TTSProviderItem(
                                 onEdit()
                             },
                             leadingIcon = {
-                                Icon(Lucide.Pencil, contentDescription = null)
+                                Icon(Icons.Filled.Edit, contentDescription = null)
                             }
                         )
                         DropdownMenuItem(

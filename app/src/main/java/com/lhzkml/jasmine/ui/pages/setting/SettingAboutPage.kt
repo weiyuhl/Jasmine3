@@ -32,12 +32,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.composables.icons.lucide.Code
-import com.composables.icons.lucide.Earth
-import com.composables.icons.lucide.FileText
-import com.composables.icons.lucide.Github
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Phone
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.Smartphone
 import com.lhzkml.jasmine.BuildConfig
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
@@ -139,7 +138,7 @@ fun SettingAboutPage() {
                         )
                     },
                     leadingContent = {
-                        Icon(Lucide.Code, null)
+                        Icon(androidx.compose.material.icons.Icons.Filled.Code, null)
                     },
                     modifier = Modifier.combinedClickable(
                         onClick = {},
@@ -163,7 +162,7 @@ fun SettingAboutPage() {
                         )
                     },
                     leadingContent = {
-                        Icon(Lucide.Phone, null)
+                        Icon(androidx.compose.material.icons.Icons.Filled.Smartphone, null)
                     }
                 )
             }
@@ -182,7 +181,7 @@ fun SettingAboutPage() {
                         context.openUrl("https://rikka-ai.com/")
                     },
                     leadingContent = {
-                        Icon(Lucide.Earth, null)
+                        Icon(androidx.compose.material.icons.Icons.Filled.Public, null)
                     }
                 )
             }
@@ -201,7 +200,7 @@ fun SettingAboutPage() {
                         context.openUrl("https://github.com/jasmine/jasmine")
                     },
                     leadingContent = {
-                        Icon(Lucide.Github, null)
+                        Icon(androidx.compose.material.icons.Icons.Filled.Code, null)
                     }
                 )
             }
@@ -215,7 +214,7 @@ fun SettingAboutPage() {
                         Text("https://github.com/jasmine/jasmine/blob/master/LICENSE")
                     },
                     leadingContent = {
-                        Icon(Lucide.FileText, null)
+                        Icon(androidx.compose.material.icons.Icons.Filled.Description, null)
                     },
                     modifier = Modifier.clickable {
                         context.openUrl("https://github.com/jasmine/jasmine/blob/master/LICENSE")

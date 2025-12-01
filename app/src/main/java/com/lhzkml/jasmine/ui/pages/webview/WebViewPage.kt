@@ -28,12 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.ArrowRight
-import com.composables.icons.lucide.Bug
-import com.composables.icons.lucide.Earth
-import com.composables.icons.lucide.EllipsisVertical
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.RefreshCw
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.BugReport
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.Refresh
 import com.lhzkml.jasmine.ui.components.nav.BackButton
 import com.lhzkml.jasmine.ui.components.webview.WebView
 import com.lhzkml.jasmine.ui.components.webview.rememberWebViewState
@@ -84,21 +84,21 @@ fun WebViewPage(url: String, content: String) {
                 },
                 actions = {
                     IconButton(onClick = { state.reload() }) {
-                        Icon(Lucide.RefreshCw, contentDescription = "Refresh")
+                        Icon(androidx.compose.material.icons.Icons.Filled.Refresh, contentDescription = "Refresh")
                     }
 
                     IconButton(
                         onClick = { state.goForward() },
                         enabled = state.canGoForward
                     ) {
-                        Icon(Lucide.ArrowRight, contentDescription = "Forward")
+                        Icon(androidx.compose.material.icons.Icons.Filled.ArrowForward, contentDescription = "Forward")
                     }
 
                     val urlHandler = LocalUriHandler.current
                     IconButton(
                         onClick = { showDropdown = true }
                     ) {
-                        Icon(Lucide.EllipsisVertical, contentDescription = "More options")
+                        Icon(androidx.compose.material.icons.Icons.Filled.MoreVert, contentDescription = "More options")
 
                         DropdownMenu(
                             expanded = showDropdown,
@@ -106,7 +106,7 @@ fun WebViewPage(url: String, content: String) {
                         ) {
                             DropdownMenuItem(
                                 text = { Text("Open in Browser") },
-                                leadingIcon = { Icon(Lucide.Earth, contentDescription = null) },
+                                leadingIcon = { Icon(androidx.compose.material.icons.Icons.Filled.Public, contentDescription = null) },
                                 onClick = {
                                     showDropdown = false
                                     state.currentUrl?.let { url ->
@@ -118,7 +118,7 @@ fun WebViewPage(url: String, content: String) {
                             )
                             DropdownMenuItem(
                                 text = { Text("Console Logs") },
-                                leadingIcon = { Icon(Lucide.Bug, contentDescription = null) },
+                                leadingIcon = { Icon(androidx.compose.material.icons.Icons.Filled.BugReport, contentDescription = null) },
                                 onClick = {
                                     showDropdown = false
                                     showConsoleSheet = true

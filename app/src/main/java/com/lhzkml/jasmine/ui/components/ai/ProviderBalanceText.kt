@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.Coins
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalanceWallet
 import com.google.common.cache.CacheBuilder
 import com.lhzkmlai.provider.ProviderManager
 import com.lhzkmlai.provider.ProviderSetting
@@ -70,7 +70,7 @@ fun ProviderBalanceText(
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Icon(
-            imageVector = Lucide.Coins,
+            imageVector = Icons.Filled.AccountBalanceWallet,
             contentDescription = null,
             modifier = Modifier.size(style.fontSize.toDp()),
             tint = color.takeOrElse { LocalContentColor.current }

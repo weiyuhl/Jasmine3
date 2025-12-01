@@ -38,10 +38,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.Drama
-import com.composables.icons.lucide.Images
-import com.composables.icons.lucide.Languages
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.TheaterComedy
 import kotlinx.coroutines.launch
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.Settings
@@ -66,7 +66,7 @@ fun AssistantPicker(
 
     NavigationDrawerItem(
         icon = {
-            Icon(Lucide.Drama, contentDescription = null)
+            Icon(Icons.Filled.TheaterComedy, contentDescription = null)
         },
         label = {
             Row(
@@ -158,7 +158,7 @@ fun AssistantPickerSheet(
                     modifier = Modifier.weight(1f)
                 ) {
                     ListItem(
-                        leadingContent = { Icon(imageVector = Lucide.Languages, contentDescription = null) },
+                        leadingContent = { Icon(imageVector = Icons.Filled.Language, contentDescription = null) },
                         headlineContent = { Text(stringResource(R.string.menu_page_ai_translator)) },
                         colors = ListItemDefaults.colors(containerColor = Color.Transparent)
                     )
@@ -173,7 +173,7 @@ fun AssistantPickerSheet(
                     modifier = Modifier.weight(1f)
                 ) {
                     ListItem(
-                        leadingContent = { Icon(imageVector = Lucide.Images, contentDescription = null) },
+                        leadingContent = { Icon(imageVector = Icons.Filled.Image, contentDescription = null) },
                         headlineContent = { Text(stringResource(R.string.menu_page_image_generation)) },
                         colors = ListItemDefaults.colors(containerColor = Color.Transparent)
                     )

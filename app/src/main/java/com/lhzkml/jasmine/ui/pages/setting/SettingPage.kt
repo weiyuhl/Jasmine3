@@ -37,24 +37,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.composables.icons.lucide.BadgeInfo
-import com.composables.icons.lucide.Boxes
-import com.composables.icons.lucide.Database
-import com.composables.icons.lucide.Drama
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Backup
+import androidx.compose.material.icons.filled.TheaterComedy
 import androidx.compose.material.icons.rounded.TravelExplore
-import com.composables.icons.lucide.Hammer
-import com.composables.icons.lucide.HardDrive
-import com.composables.icons.lucide.Heart
-import com.composables.icons.lucide.Library
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.MessageCircleWarning
-import com.composables.icons.lucide.Monitor
-import com.composables.icons.lucide.Palette
-import com.composables.icons.lucide.Share2
-import com.composables.icons.lucide.SunMoon
-import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Storage
-import com.composables.icons.lucide.Volume2
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.Icons
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
 import com.lhzkml.jasmine.data.datastore.isNotConfigured
@@ -91,7 +85,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                                 navController.navigate(Screen.Developer)
                             }
                         ) {
-                            Icon(Lucide.Hammer, "Developer")
+                            Icon(Icons.Filled.Build, "Developer")
                         }
                     }
                 }
@@ -124,7 +118,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_display_setting)) },
                     description = { Text(stringResource(R.string.setting_page_display_setting_desc)) },
-                    icon = { Icon(Lucide.Monitor, "Display Setting") },
+                    icon = { Icon(Icons.Filled.Tune, "Display Setting") },
                     link = Screen.SettingDisplay
                 )
             }
@@ -134,7 +128,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_assistant)) },
                     description = { Text(stringResource(R.string.setting_page_assistant_desc)) },
-                    icon = { Icon(Lucide.Drama, "Assistant") },
+                    icon = { Icon(Icons.Filled.TheaterComedy, "Assistant") },
                     link = Screen.Assistant
                 )
             }
@@ -153,7 +147,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_default_model)) },
                     description = { Text(stringResource(R.string.setting_page_default_model_desc)) },
-                    icon = { Icon(Lucide.Hammer, stringResource(R.string.setting_page_default_model)) },
+                    icon = { Icon(Icons.Filled.Build, stringResource(R.string.setting_page_default_model)) },
                     link = Screen.SettingModels
                 )
             }
@@ -163,7 +157,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_providers)) },
                     description = { Text(stringResource(R.string.setting_page_providers_desc)) },
-                    icon = { Icon(Lucide.Boxes, "Models") },
+                    icon = { Icon(Icons.Filled.Category, "Models") },
                     link = Screen.SettingProvider
                 )
             }
@@ -183,7 +177,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_tts_service)) },
                     description = { Text(stringResource(R.string.setting_page_tts_service_desc)) },
-                    icon = { Icon(Lucide.Volume2, "TTS") },
+                    icon = { Icon(Icons.Filled.VolumeUp, "TTS") },
                     link = Screen.SettingTTS
                 )
             }
@@ -212,7 +206,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_data_backup)) },
                     description = { Text(stringResource(R.string.setting_page_data_backup_desc)) },
-                    icon = { Icon(Lucide.Database, "Backup") },
+                    icon = { Icon(Icons.Filled.Backup, "Backup") },
                     link = Screen.Backup
                 )
             }
@@ -239,7 +233,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                         }
                     },
                     icon = {
-                        Icon(Lucide.HardDrive, "Storage")
+                        Icon(Icons.Filled.Storage, "Storage")
                     },
                 )
             }
@@ -258,7 +252,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                     navController = navController,
                     title = { Text(stringResource(R.string.setting_page_about)) },
                     description = { Text(stringResource(R.string.setting_page_about_desc)) },
-                    icon = { Icon(Lucide.BadgeInfo, "About") },
+                    icon = { Icon(Icons.Filled.Info, "About") },
                     link = Screen.SettingAbout
                 )
             }
@@ -273,7 +267,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                         Text(stringResource(R.string.setting_page_donate_desc))
                     },
                     icon = {
-                        Icon(Lucide.Heart, "Donate")
+                        Icon(Icons.Filled.Favorite, "Donate")
                     },
                     link = Screen.SettingDonate
                 )
@@ -306,7 +300,7 @@ private fun ProviderConfigWarningCard(navController: NavHostController) {
                     Text(stringResource(R.string.setting_page_config_api_desc))
                 },
                 leadingContent = {
-                    Icon(Lucide.MessageCircleWarning, null)
+                    Icon(Icons.Filled.Warning, null)
                 },
                 colors = ListItemDefaults.colors(
                     containerColor = Color.Transparent

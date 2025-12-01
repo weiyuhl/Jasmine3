@@ -40,10 +40,7 @@ import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.TravelExplore
 import androidx.compose.material.icons.filled.Search
-import com.composables.icons.lucide.Earth
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Search
-import com.composables.icons.lucide.Settings2
+import androidx.compose.material.icons.filled.Settings
 import kotlinx.coroutines.launch
 import com.lhzkmlai.provider.BuiltInTools
 import com.lhzkmlai.provider.Model
@@ -220,7 +217,7 @@ private fun AppSearchSettings(
                     navBackStack.navigate(Screen.SettingSearch)
                 }
             ) {
-                Icon(Lucide.Settings2, null)
+                Icon(Icons.Filled.Settings, null)
             }
             Switch(
                 checked = enableSearch,

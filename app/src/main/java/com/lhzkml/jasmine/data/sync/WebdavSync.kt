@@ -191,21 +191,21 @@ class WebdavSync(
             // 备份数据库
             if (webDavConfig.items.contains(WebDavConfig.BackupItem.DATABASE)) {
                 // 备份主数据库文件
-                val dbFile = context.getDatabasePath("rikka_hub")
+                val dbFile = context.getDatabasePath("jasmine")
                 if (dbFile.exists()) {
-                    addFileToZip(zipOut, dbFile, "rikka_hub.db")
+                    addFileToZip(zipOut, dbFile, "jasmine.db")
                 }
 
                 // 备份数据库的WAL文件（如果存在）
-                val walFile = File(dbFile.parentFile, "rikka_hub-wal")
+                val walFile = File(dbFile.parentFile, "jasmine-wal")
                 if (walFile.exists()) {
-                    addFileToZip(zipOut, walFile, "rikka_hub-wal")
+                    addFileToZip(zipOut, walFile, "jasmine-wal")
                 }
 
                 // 备份数据库的SHM文件（如果存在）
-                val shmFile = File(dbFile.parentFile, "rikka_hub-shm")
+                val shmFile = File(dbFile.parentFile, "jasmine-shm")
                 if (shmFile.exists()) {
-                    addFileToZip(zipOut, shmFile, "rikka_hub-shm")
+                    addFileToZip(zipOut, shmFile, "jasmine-shm")
                 }
             }
 
@@ -266,19 +266,19 @@ class WebdavSync(
                                 }
                             }
 
-                            "rikka_hub.db", "rikka_hub-wal", "rikka_hub-shm" -> {
+                            "jasmine.db", "jasmine-wal", "jasmine-shm" -> {
                                 if (webDavConfig.items.contains(WebDavConfig.BackupItem.DATABASE)) {
                                     // 恢复数据库文件
                                     val dbFile = when (zipEntry.name) {
-                                        "rikka_hub.db" -> context.getDatabasePath("rikka_hub")
-                                        "rikka_hub-wal" -> File(
-                                            context.getDatabasePath("rikka_hub").parentFile,
-                                            "rikka_hub-wal"
+                                        "jasmine.db" -> context.getDatabasePath("jasmine")
+                                        "jasmine-wal" -> File(
+                                            context.getDatabasePath("jasmine").parentFile,
+                                            "jasmine-wal"
                                         )
 
-                                        "rikka_hub-shm" -> File(
-                                            context.getDatabasePath("rikka_hub").parentFile,
-                                            "rikka_hub-shm"
+                                        "jasmine-shm" -> File(
+                                            context.getDatabasePath("jasmine").parentFile,
+                                            "jasmine-shm"
                                         )
 
                                         else -> null

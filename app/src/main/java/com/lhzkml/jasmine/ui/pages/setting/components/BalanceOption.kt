@@ -23,10 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.ChevronDown
-import com.composables.icons.lucide.ChevronUp
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.RotateCw
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.Refresh
 import com.lhzkmlai.provider.BalanceOption
 import com.lhzkmlai.provider.ProviderSetting
 import com.lhzkmlcommon.http.isJsonExprValid
@@ -64,12 +64,12 @@ fun SettingProviderBalanceOption(
             ) {
                 if (expand) {
                     Icon(
-                        imageVector = Lucide.ChevronUp,
+                        imageVector = androidx.compose.material.icons.Icons.Filled.ExpandLess,
                         contentDescription = null,
                     )
                 } else {
                     Icon(
-                        imageVector = Lucide.ChevronDown,
+                        imageVector = androidx.compose.material.icons.Icons.Filled.ExpandMore,
                         contentDescription = null,
                     )
                 }
@@ -108,7 +108,7 @@ fun SettingProviderBalanceOption(
                         }
                     }
                 ) {
-                    Icon(Lucide.RotateCw, null)
+                    Icon(androidx.compose.material.icons.Icons.Filled.Refresh, null)
                 }
             }
         }

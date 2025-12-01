@@ -32,8 +32,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
-import com.composables.icons.lucide.Check
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import com.lhzkml.jasmine.ui.theme.LocalDarkMode
 import com.lhzkml.jasmine.ui.theme.PresetTheme
 import com.lhzkml.jasmine.ui.theme.PresetThemes
@@ -101,7 +101,7 @@ fun PresetThemeButton(
             }
             if (selected) {
                 Icon(
-                    Lucide.Check,
+                    androidx.compose.material.icons.Icons.Filled.Check,
                     contentDescription = null,
                     tint = scheme.contentColorFor(scheme.onPrimary)
                 )

@@ -63,12 +63,10 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
-import com.composables.icons.lucide.ChevronDown
-import com.composables.icons.lucide.ChevronUp
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Fullscreen
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Plus
-import com.composables.icons.lucide.Trash2
+import androidx.compose.material.icons.filled.Add
 import com.lhzkmlai.core.MessageRole
 import com.lhzkmlai.provider.Model
 import com.lhzkmlai.ui.UIMessage
@@ -406,7 +404,7 @@ fun AssistantPromptSubPage(
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Icon(Lucide.Plus, null)
+                    Icon(Icons.Filled.Add, null)
                 }
             }
         }
@@ -445,7 +443,7 @@ fun AssistantPromptSubPage(
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Icon(Lucide.Plus, null)
+                    Icon(Icons.Filled.Add, null)
                 }
             }
         }
@@ -505,7 +503,7 @@ private fun AssistantRegexCard(
                     }
                 ) {
                     Icon(
-                        imageVector = if (expanded) Lucide.ChevronUp else Lucide.ChevronDown,
+                        imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
                         contentDescription = null
                     )
                 }

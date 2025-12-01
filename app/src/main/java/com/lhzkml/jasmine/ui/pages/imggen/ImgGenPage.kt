@@ -74,14 +74,12 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import coil3.compose.AsyncImage
-import com.composables.icons.lucide.Copy
-import com.composables.icons.lucide.Images
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Palette
-import com.composables.icons.lucide.Save
-import com.composables.icons.lucide.Send
-import com.composables.icons.lucide.Settings2
-import com.composables.icons.lucide.Trash2
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Palette
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Settings
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -187,7 +185,7 @@ private fun BottomBar(
                 Text(stringResource(R.string.imggen_page_title))
             },
             icon = {
-                Icon(Lucide.Palette, null)
+                Icon(Icons.Filled.Palette, null)
             },
             onClick = {
                 scope.launch {
@@ -202,7 +200,7 @@ private fun BottomBar(
                 Text(stringResource(R.string.imggen_page_gallery))
             },
             icon = {
-                Icon(Lucide.Images, null)
+                Icon(Icons.Filled.Image, null)
             },
             onClick = {
                 scope.launch {
@@ -310,7 +308,7 @@ private fun InputBar(
         IconButton(
             onClick = onShowSettings
         ) {
-            Icon(Lucide.Settings2, null)
+            Icon(Icons.Filled.Settings, null)
         }
 
         OutlinedTextField(
@@ -340,7 +338,7 @@ private fun InputBar(
                 )
             } else {
                 Icon(
-                    imageVector = Lucide.Send,
+                    imageVector = Icons.Filled.Send,
                     contentDescription = stringResource(R.string.imggen_page_generate_image)
                 )
             }
@@ -368,18 +366,18 @@ private fun ImageGalleryScreen(
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Icon(
-                        imageVector = Lucide.Images,
-                        contentDescription = null,
-                        modifier = Modifier.size(64.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Image,
+                            contentDescription = null,
+                            modifier = Modifier.size(64.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
                         text = stringResource(R.string.imggen_page_no_generated_images),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -456,7 +454,7 @@ private fun ImageGalleryScreen(
                                             modifier = Modifier.size(32.dp)
                                         ) {
                                             Icon(
-                                                imageVector = Lucide.Copy,
+                                                imageVector = Icons.Filled.ContentCopy,
                                                 contentDescription = "Copy prompt",
                                                 modifier = Modifier.size(16.dp)
                                             )
@@ -485,7 +483,7 @@ private fun ImageGalleryScreen(
                                             modifier = Modifier.size(32.dp)
                                         ) {
                                             Icon(
-                                                imageVector = Lucide.Save,
+                                                imageVector = Icons.Filled.Save,
                                                 contentDescription = stringResource(R.string.imggen_page_save),
                                                 modifier = Modifier.size(16.dp)
                                             )

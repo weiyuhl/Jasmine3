@@ -33,7 +33,7 @@ val dataSourceModule = module {
     }
 
     single {
-        Room.databaseBuilder(get(), AppDatabase::class.java, "rikka_hub")
+        Room.databaseBuilder(get(), AppDatabase::class.java, "jasmine")
             .addMigrations(Migration_6_7)
             .build()
     }
