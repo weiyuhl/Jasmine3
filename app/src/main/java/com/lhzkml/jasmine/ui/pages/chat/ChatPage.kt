@@ -51,7 +51,8 @@ import com.composables.icons.lucide.Menu
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Option
 import com.composables.icons.lucide.Sparkles
-import com.composables.icons.lucide.X
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -494,7 +495,7 @@ private fun TopBar(
                     onClickMenu()
                 }
             ) {
-                Icon(if (previewMode) Lucide.X else Lucide.Search, if (previewMode) "Close Search" else "Search")
+                Icon(if (previewMode) Icons.Filled.Close else Lucide.Search, if (previewMode) "Close Search" else "Search")
             }
 
             UIAvatar(

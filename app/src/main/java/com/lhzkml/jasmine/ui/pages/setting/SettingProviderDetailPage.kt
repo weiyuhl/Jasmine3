@@ -87,7 +87,8 @@ import com.composables.icons.lucide.Plus
 import com.composables.icons.lucide.Settings2
 import com.composables.icons.lucide.Share
 import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.X
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -1114,7 +1115,7 @@ private fun ModelPicker(
                                     }
                                 ) {
                                     if (selectedModels.any { model -> model.modelId == it.modelId }) {
-                                        Icon(Lucide.X, null)
+                                        Icon(Icons.Filled.Close, null)
                                     } else {
                                         Icon(Lucide.Plus, null)
                                     }
@@ -1346,7 +1347,7 @@ private fun ModelCard(
                             },
                             modifier = Modifier.align(Alignment.CenterStart)
                         ) {
-                            Icon(Lucide.X, null)
+                            Icon(Icons.Filled.Close, null)
                         }
                         Text(
                             text = stringResource(R.string.setting_provider_page_edit_model),
@@ -1411,7 +1412,7 @@ private fun ModelCard(
                         }
                     }
                 ) {
-                    Icon(Lucide.X, null)
+                    Icon(Icons.Filled.Close, null)
                 }
                 FilledIconButton(
                     onClick = {
@@ -1625,7 +1626,7 @@ private fun ProviderOverrideSettings(
                                 onUpdateProviderOverride(null)
                             }
                         ) {
-                            Icon(Lucide.X, contentDescription = "Remove override")
+                            Icon(Icons.Filled.Close, contentDescription = "Remove override")
                         }
                     }
                 }

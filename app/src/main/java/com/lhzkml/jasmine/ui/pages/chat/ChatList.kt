@@ -83,7 +83,8 @@ import com.composables.icons.lucide.ChevronsUp
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.MousePointer2
 import com.composables.icons.lucide.Search
-import com.composables.icons.lucide.X
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -358,7 +359,7 @@ private fun SharedTransitionScope.ChatListNormal(
                                 selectedItems.clear()
                             }
                         ) {
-                            Icon(Lucide.X, null)
+                            Icon(Icons.Filled.Close, null)
                         }
                     }
                     Tooltip(
@@ -529,7 +530,7 @@ private fun SharedTransitionScope.ChatListPreview(
                 if (searchQuery.isNotEmpty()) {
                     IconButton(onClick = { searchQuery = "" }) {
                         Icon(
-                            imageVector = Lucide.X,
+                            imageVector = Icons.Filled.Close,
                             contentDescription = "Clear",
                             modifier = Modifier.size(20.dp)
                         )

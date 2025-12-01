@@ -27,9 +27,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.composables.icons.lucide.Copy
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.X
 import com.lhzkmlai.ui.UIMessage
 import com.lhzkmlai.ui.UIMessagePart
 import com.lhzkml.jasmine.R
@@ -64,7 +65,7 @@ fun ChatMessageCopySheet(
                         onDismissRequest()
                     }
                 ) {
-                    Icon(Lucide.X, null)
+                    Icon(Icons.Filled.Close, null)
                 }
 
                 Text(

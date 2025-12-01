@@ -49,7 +49,8 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Plus
 import com.composables.icons.lucide.SquarePen
 import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.X
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.datastore.Settings
 import com.lhzkml.jasmine.ui.components.nav.BackButton
@@ -266,7 +267,7 @@ private fun SearchProviderCard(
                     }
                 ) {
                     Icon(
-                        imageVector = if (expand) Lucide.X else Lucide.SquarePen,
+                        imageVector = if (expand) Icons.Filled.Close else Lucide.SquarePen,
                         contentDescription = if (expand) "Hide details" else "Show details"
                     )
                 }

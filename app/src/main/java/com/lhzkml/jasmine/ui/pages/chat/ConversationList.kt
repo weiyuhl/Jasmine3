@@ -57,7 +57,8 @@ import com.composables.icons.lucide.Pin
 import com.composables.icons.lucide.PinOff
 import com.composables.icons.lucide.RefreshCw
 import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.X
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
 import com.lhzkml.jasmine.data.model.Conversation
@@ -128,7 +129,7 @@ fun ColumnScope.ConversationList(
                             onSearchQueryChange("")
                         }
                     ) {
-                        Icon(Lucide.X, null)
+                        Icon(Icons.Filled.Close, null)
                     }
                 }
             },
@@ -151,7 +152,7 @@ fun ColumnScope.ConversationList(
                     onSearchQueryChange("")
                 }
             ) {
-                Icon(Lucide.X, contentDescription = stringResource(R.string.history_page_cancel))
+                Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.history_page_cancel))
             }
         }
 

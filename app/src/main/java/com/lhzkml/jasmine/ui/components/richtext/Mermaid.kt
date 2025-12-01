@@ -32,10 +32,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.composables.icons.lucide.Download
 import com.composables.icons.lucide.Eye
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.X
 import com.dokar.sonner.ToastType
 import com.google.common.cache.CacheBuilder
 import com.lhzkml.jasmine.R
@@ -209,7 +210,7 @@ fun Mermaid(
                         }
                     ) {
                         Icon(
-                            Lucide.X,
+                            Icons.Filled.Close,
                             contentDescription = "Close"
                         )
                     }

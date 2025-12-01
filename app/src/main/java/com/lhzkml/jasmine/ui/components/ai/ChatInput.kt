@@ -95,7 +95,6 @@ import coil3.compose.AsyncImage
 import com.composables.icons.lucide.ArrowUp
 import com.composables.icons.lucide.Fullscreen
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.X
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Image
@@ -435,7 +434,7 @@ private fun TextInputRow(
                             )
                             Spacer(Modifier.weight(1f))
                             Icon(
-                                Lucide.X, stringResource(R.string.cancel_edit),
+                                Icons.Filled.Close, stringResource(R.string.cancel_edit),
                                 modifier = Modifier
                                     .clickable {
                                         state.clearInput()

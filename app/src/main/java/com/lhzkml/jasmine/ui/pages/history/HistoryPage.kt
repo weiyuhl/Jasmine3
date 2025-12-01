@@ -47,12 +47,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Pin
 import com.composables.icons.lucide.PinOff
 import com.composables.icons.lucide.Search
 import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.X
 import kotlinx.coroutines.launch
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.model.Conversation
@@ -248,7 +249,7 @@ private fun SearchInput(
             onClick = onDismiss,
         ) {
             Icon(
-                Lucide.X,
+                Icons.Filled.Close,
                 contentDescription = stringResource(R.string.history_page_cancel)
             )
         }

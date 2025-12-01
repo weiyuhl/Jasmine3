@@ -43,11 +43,12 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.composables.icons.lucide.ChevronDown
 import com.composables.icons.lucide.ChevronUp
 import com.composables.icons.lucide.Languages
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.X
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.ui.components.richtext.MarkdownBlock
 import java.util.Locale
@@ -154,7 +155,7 @@ fun LanguageSelectionDialog(
                                 .fillMaxWidth()
                         ) {
                             Icon(
-                                imageVector = Lucide.X,
+                                imageVector = Icons.Filled.Close,
                                 contentDescription = null,
                             )
                             Text(

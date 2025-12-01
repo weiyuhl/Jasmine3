@@ -60,13 +60,14 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.composables.icons.lucide.ChevronDown
 import com.composables.icons.lucide.ChevronUp
 import com.composables.icons.lucide.Fullscreen
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Plus
 import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.X
 import com.lhzkmlai.core.MessageRole
 import com.lhzkmlai.provider.Model
 import com.lhzkmlai.ui.UIMessage
@@ -362,7 +363,7 @@ fun AssistantPromptSubPage(
                                     )
                                 }
                             ) {
-                                Icon(Lucide.X, null)
+                                Icon(Icons.Filled.Close, null)
                             }
                         }
                         OutlinedTextField(

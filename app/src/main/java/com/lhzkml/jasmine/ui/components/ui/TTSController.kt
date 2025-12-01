@@ -26,13 +26,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import com.composables.icons.lucide.ChevronLeft
 import com.composables.icons.lucide.ChevronRight
 import com.composables.icons.lucide.FastForward
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Pause
 import com.composables.icons.lucide.Play
-import com.composables.icons.lucide.X
 import com.lhzkml.jasmine.ui.context.LocalTTSState
 import com.lhzkml.jasmine.ui.hooks.CustomTtsState
 import com.lhzkmltts.model.PlaybackState
@@ -80,7 +81,7 @@ fun TTSController() {
                     }
                 ) {
                     Icon(
-                        imageVector = Lucide.X,
+                        imageVector = Icons.Filled.Close,
                         contentDescription = null,
                     )
                 }
