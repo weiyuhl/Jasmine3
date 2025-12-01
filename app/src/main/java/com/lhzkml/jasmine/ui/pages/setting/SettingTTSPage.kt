@@ -51,7 +51,7 @@ import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.StopCircle
-import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import com.lhzkml.jasmine.R
@@ -401,7 +401,7 @@ private fun TTSProviderItem(
                         }
                     ) {
                         Icon(
-                            imageVector = if (isSpeaking) Icons.Filled.StopCircle else Icons.Filled.VolumeUp,
+                            imageVector = if (isSpeaking) Icons.Filled.StopCircle else Icons.AutoMirrored.Filled.VolumeUp,
                             contentDescription = if (isSpeaking) stringResource(R.string.stop) else stringResource(R.string.test_tts),
                             tint = if (isSpeaking) MaterialTheme.colorScheme.error else LocalContentColor.current
                         )

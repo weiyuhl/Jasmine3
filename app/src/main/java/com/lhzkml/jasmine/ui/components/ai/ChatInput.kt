@@ -93,7 +93,7 @@ import androidx.core.net.toFile
 import androidx.core.net.toUri
 import coil3.compose.AsyncImage
 import androidx.compose.material.icons.filled.Fullscreen
-import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Image
@@ -346,7 +346,7 @@ fun ChatInput(
                                 .semantics { contentDescription = stopText }
                         )
                     } else {
-                        Icon(Icons.Filled.Send, stringResource(R.string.send), tint = contentColor)
+                        Icon(Icons.AutoMirrored.Filled.Send, stringResource(R.string.send), tint = contentColor)
                     }
                 }
             }

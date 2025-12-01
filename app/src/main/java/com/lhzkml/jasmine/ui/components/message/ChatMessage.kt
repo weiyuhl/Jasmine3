@@ -55,7 +55,7 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.InsertDriveFile
+import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Movie
 import kotlinx.coroutines.FlowPreview
@@ -543,7 +543,7 @@ private fun MessagePartsBlock(
 
                                 else -> {
                                     Icon(
-                                        imageVector = Icons.Filled.InsertDriveFile,
+                                        imageVector = Icons.AutoMirrored.Filled.InsertDriveFile,
                                         contentDescription = null,
                                         modifier = Modifier.size(20.dp)
                                     )

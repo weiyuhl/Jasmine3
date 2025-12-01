@@ -36,8 +36,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CallSplit
-import androidx.compose.material.icons.filled.ChromeReaderMode
+import androidx.compose.material.icons.automirrored.filled.CallSplit
+import androidx.compose.material.icons.automirrored.filled.ChromeReaderMode
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreHoriz
@@ -46,7 +46,7 @@ import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Translate
-import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import kotlinx.coroutines.delay
 import kotlinx.datetime.toJavaLocalDateTime
 import com.lhzkmlai.core.MessageRole
@@ -107,7 +107,7 @@ fun ColumnScope.ChatMessageActionButtons(
             val isSpeaking by tts.isSpeaking.collectAsState()
             val isAvailable by tts.isAvailable.collectAsState()
             Icon(
-                imageVector = if (isSpeaking) Icons.Filled.Stop else Icons.Filled.VolumeUp,
+                imageVector = if (isSpeaking) Icons.Filled.Stop else Icons.AutoMirrored.Filled.VolumeUp,
                 contentDescription = stringResource(R.string.tts),
                 modifier = Modifier
                     .clip(CircleShape)
@@ -258,7 +258,7 @@ fun ChatMessageActionsSheet(
                             .fillMaxWidth()
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.ChromeReaderMode,
+                            imageVector = Icons.AutoMirrored.Filled.ChromeReaderMode,
                             contentDescription = null,
                             modifier = Modifier.padding(4.dp)
                         )
@@ -340,7 +340,7 @@ fun ChatMessageActionsSheet(
                         .fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.CallSplit,
+                        imageVector = Icons.AutoMirrored.Filled.CallSplit,
                         contentDescription = null,
                         modifier = Modifier.padding(4.dp)
                     )

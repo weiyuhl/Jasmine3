@@ -78,7 +78,7 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Settings
 import com.dokar.sonner.ToastType
 import kotlinx.coroutines.CoroutineScope
@@ -338,7 +338,7 @@ private fun InputBar(
                 )
             } else {
                 Icon(
-                    imageVector = Icons.Filled.Send,
+                    imageVector = Icons.AutoMirrored.Filled.Send,
                     contentDescription = stringResource(R.string.imggen_page_generate_image)
                 )
             }

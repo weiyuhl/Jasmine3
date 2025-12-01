@@ -35,9 +35,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Chat
+import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Visibility
@@ -212,7 +212,7 @@ private fun DefaultTitleModelSetting(
             Text(stringResource(R.string.setting_model_page_title_model_desc))
         },
         icon = {
-            Icon(Icons.Filled.MenuBook, null)
+            Icon(Icons.AutoMirrored.Filled.MenuBook, null)
         },
         actions = {
             Box(modifier = Modifier.weight(1f)) {
@@ -297,7 +297,7 @@ private fun DefaultChatModelSetting(
 ) {
     ModelFeatureCard(
         icon = {
-            Icon(Icons.Filled.Chat, null)
+            Icon(Icons.AutoMirrored.Filled.Chat, null)
         },
         title = {
             Text(stringResource(R.string.setting_model_page_chat_model), maxLines = 1)

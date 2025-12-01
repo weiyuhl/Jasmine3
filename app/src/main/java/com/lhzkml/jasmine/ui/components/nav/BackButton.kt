@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.ui.context.LocalNavController
 
@@ -20,7 +20,7 @@ fun BackButton(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         Icon(
-            Icons.Filled.ArrowBack,
+            Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = stringResource(R.string.back)
         )
     }
