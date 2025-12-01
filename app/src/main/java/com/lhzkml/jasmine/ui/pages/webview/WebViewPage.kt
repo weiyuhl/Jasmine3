@@ -29,7 +29,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Public
@@ -91,7 +91,7 @@ fun WebViewPage(url: String, content: String) {
                         onClick = { state.goForward() },
                         enabled = state.canGoForward
                     ) {
-                        Icon(androidx.compose.material.icons.Icons.Filled.ArrowForward, contentDescription = "Forward")
+                        Icon(androidx.compose.material.icons.Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Forward")
                     }
 
                     val urlHandler = LocalUriHandler.current
