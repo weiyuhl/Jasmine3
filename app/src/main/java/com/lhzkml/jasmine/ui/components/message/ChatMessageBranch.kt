@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.ChevronLeft
-import com.composables.icons.lucide.ChevronRight
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
 import com.lhzkml.jasmine.data.model.MessageNode
 
 @Composable
@@ -36,7 +36,7 @@ fun ChatMessageBranchSelector(
     ) {
         if (node.messages.size > 1) {
             Icon(
-                imageVector = Lucide.ChevronLeft,
+                imageVector = Icons.Filled.ChevronLeft,
                 contentDescription = "Prev",
                 modifier = Modifier
                     .clip(CircleShape)
@@ -64,7 +64,7 @@ fun ChatMessageBranchSelector(
             )
 
             Icon(
-                imageVector = Lucide.ChevronRight,
+                imageVector = Icons.Filled.ChevronRight,
                 contentDescription = "Next",
                 modifier = Modifier
                     .clip(CircleShape)

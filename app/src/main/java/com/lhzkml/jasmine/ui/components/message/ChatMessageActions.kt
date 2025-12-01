@@ -35,19 +35,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.BookOpenText
-import com.composables.icons.lucide.CircleStop
-import com.composables.icons.lucide.Copy
-import com.composables.icons.lucide.Ellipsis
-import com.composables.icons.lucide.GitFork
-import com.composables.icons.lucide.Languages
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Pencil
-import com.composables.icons.lucide.RefreshCw
-import com.composables.icons.lucide.Share
-import com.composables.icons.lucide.TextSelect
-import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.Volume2
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CallSplit
+import androidx.compose.material.icons.filled.ChromeReaderMode
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.SelectAll
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.filled.Translate
+import androidx.compose.material.icons.filled.VolumeUp
 import kotlinx.coroutines.delay
 import kotlinx.datetime.toJavaLocalDateTime
 import com.lhzkmlai.core.MessageRole
@@ -60,7 +59,6 @@ import com.lhzkml.jasmine.ui.context.LocalTTSState
 import com.lhzkml.jasmine.utils.copyMessageToClipboard
 import com.lhzkml.jasmine.utils.toLocalString
 import java.util.Locale
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 
 @Composable
@@ -89,7 +87,7 @@ fun ColumnScope.ChatMessageActionButtons(
         itemVerticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            Lucide.Copy, stringResource(R.string.copy), modifier = Modifier
+            Icons.Filled.ContentCopy, stringResource(R.string.copy), modifier = Modifier
                 .clip(CircleShape)
                 .clickable { context.copyMessageToClipboard(message) }
                 .padding(8.dp)
@@ -97,7 +95,7 @@ fun ColumnScope.ChatMessageActionButtons(
         )
 
         Icon(
-            Lucide.RefreshCw, stringResource(R.string.regenerate), modifier = Modifier
+            Icons.Filled.Refresh, stringResource(R.string.regenerate), modifier = Modifier
                 .clip(CircleShape)
                 .clickable { onRegenerate() }
                 .padding(8.dp)
@@ -109,7 +107,7 @@ fun ColumnScope.ChatMessageActionButtons(
             val isSpeaking by tts.isSpeaking.collectAsState()
             val isAvailable by tts.isAvailable.collectAsState()
             Icon(
-                imageVector = if (isSpeaking) Lucide.CircleStop else Lucide.Volume2,
+                imageVector = if (isSpeaking) Icons.Filled.Stop else Icons.Filled.VolumeUp,
                 contentDescription = stringResource(R.string.tts),
                 modifier = Modifier
                     .clip(CircleShape)
@@ -133,7 +131,7 @@ fun ColumnScope.ChatMessageActionButtons(
             // Translation button
             if (onTranslate != null) {
                 Icon(
-                    imageVector = Lucide.Languages,
+                    imageVector = Icons.Filled.Translate,
                     contentDescription = stringResource(R.string.translate),
                     modifier = Modifier
                         .clip(CircleShape)
@@ -151,7 +149,7 @@ fun ColumnScope.ChatMessageActionButtons(
         }
 
         Icon(
-            imageVector = Lucide.Ellipsis,
+            imageVector = Icons.Filled.MoreHoriz,
             contentDescription = "More Options",
             modifier = Modifier
                 .clip(CircleShape)
@@ -229,7 +227,7 @@ fun ChatMessageActionsSheet(
                         .fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Lucide.TextSelect,
+                        imageVector = Icons.Filled.SelectAll,
                         contentDescription = null,
                         modifier = Modifier.padding(4.dp)
                     )
@@ -260,7 +258,7 @@ fun ChatMessageActionsSheet(
                             .fillMaxWidth()
                     ) {
                         Icon(
-                            imageVector = Lucide.BookOpenText,
+                            imageVector = Icons.Filled.ChromeReaderMode,
                             contentDescription = null,
                             modifier = Modifier.padding(4.dp)
                         )
@@ -288,7 +286,7 @@ fun ChatMessageActionsSheet(
                         .fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Lucide.Pencil,
+                        imageVector = Icons.Filled.Edit,
                         contentDescription = null,
                         modifier = Modifier.padding(4.dp)
                     )
@@ -315,7 +313,7 @@ fun ChatMessageActionsSheet(
                         .fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Lucide.Share,
+                        imageVector = Icons.Filled.Share,
                         contentDescription = null,
                         modifier = Modifier.padding(4.dp)
                     )
@@ -342,7 +340,7 @@ fun ChatMessageActionsSheet(
                         .fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Lucide.GitFork,
+                        imageVector = Icons.Filled.CallSplit,
                         contentDescription = null,
                         modifier = Modifier.padding(4.dp)
                     )

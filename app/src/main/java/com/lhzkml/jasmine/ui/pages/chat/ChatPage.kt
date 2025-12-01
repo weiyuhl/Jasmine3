@@ -46,7 +46,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.composables.icons.lucide.List
 import com.composables.icons.lucide.ListTree
-import com.composables.icons.lucide.Menu
+import androidx.compose.material.icons.filled.Menu
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Option
 import com.composables.icons.lucide.Sparkles
@@ -448,7 +448,7 @@ private fun TopBar(
                         scope.launch { drawerState.open() }
                     }
                 ) {
-                    Icon(Lucide.Menu, "Menu")
+                    Icon(Icons.Filled.Menu, "Menu")
                 }
             }
         },
