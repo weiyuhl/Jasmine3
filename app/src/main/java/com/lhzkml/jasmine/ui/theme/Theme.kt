@@ -19,6 +19,7 @@ import androidx.core.view.WindowCompat
 import kotlinx.serialization.Serializable
 import com.lhzkml.jasmine.ui.hooks.rememberColorMode
 import com.lhzkml.jasmine.ui.hooks.rememberUserSettingsState
+import com.lhzkml.jasmine.ui.theme.presets.SakuraThemePreset
 
 private val ExtendLightColors = lightExtendColors()
 private val ExtendDarkColors = darkExtendColors()
@@ -30,7 +31,8 @@ val LocalDarkMode = compositionLocalOf { false }
 enum class ColorMode {
     SYSTEM,
     LIGHT,
-    DARK
+    DARK,
+    MODERN
 }
 
 @Composable
@@ -44,8 +46,10 @@ fun jasmineTheme(
         ColorMode.SYSTEM -> isSystemInDarkTheme()
         ColorMode.LIGHT -> false
         ColorMode.DARK -> true
+        ColorMode.MODERN -> false
     }
     val colorScheme = when {
+        colorMode == ColorMode.MODERN -> SakuraThemePreset.getColorScheme(dark = false)
         settings.dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)

@@ -130,6 +130,7 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                                     ColorMode.SYSTEM -> stringResource(R.string.setting_page_color_mode_system)
                                     ColorMode.LIGHT -> stringResource(R.string.setting_page_color_mode_light)
                                     ColorMode.DARK -> stringResource(R.string.setting_page_color_mode_dark)
+                                    ColorMode.MODERN -> stringResource(R.string.setting_page_color_mode_modern)
                                 }
                             },
                             modifier = Modifier.width(150.dp)
