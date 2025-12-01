@@ -62,7 +62,6 @@ import com.lhzkml.jasmine.ui.pages.history.HistoryPage
 import com.lhzkml.jasmine.ui.pages.imggen.ImageGenPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingAboutPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingDisplayPage
-import com.lhzkml.jasmine.ui.pages.setting.SettingDonatePage
 import com.lhzkml.jasmine.ui.pages.setting.SettingMcpPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingModelPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingPage
@@ -316,10 +315,6 @@ class RouteActivity : ComponentActivity() {
                         SettingMcpPage()
                     }
 
-                    composable<Screen.SettingDonate> {
-                        SettingDonatePage()
-                    }
-
                     composable<Screen.Developer> {
                         DeveloperPage()
                     }
@@ -389,9 +384,6 @@ sealed interface Screen {
 
     @Serializable
     data object SettingMcp : Screen
-
-    @Serializable
-    data object SettingDonate : Screen
 
     @Serializable
     data object Developer : Screen

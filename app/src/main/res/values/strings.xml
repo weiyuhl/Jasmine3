@@ -250,10 +250,8 @@
   <string name="about_page_title">About</string>
   <string name="about_page_version">Version</string>
   <string name="about_page_system">System</string>
-  <string name="about_page_website">Website</string>
   <string name="add">Add</string>
-  <string name="about_page_github">Github</string>
-  <string name="about_page_license">License</string>
+  
 
   <!-- History Page -->
   <string name="history_page_title">Chat History</string>
@@ -601,15 +599,6 @@
   <string name="language_spanish">🇪🇸 Español</string>
 
   <string name="setting_page_language_restart_desc">Language will take effect after app restart.</string>
-
-  <!-- Donate -->
-  <string name="setting_page_donate">Donate</string>
-  <string name="setting_page_donate_desc">If you like it, sponsor the author\'s work</string>
-  <string name="donate_page_title">Donate</string>
-  <string name="donate_page_donation_methods">Donation Methods</string>
-  <string name="donate_page_sponsor_list">Sponsor List</string>
-  <string name="donate_page_patreon_desc">For global users, get Discord Role after sponsoring</string>
-  <string name="donate_page_afdian_desc">For 🇨🇳 users</string>
 
   <!-- Silicon Flow -->
   <string name="silicon_flow_description">**Leading global AI capability provider, accelerating AGI to benefit humanity.**</string>

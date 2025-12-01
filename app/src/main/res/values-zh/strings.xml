@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="about_page_github">Github</string>
-  <string name="about_page_license">License</string>
   <string name="about_page_system">系统</string>
   <string name="about_page_title">关于</string>
   <string name="about_page_version">版本</string>
-  <string name="about_page_website">官网</string>
   <string name="add">添加</string>
   <string name="app_name">jasmine</string>
   <string name="assistant_importer_import_failed">导入失败</string>
@@ -227,11 +224,6 @@
   <string name="create_fork">创建分支</string>
   <string name="deep_thinking">深度思考</string>
   <string name="delete">删除</string>
-  <string name="donate_page_afdian_desc">适用于🇨🇳用户</string>
-  <string name="donate_page_donation_methods">赞助方式</string>
-  <string name="donate_page_patreon_desc">适用于全球用户, 赞助后可以获得Discord Role</string>
-  <string name="donate_page_sponsor_list">赞助用户列表</string>
-  <string name="donate_page_title">赞助</string>
   <string name="edit">编辑</string>
   <string name="editing">编辑中</string>
   <string name="expand_translation">展开翻译</string>
@@ -434,8 +426,6 @@
   <string name="setting_page_default_model_desc">设置各个功能的默认模型</string>
   <string name="setting_page_display_setting">显示设置</string>
   <string name="setting_page_display_setting_desc">管理显示设置</string>
-  <string name="setting_page_donate">赞助</string>
-  <string name="setting_page_donate_desc">如果你喜欢这个应用，请赞助作者的工作</string>
   <string name="setting_page_dynamic_color">动态颜色</string>
   <string name="setting_page_dynamic_color_desc">是否使用动态颜色</string>
   <string name="setting_page_general_settings">通用设置</string>

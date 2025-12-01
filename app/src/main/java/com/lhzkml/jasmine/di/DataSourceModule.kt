@@ -12,7 +12,6 @@ import com.lhzkml.jasmine.data.ai.transformers.AssistantTemplateLoader
 import com.lhzkml.jasmine.data.ai.GenerationHandler
 import com.lhzkml.jasmine.data.ai.transformers.TemplateTransformer
 import com.lhzkml.jasmine.data.api.jasmineAPI
-import com.lhzkml.jasmine.data.api.SponsorAPI
 import com.lhzkml.jasmine.data.datastore.SettingsStore
 import com.lhzkml.jasmine.data.db.AppDatabase
 import com.lhzkml.jasmine.data.db.Migration_6_7
@@ -99,10 +98,6 @@ val dataSourceModule = module {
                 level = HttpLoggingInterceptor.Level.HEADERS
             })
             .build()
-    }
-
-    single {
-        SponsorAPI.create(get())
     }
 
     single {

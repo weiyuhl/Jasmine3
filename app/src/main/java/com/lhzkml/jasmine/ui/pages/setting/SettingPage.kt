@@ -258,22 +258,6 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
             }
 
             
-
-            item {
-                SettingItem(
-                    navController = navController,
-                    title = { Text(stringResource(R.string.setting_page_donate)) },
-                    description = {
-                        Text(stringResource(R.string.setting_page_donate_desc))
-                    },
-                    icon = {
-                        Icon(Icons.Filled.Favorite, "Donate")
-                    },
-                    link = Screen.SettingDonate
-                )
-            }
-
-            
         }
     }
 }
