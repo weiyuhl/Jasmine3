@@ -29,8 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import com.composables.icons.lucide.Copy
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.filled.ContentCopy
 import com.lhzkmlai.ui.UIMessage
 import com.lhzkmlai.ui.UIMessagePart
 import com.lhzkml.jasmine.R
@@ -80,7 +79,7 @@ fun ChatMessageCopySheet(
                     }
                 ) {
                     Icon(
-                        imageVector = Lucide.Copy,
+                        imageVector = Icons.Filled.ContentCopy,
                         contentDescription = null,
                         modifier = Modifier.size(16.dp)
                     )

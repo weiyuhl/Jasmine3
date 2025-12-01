@@ -75,14 +75,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceAtLeast
-import com.composables.icons.lucide.Check
-import com.composables.icons.lucide.ChevronDown
-import com.composables.icons.lucide.ChevronUp
-import com.composables.icons.lucide.ChevronsDown
-import com.composables.icons.lucide.ChevronsUp
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.MousePointer2
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SelectAll
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Close
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -375,7 +370,7 @@ private fun SharedTransitionScope.ChatListNormal(
                                 }
                             }
                         ) {
-                            Icon(Lucide.MousePointer2, null)
+                            Icon(Icons.Filled.SelectAll, null)
                         }
                     }
                     Tooltip(
@@ -392,7 +387,7 @@ private fun SharedTransitionScope.ChatListNormal(
                                 }
                             }
                         ) {
-                            Icon(Lucide.Check, null)
+                            Icon(Icons.Filled.Done, null)
                         }
                     }
                 }

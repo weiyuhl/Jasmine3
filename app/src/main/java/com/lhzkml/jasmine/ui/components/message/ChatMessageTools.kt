@@ -39,12 +39,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.composables.icons.lucide.BookDashed
-import com.composables.icons.lucide.BookHeart
-import com.composables.icons.lucide.Earth
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Trash2
-import com.composables.icons.lucide.Wrench
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.Build
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -67,8 +66,7 @@ import com.lhzkml.jasmine.ui.modifier.shimmer
 import com.lhzkml.jasmine.utils.JsonInstantPretty
 import com.lhzkml.jasmine.utils.jsonPrimitiveOrNull
 import org.koin.compose.koinInject
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+ 
 
 @Composable
 fun ToolCallItem(
@@ -102,11 +100,11 @@ fun ToolCallItem(
             } else {
                 Icon(
                     imageVector = when (toolName) {
-                        "create_memory", "edit_memory" -> Lucide.BookHeart
-                        "delete_memory" -> Lucide.BookDashed
-                        "search_web" -> Lucide.Earth
-                        "scrape_web" -> Lucide.Earth
-                        else -> Lucide.Wrench
+                        "create_memory", "edit_memory" -> Icons.Filled.Favorite
+                        "delete_memory" -> Icons.Filled.Delete
+                        "search_web" -> Icons.Filled.Public
+                        "scrape_web" -> Icons.Filled.Public
+                        else -> Icons.Filled.Build
                     },
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),

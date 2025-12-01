@@ -51,9 +51,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
-import com.composables.icons.lucide.History
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.RefreshCw
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
@@ -163,7 +162,7 @@ fun ColumnScope.ConversationList(
                 onClick = { navController.navigate(Screen.History) }
             ) {
                 Icon(
-                    imageVector = Lucide.History,
+                    imageVector = Icons.Filled.History,
                     contentDescription = stringResource(R.string.chat_page_history),
                 )
             }
@@ -383,7 +382,7 @@ private fun ConversationItem(
                         showDropdownMenu = false
                     },
                     leadingIcon = {
-                        Icon(Lucide.RefreshCw, null)
+                        Icon(Icons.Filled.Refresh, null)
                     }
                 )
 

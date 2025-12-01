@@ -45,10 +45,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import com.composables.icons.lucide.ChevronDown
-import com.composables.icons.lucide.ChevronUp
-import com.composables.icons.lucide.Languages
-import com.composables.icons.lucide.Lucide
+import androidx.compose.material.icons.filled.Translate
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.ExpandLess
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.ui.components.richtext.MarkdownBlock
 import java.util.Locale
@@ -128,7 +127,7 @@ fun LanguageSelectionDialog(
                                 .fillMaxWidth()
                         ) {
                             Icon(
-                                imageVector = Lucide.Languages,
+                                imageVector = Icons.Filled.Translate,
                                 contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
@@ -196,7 +195,7 @@ fun CollapsibleTranslationText(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Icon(
-                    imageVector = Lucide.Languages,
+                    imageVector = Icons.Filled.Translate,
                     contentDescription = null,
                     modifier = Modifier.size(16.dp),
                     tint = MaterialTheme.colorScheme.primary
@@ -215,7 +214,7 @@ fun CollapsibleTranslationText(
                 modifier = Modifier.size(32.dp)
             ) {
                 Icon(
-                    imageVector = if (isCollapsed) Lucide.ChevronDown else Lucide.ChevronUp,
+                    imageVector = if (isCollapsed) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess,
                     contentDescription = if (isCollapsed) stringResource(R.string.expand_translation) else stringResource(
                         R.string.collapse_translation
                     ),

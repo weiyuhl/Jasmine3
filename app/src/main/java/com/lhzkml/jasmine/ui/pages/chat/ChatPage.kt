@@ -44,12 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.composables.icons.lucide.List
-import com.composables.icons.lucide.ListTree
 import androidx.compose.material.icons.filled.Menu
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Option
-import com.composables.icons.lucide.Sparkles
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search

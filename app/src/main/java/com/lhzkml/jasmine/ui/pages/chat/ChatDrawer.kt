@@ -36,10 +36,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.Pencil
-import com.composables.icons.lucide.Settings
-import com.composables.icons.lucide.SquarePen
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Settings
 import kotlinx.coroutines.launch
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.Screen
@@ -136,7 +136,7 @@ fun ChatDrawerContent(
                         )
 
                         Icon(
-                            imageVector = Lucide.Pencil,
+                            imageVector = Icons.Filled.Edit,
                             contentDescription = stringResource(R.string.edit),
                             modifier = Modifier
                                 .onClick {
@@ -160,7 +160,7 @@ fun ChatDrawerContent(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Icon(
-                    imageVector = Lucide.SquarePen,
+                    imageVector = Icons.Filled.Create,
                     contentDescription = null,
                     modifier = Modifier.size(28.dp)
                 )
@@ -209,7 +209,7 @@ fun ChatDrawerContent(
                 Spacer(Modifier.weight(1f))
                 DrawerAction(
                     icon = {
-                        Icon(Lucide.Settings, null)
+                        Icon(Icons.Filled.Settings, null)
                     },
                     label = { Text(stringResource(R.string.settings)) },
                     onClick = {
