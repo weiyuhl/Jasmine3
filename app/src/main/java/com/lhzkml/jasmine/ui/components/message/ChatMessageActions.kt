@@ -46,7 +46,7 @@ import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Translate
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
+ 
 import kotlinx.coroutines.delay
 import kotlinx.datetime.toJavaLocalDateTime
 import com.lhzkmlai.core.MessageRole
@@ -55,7 +55,7 @@ import com.lhzkmlai.ui.UIMessage
 import com.lhzkmlai.ui.UIMessagePart
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.model.MessageNode
-import com.lhzkml.jasmine.ui.context.LocalTTSState
+ 
 import com.lhzkml.jasmine.utils.copyMessageToClipboard
 import com.lhzkml.jasmine.utils.toLocalString
 import java.util.Locale
@@ -103,32 +103,6 @@ fun ColumnScope.ChatMessageActionButtons(
         )
 
         if (message.role == MessageRole.ASSISTANT) {
-            val tts = LocalTTSState.current
-            val isSpeaking by tts.isSpeaking.collectAsState()
-            val isAvailable by tts.isAvailable.collectAsState()
-            Icon(
-                imageVector = if (isSpeaking) Icons.Filled.Stop else Icons.AutoMirrored.Filled.VolumeUp,
-                contentDescription = stringResource(R.string.tts),
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .clickable(
-                        enabled = isAvailable,
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = LocalIndication.current,
-                        onClick = {
-                            if (!isSpeaking) {
-                                tts.speak(message.toText())
-                            } else {
-                                tts.stop()
-                            }
-                        }
-                    )
-                    .padding(8.dp)
-                    .size(16.dp),
-                tint = if (isAvailable) LocalContentColor.current else LocalContentColor.current.copy(alpha = 0.38f)
-            )
-
-            // Translation button
             if (onTranslate != null) {
                 Icon(
                     imageVector = Icons.Filled.Translate,

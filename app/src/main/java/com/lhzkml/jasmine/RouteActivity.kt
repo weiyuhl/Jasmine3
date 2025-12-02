@@ -43,15 +43,12 @@ import kotlinx.serialization.Serializable
 import com.lhzkmlhighlight.Highlighter
 import com.lhzkmlhighlight.LocalHighlighter
 import com.lhzkml.jasmine.data.datastore.SettingsStore
-import com.lhzkml.jasmine.ui.components.ui.TTSController
 import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.context.LocalSettings
 import com.lhzkml.jasmine.ui.context.LocalSharedTransitionScope
-import com.lhzkml.jasmine.ui.context.LocalTTSState
 import com.lhzkml.jasmine.ui.context.LocalToaster
 import com.lhzkml.jasmine.ui.hooks.readBooleanPreference
 import com.lhzkml.jasmine.ui.hooks.readStringPreference
-import com.lhzkml.jasmine.ui.hooks.rememberCustomTtsState
 import com.lhzkml.jasmine.ui.pages.assistant.AssistantPage
 import com.lhzkml.jasmine.ui.pages.assistant.detail.AssistantDetailPage
 import com.lhzkml.jasmine.ui.pages.backup.BackupPage
@@ -68,7 +65,7 @@ import com.lhzkml.jasmine.ui.pages.setting.SettingPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingProviderDetailPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingProviderPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingSearchPage
-import com.lhzkml.jasmine.ui.pages.setting.SettingTTSPage
+ 
 import com.lhzkml.jasmine.ui.pages.share.handler.ShareHandlerPage
 import com.lhzkml.jasmine.ui.pages.translator.TranslatorPage
 import com.lhzkml.jasmine.ui.pages.webview.WebViewPage
@@ -183,7 +180,7 @@ class RouteActivity : ComponentActivity() {
     fun AppRoutes(navBackStack: NavHostController) {
         val toastState = rememberToasterState()
         val settings by settingsStore.settingsFlow.collectAsStateWithLifecycle()
-        val tts = rememberCustomTtsState()
+        
         SharedTransitionLayout {
             CompositionLocalProvider(
                 LocalNavController provides navBackStack,
@@ -191,7 +188,6 @@ class RouteActivity : ComponentActivity() {
                 LocalSettings provides settings,
                 LocalHighlighter provides highlighter,
                 LocalToaster provides toastState,
-                LocalTTSState provides tts,
             ) {
                 Toaster(
                     state = toastState,
@@ -200,7 +196,7 @@ class RouteActivity : ComponentActivity() {
                     alignment = Alignment.TopCenter,
                     showCloseButton = true,
                 )
-                TTSController()
+                
                 NavHost(
                     modifier = Modifier
                         .fillMaxSize()
@@ -307,9 +303,7 @@ class RouteActivity : ComponentActivity() {
                         SettingSearchPage()
                     }
 
-                    composable<Screen.SettingTTS> {
-                        SettingTTSPage()
-                    }
+                    
 
                     composable<Screen.SettingMcp> {
                         SettingMcpPage()
@@ -378,9 +372,6 @@ sealed interface Screen {
 
     @Serializable
     data object SettingSearch : Screen
-
-    @Serializable
-    data object SettingTTS : Screen
 
     @Serializable
     data object SettingMcp : Screen

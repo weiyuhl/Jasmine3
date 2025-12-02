@@ -33,7 +33,6 @@ import com.lhzkml.jasmine.utils.JsonInstant
 import com.lhzkml.jasmine.utils.toMutableStateFlow
 import com.lhzkmlsearch.SearchCommonOptions
 import com.lhzkmlsearch.SearchServiceOptions
-import com.lhzkmltts.provider.TTSProviderSetting
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import kotlin.uuid.Uuid
@@ -93,9 +92,6 @@ class SettingsStore(
         // WebDAV
         val WEBDAV_CONFIG = stringPreferencesKey("webdav_config")
 
-        // TTS
-        val TTS_PROVIDERS = stringPreferencesKey("tts_providers")
-        val SELECTED_TTS_PROVIDER = stringPreferencesKey("selected_tts_provider")
         val DISABLED_MEMORIES = stringPreferencesKey("disabled_memories")
         val DEFAULT_SAVE_DIR = stringPreferencesKey("default_save_dir")
     }
@@ -148,11 +144,6 @@ class SettingsStore(
                 webDavConfig = preferences[WEBDAV_CONFIG]?.let {
                     JsonInstant.decodeFromString(it)
                 } ?: WebDavConfig(),
-                ttsProviders = preferences[TTS_PROVIDERS]?.let {
-                    JsonInstant.decodeFromString(it)
-                } ?: emptyList(),
-                selectedTTSProviderId = preferences[SELECTED_TTS_PROVIDER]?.let { Uuid.parse(it) }
-                    ?: DEFAULT_SYSTEM_TTS_ID,
                 disabledMemories = preferences[DISABLED_MEMORIES]?.let { JsonInstant.decodeFromString(it) } ?: emptyMap(),
                 defaultSaveDir = preferences[DEFAULT_SAVE_DIR]
             )
@@ -180,16 +171,9 @@ class SettingsStore(
                     assistants.add(defaultAssistant.copy())
                 }
             }
-            val ttsProviders = it.ttsProviders.ifEmpty { DEFAULT_TTS_PROVIDERS }.toMutableList()
-            DEFAULT_TTS_PROVIDERS.forEach { defaultTTSProvider ->
-                if (ttsProviders.none { provider -> provider.id == defaultTTSProvider.id }) {
-                    ttsProviders.add(defaultTTSProvider.copyProvider())
-                }
-            }
             it.copy(
                 providers = providers,
                 assistants = assistants,
-                ttsProviders = ttsProviders
             )
         }
         .map { settings ->
@@ -218,7 +202,6 @@ class SettingsStore(
                         }.toSet()
                     )
                 },
-                ttsProviders = settings.ttsProviders.distinctBy { it.id },
                 favoriteModels = settings.favoriteModels.filter { uuid ->
                     settings.providers.flatMap { it.models }.any { it.id == uuid }
                 }
@@ -267,10 +250,6 @@ class SettingsStore(
 
             preferences[MCP_SERVERS] = JsonInstant.encodeToString(settings.mcpServers)
             preferences[WEBDAV_CONFIG] = JsonInstant.encodeToString(settings.webDavConfig)
-            preferences[TTS_PROVIDERS] = JsonInstant.encodeToString(settings.ttsProviders)
-            settings.selectedTTSProviderId?.let {
-                preferences[SELECTED_TTS_PROVIDER] = it.toString()
-            } ?: preferences.remove(SELECTED_TTS_PROVIDER)
             preferences[DISABLED_MEMORIES] = JsonInstant.encodeToString(settings.disabledMemories)
             settings.defaultSaveDir?.let { preferences[DEFAULT_SAVE_DIR] = it } ?: preferences.remove(DEFAULT_SAVE_DIR)
         }
@@ -316,8 +295,6 @@ data class Settings(
     val searchServiceSelected: Int = 0,
     val mcpServers: List<McpServerConfig> = emptyList(),
     val webDavConfig: WebDavConfig = WebDavConfig(),
-    val ttsProviders: List<TTSProviderSetting> = DEFAULT_TTS_PROVIDERS,
-    val selectedTTSProviderId: Uuid = DEFAULT_SYSTEM_TTS_ID,
     val disabledMemories: Map<String, List<Int>> = emptyMap()
     ,
     val defaultSaveDir: String? = null
@@ -384,11 +361,6 @@ fun Settings.getAssistantById(id: Uuid): Assistant? {
     return this.assistants.find { it.id == id }
 }
 
-fun Settings.getSelectedTTSProvider(): TTSProviderSetting? {
-    return selectedTTSProviderId?.let { id ->
-        ttsProviders.find { it.id == id }
-    } ?: ttsProviders.firstOrNull()
-}
 
 fun Model.findProvider(providers: List<ProviderSetting>, checkOverwrite: Boolean = true): ProviderSetting? {
     val provider = findModelProviderFromList(providers) ?: return null
@@ -434,19 +406,5 @@ internal val DEFAULT_ASSISTANTS = listOf(
     ),
 )
 
-val DEFAULT_SYSTEM_TTS_ID = Uuid.parse("026a01a2-c3a0-4fd5-8075-80e03bdef200")
-private val DEFAULT_TTS_PROVIDERS = listOf(
-    TTSProviderSetting.SystemTTS(
-        id = DEFAULT_SYSTEM_TTS_ID,
-        name = "",
-    ),
-    TTSProviderSetting.OpenAI(
-        id = Uuid.parse("e36b22ef-ca82-40ab-9e70-60cad861911c"),
-        name = "AiHubMix",
-        baseUrl = "https://aihubmix.com/v1",
-        model = "gpt-4o-mini-tts",
-        voice = "alloy",
-    )
-)
 
 internal val DEFAULT_ASSISTANTS_IDS = DEFAULT_ASSISTANTS.map { it.id }

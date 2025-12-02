@@ -46,7 +46,7 @@ import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
+ 
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.Icons
 import com.lhzkml.jasmine.R
@@ -171,15 +171,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                 )
             }
 
-            item {
-                SettingItem(
-                    navController = navController,
-                    title = { Text(stringResource(R.string.setting_page_tts_service)) },
-                    description = { Text(stringResource(R.string.setting_page_tts_service_desc)) },
-                    icon = { Icon(Icons.AutoMirrored.Filled.VolumeUp, "TTS") },
-                    link = Screen.SettingTTS
-                )
-            }
+            
 
             item {
                 SettingItem(

@@ -1,0 +1,107 @@
+目标与范围
+- 彻底删除应用内“语音服务（TTS）”功能：移除所有 UI 入口、状态管理与依赖、数据与资源并从构建系统剔除 `:tts` 模块。
+- 同时清理 `ai` 子项目中的语音聊天与原生 TTS Demo（如 `VoiceChatPresenter/Fragment`、`TtsService`、`frameworks/mnn_tts` 等），不保留任何语音服务相关代码与资源。
+
+现状与关键位置
+- 全局注入与入口：
+  - `app/src/main/java/com/lhzkml/jasmine/RouteActivity.kt:186` 创建并提供 `tts = rememberCustomTtsState()`；`RouteActivity.kt:194` 将其注入 `LocalTTSState`；`RouteActivity.kt:203` 渲染悬浮控制器 `TTSController()`；`RouteActivity.kt:311` 注册 `SettingTTSPage` 路由；`RouteActivity.kt:383` 存在 `Screen.SettingTTS`。
+  - `app/src/main/java/com/lhzkml/jasmine/ui/context/LocalTTSState.kt:6` 定义全局 `LocalTTSState`。
+- UI 使用点：
+  - 聊天消息动作：`app/src/main/java/com/lhzkml/jasmine/ui/components/message/ChatMessageActions.kt:105-129` 使用 `LocalTTSState` 播放/停止语音。
+  - 悬浮控制器：`app/src/main/java/com/lhzkml/jasmine/ui/components/ui/TTSController.kt:41` 提供播放/暂停、快进、倍速等控制。
+  - 设置页：`app/src/main/java/com/lhzkml/jasmine/ui/pages/setting/SettingTTSPage.kt:66` 列表及测试播放；`app/src/main/java/com/lhzkml/jasmine/ui/pages/setting/components/TTSProviderConfigure.kt:27` 提供商配置表单。
+- 状态管理与实现：
+  - Hook 与状态：`app/src/main/java/com/lhzkml/jasmine/ui/hooks/TTS.kt`（`rememberCustomTtsState`、`CustomTtsState`）。
+  - 控制器与底层：`tts/src/main/java/.../controller/TtsController.kt`、`provider/TTSManager.kt`、`provider/providers/*`、`model/*`。
+- 依赖注入：
+  - `app/src/main/java/com/lhzkml/jasmine/di/AppModule.kt:39` 注入 `TTSManager(get())`。
+- 数据与默认值：
+  - `app/src/main/java/com/lhzkml/jasmine/data/datastore/PreferencesStore.kt`：
+    - 键定义：`PreferencesStore.kt:96-98` `TTS_PROVIDERS`、`SELECTED_TTS_PROVIDER`。
+    - 读取与默认：`PreferencesStore.kt:151-156` 读取；`PreferencesStore.kt:183-193` 合并默认 `DEFAULT_TTS_PROVIDERS`；`PreferencesStore.kt:437-450` 默认提供商与 ID；`PreferencesStore.kt:387-391` `getSelectedTTSProvider()`。
+    - 保存：`PreferencesStore.kt:270-273` 写入。
+- 构建系统：
+  - `settings.gradle.kts:37` `include(":tts")`；`app/build.gradle.kts:279` 依赖 `implementation(project(":tts"))`。
+- 资源：
+  - `app/src/main/res/values/strings.xml:22-23` `tts`、`test_tts`；`strings.xml:75-76` `setting_page_tts_service` 及描述。另有若干 `setting_tts_page_*` 键在多语言资源中。
+
+实施方案（分步）
+1) 移除所有 UI 入口与路由
+- 聊天消息动作：删除 `ChatMessageActions.kt:105-129` 中的 TTS 图标与点击逻辑（`LocalTTSState`、`tts.speak()`、`tts.stop()`）。
+- 悬浮控制器：删除 `TTSController.kt` 整个文件的引用与渲染；在 `RouteActivity.kt:203` 移除 `TTSController()`。
+- CompositionLocal 注入：在 `RouteActivity.kt` 中移除 `val tts = rememberCustomTtsState()`（`RouteActivity.kt:186`）与 `LocalTTSState provides tts`（`RouteActivity.kt:194`）。
+- 路由与屏幕枚举：
+  - 删除 `RouteActivity.kt:311` 的 `composable<Screen.SettingTTS>`；同时在 `RouteActivity.kt:383` 删除 `Screen.SettingTTS` 成员。
+- 本地上下文：删除 `ui/context/LocalTTSState.kt:6` 文件及所有导入。
+ - 设置总页入口：在 `ui/pages/setting/SettingPage.kt:174-182` 删除“文本转语音服务”列表项及其 `link = Screen.SettingTTS`，确保设置页不再暴露 TTS 入口。
+
+2) 移除 Hook 与状态实现
+- 删除 `ui/hooks/TTS.kt`（包含 `rememberCustomTtsState` 与 `CustomTtsState` 接口/实现），并清理所有导入：`com.lhzkmltts.model.*`、`com.lhzkmltts.provider.*`、`com.lhzkmltts.controller.TtsController`。
+ - 全局搜索并移除对 `com.lhzkmltts.*` 包的所有导入与引用（例如 `PlaybackState/PlaybackStatus/TTSManager/TTSProviderSetting` 等），确保应用层不再直接/间接依赖 TTS 模块。
+
+3) 依赖注入与模块依赖清理
+- Koin 注入：在 `di/AppModule.kt:39` 删除 `TTSManager(get())` 的 `single { ... }`。
+- 构建依赖：
+  - 从 `app/build.gradle.kts:279` 移除 `implementation(project(":tts"))`。
+  - 从 `settings.gradle.kts:37` 移除 `include(":tts")`。
+- 注意：移除模块依赖前需确保应用层不再引用 `com.lhzkmltts.*` 包。步骤 1/2 完成后再调整构建文件。
+
+4) 设置数据结构与持久化清理
+- `PreferencesStore.kt`：
+  - 删除键定义：移除 `TTS_PROVIDERS` 与 `SELECTED_TTS_PROVIDER`（`PreferencesStore.kt:96-98`）。
+  - 读取映射：删除 `settingsFlowRaw` 中 `ttsProviders` 与 `selectedTTSProviderId` 的读取（`PreferencesStore.kt:151-156`）。
+  - 默认合并：移除 `DEFAULT_TTS_PROVIDERS` 合并逻辑（`PreferencesStore.kt:183-193`）。
+  - 保存逻辑：移除 `preferences[TTS_PROVIDERS]` 与 `preferences[SELECTED_TTS_PROVIDER]` 写入（`PreferencesStore.kt:270-273`）。
+  - `Settings` 数据类：删除字段 `ttsProviders`（`PreferencesStore.kt:319`）与 `selectedTTSProviderId`（`PreferencesStore.kt:320`），同步调整引用处；删除 `getSelectedTTSProvider()`（`PreferencesStore.kt:387-391`）。
+  - 默认常量：删除 `DEFAULT_SYSTEM_TTS_ID` 与 `DEFAULT_TTS_PROVIDERS`（`PreferencesStore.kt:437-450`）。
+- 迁移与兼容：删除上述字段后，DataStore 中旧键将被忽略；如需清理存量数据，可在迁移脚本里显式 `remove()` 这两个键，或保留默认忽略策略（推荐）。
+
+5) 资源与文案清理
+- 多语言目录：在 `app/src/main/res/values`（英文）、`app/src/main/res/values-zh`（简体中文）、`app/src/main/res/values-zh-rTW`（繁体中文）三套资源中同步删除以下键，保证 i18n 一致性：
+  - `tts`、`test_tts`（聊天按钮与测试文案）。
+  - `setting_page_tts_service`、`setting_page_tts_service_desc`（设置总页条目）。
+  - 全部以 `setting_tts_page_` 前缀的键（`TTSProviderConfigure` 与 `SettingTTSPage` 使用的配置项，如 `provider_type/name/api_key/base_url/model/voice/voice_id/voice_name/emotion/speed/speech_rate/pitch` 等）。
+  - 其他与 TTS 相关的描述性键，如组件内容描述、按钮文案中涉及 TTS 的部分。
+  - 若有图标资源/矢量引用（如 `VolumeUp` 等），保持图标库不动，仅删除使用点即可。
+
+6) 页面与组件代码清理
+- 删除 `SettingTTSPage.kt` 与 `TTSProviderConfigure.kt` 文件及所有导入使用点（`RouteActivity` 路由已在步骤 1 移除）。
+- 删除 `ui/components/ui/TTSController.kt` 文件（悬浮控制器）。
+
+7) AI 子项目语音聊天与原生 TTS 全量清理
+- 主要目录与文件（删除前逐项确认）：
+  - `ai/src/main/cpp/mnn/apps/Android/MnnLlmChat/` 下的语音聊天实现与入口（如 `VoiceChatPresenter.kt`、`VoiceChatFragment.kt` 等）。
+  - `ai/src/main/cpp/mnn/apps/Android/MnnTaoAvatar/app/src/main/java/com/taobao/meta/avatar/tts/TtsService.kt` 及其相关语音支持。
+  - `ai/src/main/cpp/mnn/apps/frameworks/mnn_tts/`（包含 `android` 与 `demo`）原生 TTS Demo 框架与示例。
+- 构建文件：
+  - 清理上述目录下各自的 `settings.gradle` 与 `build.gradle` 中的语音相关模块注册与依赖，确保不再构建或引用语音聊天/TTS Demo。
+- 入口 UI 与清单：
+  - 删除任何语音聊天入口页面、导航项与 AndroidManifest 中相关的 Activity/Service 注册（若存在）。
+
+验证步骤
+- 构建验证：
+  - 移除 `:tts` 依赖后，执行 `gradlew clean assembleDebug`，确认无 `com.lhzkmltts.*` 包引用错误。
+- 运行时验证：
+  - 进入聊天页面：不再显示“发声”按钮与悬浮控制器；点击消息更多操作不包含 TTS 相关项。
+  - 设置页面：不再显示“文本转语音”相关入口与页面。
+  - 数据：旧版本生成的 `tts_providers`、`selected_tts_provider` 键存在时不会影响应用正常运行（未读取）。
+
+风险与回滚
+- 风险：
+  - 删除 `Settings` 字段为编译期变更，需同步修复所有引用处（编译器能定位）。
+  - 若第三方代码或未来特性依赖 `:tts` 模块，需评估影响（当前应用主功能未依赖）。
+- 回滚：
+  - 通过版本控制恢复被删除文件与依赖；
+  - 在 `settings.gradle.kts` 重新 `include(":tts")`，在 `app/build.gradle.kts` 恢复 `implementation(project(":tts"))`；
+  - 恢复 `PreferencesStore` 字段与键映射；恢复 `RouteActivity` 中 `LocalTTSState` 注入与 `TTSController` 渲染；恢复 UI 按钮。
+
+实施顺序建议
+1. 应用层 UI/入口（RouteActivity、ChatMessageActions、路由与 LocalTTSState）
+2. Hook 与状态（ui/hooks/TTS.kt）
+3. 依赖注入与构建（移除 TTSManager 注入、Gradle 依赖与模块 include）
+4. 数据层（PreferencesStore/Settings 字段与键）
+5. 资源与文案（strings.xml 等）
+6. 可选：AI 子项目语音聊天模块
+
+说明
+- 本方案仅提出删除步骤与影响分析，未对仓库做任何删除改动。请确认范围（是否包含 AI 子项目语音聊天）后，我再按此方案分批次执行并在每步完成后进行构建与运行验证。

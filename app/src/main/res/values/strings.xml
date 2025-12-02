@@ -19,8 +19,6 @@
   <string name="copy">Copy</string>
   <string name="regenerate">Regenerate</string>
   <string name="edit">Edit</string>
-  <string name="tts">TTS</string>
-  <string name="test_tts">Test TTS</string>
   <string name="deep_thinking">Deep Thinking</string>
   <string name="citations_count">%1$d Citations</string>
   <string name="back">Back</string>
@@ -72,8 +70,6 @@
   <string name="setting_page_providers_desc">Configure AI providers</string>
   <string name="setting_page_search_service">Search Service</string>
   <string name="setting_page_search_service_desc">Set up search service</string>
-  <string name="setting_page_tts_service">Text-to-Speech Service</string>
-  <string name="setting_page_tts_service_desc">Configure text-to-speech service providers</string>
   <string name="setting_page_search_title">Search Service</string>
   <string name="setting_page_search_providers">Search Providers</string>
   <string name="setting_page_search_add_provider">Add Provider</string>
@@ -447,59 +443,6 @@
   <string name="setting_provider_page_private_key">Private Key</string>
   <string name="setting_provider_page_response_api_warning">Response API is OpenAI\'s next-generation API. Most providers do not support it. If you don\'t know what this is, don\'t enable it.</string>
 
-  <!-- TTS Settings -->
-  <string name="setting_tts_page_title">Text-to-Speech</string>
-  <string name="setting_tts_page_add_provider">Add TTS Provider</string>
-  <string name="setting_tts_page_add">Add</string>
-  <string name="setting_tts_page_enabled">Enabled</string>
-  <string name="setting_tts_page_disabled">Disabled</string>
-  <string name="setting_tts_page_provider_type">Provider Type</string>
-  <string name="setting_tts_page_provider_type_description">Select the TTS provider type</string>
-  <string name="setting_tts_page_name">Name</string>
-  <string name="setting_tts_page_name_description">Custom name for this TTS provider</string>
-  <string name="setting_tts_page_name_placeholder">Enter provider name</string>
-  <string name="setting_tts_page_api_key">API Key</string>
-  <string name="setting_tts_page_api_key_description">Your provider API key</string>
-  <string name="setting_tts_page_base_url">Base URL</string>
-  <string name="setting_tts_page_base_url_description">API base URL endpoint</string>
-  <string name="setting_tts_page_model">Model</string>
-  <string name="setting_tts_page_model_description">TTS model to use</string>
-  <string name="setting_tts_page_voice">Voice</string>
-  <string name="setting_tts_page_voice_description">Voice to use for speech synthesis</string>
-  <string name="setting_tts_page_voice_name">Voice Name</string>
-  <string name="setting_tts_page_voice_name_description">Name of the voice</string>
-  <string name="setting_tts_page_speed">Speed</string>
-  <string name="setting_tts_page_speed_description">Speech speed (0.25 - 4.0)</string>
-  <string name="setting_tts_page_speech_rate">Speech Rate</string>
-  <string name="setting_tts_page_speech_rate_description">Control the speed of speech (0.1 - 3.0, 1.0 is normal)</string>
-  <string name="setting_tts_page_pitch">Pitch</string>
-  <string name="setting_tts_page_pitch_description">Control the pitch of speech (0.1 - 2.0, 1.0 is normal)</string>
-  <string name="setting_tts_page_language">Language</string>
-  <string name="setting_tts_page_language_description">Language code for TTS (e.g., en-US, zh-CN, ja-JP)</string>
-  <string name="setting_tts_page_edit_provider">Edit Provider</string>
-  <string name="setting_tts_page_select">Select</string>
-  <string name="setting_tts_page_selected">Selected</string>
-  <string name="setting_tts_page_default_name">System TTS</string>
-      <string name="setting_tts_page_test_text">Hello, this is a text-to-speech test.</string>
-  <string name="setting_tts_page_provider_openai">OpenAI</string>
-  <string name="setting_tts_page_provider_gemini">Gemini</string>
-  <string name="setting_tts_page_provider_system">System TTS</string>
-  <string name="setting_tts_page_add_provider_content_description">Add TTS Provider</string>
-  <string name="setting_tts_page_more_options_content_description">More options</string>
-  <string name="setting_tts_page_default_openai_name">OpenAI TTS</string>
-  <string name="setting_tts_page_default_gemini_name">Gemini TTS</string>
-  <string name="setting_tts_page_default_system_name">System TTS</string>
-  <string name="setting_tts_page_api_key_placeholder_openai">sk-...</string>
-  <string name="setting_tts_page_api_key_placeholder_gemini">AIza...</string>
-  <string name="setting_tts_page_base_url_placeholder">https://api.openai.com/v1</string>
-  <string name="setting_tts_page_model_placeholder_openai">gpt-4o-mini-tts</string>
-  <string name="setting_tts_page_model_placeholder_gemini">gemini-2.5-flash-preview-tts</string>
-  <string name="setting_tts_page_voice_name_placeholder">Kore</string>
-  <string name="setting_tts_page_voice_id">Voice ID</string>
-  <string name="setting_tts_page_voice_id_description">Voice ID for speech synthesis</string>
-  <string name="setting_tts_page_emotion">Emotion</string>
-  <string name="setting_tts_page_emotion_description">Emotion style for speech synthesis</string>
-  <string name="setting_tts_page_emotion_placeholder">happy</string>
 
   <!-- Chat Message Tool Calls -->
   <string name="chat_message_tool_create_memory">Created memory</string>

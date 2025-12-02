@@ -12,7 +12,6 @@ import com.lhzkml.jasmine.data.ai.tools.LocalTools
 import com.lhzkml.jasmine.service.ChatService
 import com.lhzkml.jasmine.utils.JsonInstant
 import com.lhzkml.jasmine.utils.UpdateChecker
-import com.lhzkmltts.provider.TTSManager
 import org.koin.dsl.module
 
 val appModule = module {
@@ -35,9 +34,7 @@ val appModule = module {
     }
 
 
-    single {
-        TTSManager(get())
-    }
+    
 
     single {
         Firebase.crashlytics
