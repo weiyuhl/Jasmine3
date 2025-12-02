@@ -2,11 +2,7 @@ package com.lhzkml.jasmine.ui.theme
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
-import com.lhzkml.jasmine.ui.theme.presets.AutumnThemePreset
-import com.lhzkml.jasmine.ui.theme.presets.BlackThemePreset
-import com.lhzkml.jasmine.ui.theme.presets.OceanThemePreset
 import com.lhzkml.jasmine.ui.theme.presets.SakuraThemePreset
-import com.lhzkml.jasmine.ui.theme.presets.SpringThemePreset
 
 data class PresetTheme(
     val id: String,

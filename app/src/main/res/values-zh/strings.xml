@@ -588,11 +588,7 @@
   <string name="stop">停止</string>
   <string name="take_picture">拍照</string>
   <string name="test_tts">测试语音</string>
-  <string name="theme_name_autumn">秋黄</string>
-  <string name="theme_name_black">中性黑</string>
-  <string name="theme_name_ocean">海湾蓝</string>
   <string name="theme_name_sakura">樱花粉</string>
-  <string name="theme_name_spring">原野绿</string>
   <string name="tools_warning">当前模型未开启工具调用，请在设置内启用模型的工具能力，再使用搜索/MCP等功能</string>
   <string name="translate">翻译</string>
   <string name="translating">翻译中...</string>
