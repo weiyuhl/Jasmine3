@@ -2,7 +2,7 @@ package com.lhzkml.jasmine.ui.theme
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
-import com.lhzkml.jasmine.ui.theme.presets.SakuraThemePreset
+import com.lhzkml.jasmine.ui.theme.presets.ModernThemePreset
 
 data class PresetTheme(
     val id: String,
@@ -17,10 +17,10 @@ data class PresetTheme(
 
 val PresetThemes by lazy {
     listOf(
-        SakuraThemePreset,
+        ModernThemePreset,
     )
 }
 
 fun findPresetTheme(id: String): PresetTheme {
-    return PresetThemes.find { it.id == id } ?: SakuraThemePreset
+    return PresetThemes.find { it.id == id } ?: ModernThemePreset
 }

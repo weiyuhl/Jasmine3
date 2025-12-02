@@ -49,7 +49,6 @@ import com.lhzkml.jasmine.ui.theme.AppLanguage
 import com.lhzkml.jasmine.ui.theme.ColorMode
 import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.context.LocalToaster
-import com.lhzkml.jasmine.ui.pages.setting.components.PresetThemeButtonGroup
 import com.lhzkml.jasmine.utils.plus
 import org.koin.androidx.compose.koinViewModel
 
@@ -128,7 +127,6 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                             optionToString = {
                                 when (it) {
                                     ColorMode.SYSTEM -> stringResource(R.string.setting_page_color_mode_system)
-                                    ColorMode.LIGHT -> stringResource(R.string.setting_page_color_mode_light)
                                     ColorMode.DARK -> stringResource(R.string.setting_page_color_mode_dark)
                                     ColorMode.MODERN -> stringResource(R.string.setting_page_color_mode_modern)
                                 }
@@ -139,37 +137,7 @@ fun SettingDisplayPage(vm: SettingVM = koinViewModel()) {
                 )
             }
 
-            item {
-                ListItem(
-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                    headlineContent = {
-                        Text(stringResource(R.string.setting_page_dynamic_color))
-                    },
-                    supportingContent = {
-                        Text(stringResource(R.string.setting_page_dynamic_color_desc))
-                    },
-                    trailingContent = {
-                        Switch(
-                            checked = settings.dynamicColor,
-                            onCheckedChange = {
-                                vm.updateSettings(settings.copy(dynamicColor = it))
-                            },
-                        )
-                    },
-                )
-            }
-
-            if (!settings.dynamicColor) {
-                item {
-                    PresetThemeButtonGroup(
-                        themeId = settings.themeId,
-                        modifier = Modifier.fillMaxWidth(),
-                        onChangeTheme = {
-                            vm.updateSettings(settings.copy(themeId = it))
-                        }
-                    )
-                }
-            }
+            
 
             item {
                 val context = LocalContext.current

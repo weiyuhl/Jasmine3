@@ -8,18 +8,17 @@ import androidx.compose.ui.res.stringResource
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.ui.theme.PresetTheme
 
-val SakuraThemePreset by lazy {
+val ModernThemePreset by lazy {
     PresetTheme(
-        id = "sakura",
+        id = "modern",
         name = {
-            Text(stringResource(id = R.string.theme_name_sakura))
+            Text(stringResource(id = R.string.setting_page_color_mode_modern))
         },
         standardLight = lightScheme,
         standardDark = darkScheme,
     )
 }
 
-//region Sakura Theme Colors
 private val primaryLight = Color(0xFF2563EB)
 private val onPrimaryLight = Color(0xFFFFFFFF)
 private val primaryContainerLight = Color(0xFFDBEAFE)
@@ -167,3 +166,4 @@ private val darkScheme = darkColorScheme(
     surfaceContainerHigh = surfaceContainerHighDark,
     surfaceContainerHighest = surfaceContainerHighestDark,
 )
+

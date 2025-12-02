@@ -414,7 +414,6 @@
   <string name="setting_page_chat_storage_desc">%1$d 個檔案，%2$.2f MB</string>
   <string name="setting_page_color_mode">顏色模式</string>
   <string name="setting_page_color_mode_dark">深色</string>
-  <string name="setting_page_color_mode_light">淺色</string>
   <string name="setting_page_color_mode_system">跟隨系統</string>
   <string name="setting_page_color_mode_modern">現代簡約</string>
   <string name="setting_page_config">配置</string>
@@ -430,8 +429,6 @@
   <string name="setting_page_app_language">應用語言</string>
   <string name="setting_page_app_language_desc">切換應用顯示語言</string>
   <string name="language_system">跟隨系統</string>
-  <string name="setting_page_dynamic_color">動態顏色</string>
-  <string name="setting_page_dynamic_color_desc">是否使用動態顏色</string>
   <string name="setting_page_general_settings">通用設定</string>
   <string name="setting_page_mcp">MCP</string>
   <string name="setting_page_mcp_desc">配置MCP伺服器</string>
@@ -448,9 +445,6 @@
   <string name="setting_page_search_service_desc">設定搜尋服務</string>
   <string name="setting_page_search_title">搜尋服務</string>
   <string name="setting_page_theme_setting">主題設定</string>
-  <string name="setting_page_theme_type_high_contrast">高對比</string>
-  <string name="setting_page_theme_type_medium_contrast">中對比</string>
-  <string name="setting_page_theme_type_standard">標準</string>
   <string name="setting_page_tts_service">語音服務</string>
   <string name="setting_page_tts_service_desc">配置語音合成服務提供商</string>
   <string name="setting_provider_page_abilities">能力</string>
@@ -591,7 +585,6 @@
   <string name="stop">停止</string>
   <string name="take_picture">拍照</string>
   <string name="test_tts">測試語音</string>
-  <string name="theme_name_sakura">櫻花粉</string>
   <string name="tools_warning">當前模型未開啟工具調用，請在設定內啟用模型的工具能力，再使用搜尋/MCP等功能</string>
   <string name="translate">翻譯</string>
   <string name="translating">翻譯中...</string>
