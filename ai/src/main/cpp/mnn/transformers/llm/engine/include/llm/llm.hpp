@@ -32,12 +32,7 @@ using ChatMessages = std::vector<ChatMessage>;
 struct PromptImagePart;
 struct MultimodalPrompt;
 
-enum TuneType {
-    // op encoder number for commit
-    OP_ENCODER_NUMBER = 0,
-};
-enum class MatchStrictLevel : int;
-enum class NgramSelectRule : int;
+ 
 
 struct KVMeta;
 struct LlmContext {
