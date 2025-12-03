@@ -120,7 +120,6 @@
   <string name="assistant_page_top_p_warning">请不要修改此值, 除非你知道自己在做什么</string>
   <string name="assistant_picker_expand">展开</string>
   <string name="assistant_picker_selected">已选择</string>
-  <string name="audio">音频</string>
   <string name="avatar_cancel">取消</string>
   <string name="avatar_change_avatar">更换头像</string>
   <string name="avatar_pick_image">选择图片</string>

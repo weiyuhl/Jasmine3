@@ -56,7 +56,6 @@ import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
-import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Movie
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -433,47 +432,7 @@ private fun MessagePartsBlock(
         }
     }
 
-    // Audios
-    val audios = parts.filterIsInstance<UIMessagePart.Audio>()
-    if (audios.isNotEmpty()) {
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            audios.fastForEach {
-                Surface(
-                    tonalElevation = 2.dp,
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        intent.data = FileProvider.getUriForFile(
-                            context,
-                            "${context.packageName}.fileprovider",
-                            it.url.toUri().toFile()
-                        )
-                        val chooserIndent = Intent.createChooser(intent, null)
-                        context.startActivity(chooserIndent)
-                    },
-                    modifier = Modifier,
-                    shape = RoundedCornerShape(50),
-                    color = MaterialTheme.colorScheme.secondaryContainer
-                ) {
-                    ProvideTextStyle(MaterialTheme.typography.labelSmall) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.MusicNote,
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
 
     // Images
     val images = parts.filterIsInstance<UIMessagePart.Image>()

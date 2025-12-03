@@ -99,7 +99,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.VideoLibrary
-import androidx.compose.material.icons.filled.LibraryMusic
 import androidx.compose.material.icons.filled.UploadFile
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.DeleteSweep
@@ -588,39 +587,6 @@ private fun MediaFileInputRow(
                 )
             }
         }
-        state.messageContent.filterIsInstance<UIMessagePart.Audio>().fastForEach { audio ->
-            Box {
-                Surface(
-                    modifier = Modifier.size(48.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    tonalElevation = 4.dp
-                ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(Icons.Filled.LibraryMusic, null)
-                    }
-                }
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(20.dp)
-                        .clickable {
-                            // Remove image
-                            state.messageContent =
-                                state.messageContent.filterNot { it == audio }
-                            // Delete image
-                            context.deleteChatFiles(listOf(audio.url.toUri()))
-                        }
-                        .align(Alignment.TopEnd)
-                        .background(MaterialTheme.colorScheme.secondary),
-                    tint = MaterialTheme.colorScheme.onSecondary
-                )
-            }
-        }
         state.messageContent.filterIsInstance<UIMessagePart.Document>()
             .fastForEach { document ->
                 Box {
@@ -705,11 +671,6 @@ private fun FilesPicker(
             if (provider != null && provider is ProviderSetting.Google) {
                 VideoPickButton {
                     state.addVideos(it)
-                    onDismiss()
-                }
-
-                AudioPickButton {
-                    state.addAudios(it)
                     onDismiss()
                 }
             }
@@ -1091,28 +1052,7 @@ fun VideoPickButton(onAddVideos: (List<Uri>) -> Unit = {}) {
     }
 }
 
-@Composable
-fun AudioPickButton(onAddAudios: (List<Uri>) -> Unit = {}) {
-    val context = LocalContext.current
-    val audioPickerLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.GetMultipleContents()
-    ) { selectedUris ->
-        if (selectedUris.isNotEmpty()) {
-            onAddAudios(context.createChatFilesByContents(selectedUris))
-        }
-    }
 
-    BigIconTextButton(
-        icon = {
-            Icon(Icons.Filled.LibraryMusic, null)
-        },
-        text = {
-            Text(stringResource(R.string.audio))
-        }
-    ) {
-        audioPickerLauncher.launch("audio/*")
-    }
-}
 
 @Composable
 fun FilePickButton(onAddFiles: (List<UIMessagePart.Document>) -> Unit = {}) {
