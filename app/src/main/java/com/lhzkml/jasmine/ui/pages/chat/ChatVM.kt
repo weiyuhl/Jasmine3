@@ -376,16 +376,6 @@ class ChatVM(
                                     } else part
                                 }
 
-                                is UIMessagePart.Audio -> {
-                                    val url = part.url
-                                    if (url.startsWith("file:")) {
-                                        val copied = context.createChatFilesByContents(
-                                            listOf(url.toUri())
-                                        ).firstOrNull()
-                                        if (copied != null) part.copy(url = copied.toString()) else part
-                                    } else part
-                                }
-
                                 else -> part
                             }
                         }

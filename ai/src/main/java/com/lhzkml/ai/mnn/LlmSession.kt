@@ -172,10 +172,6 @@ class LlmSession(
         this.keepHistory = keepHistory
     }
 
-    override fun setEnableAudioOutput(enable: Boolean) {
-        updateEnableAudioOutputNative(nativePtr, enable)
-    }
-
     override val debugInfo
         get() = getDebugInfoNative(nativePtr) + "\n"
 
@@ -192,7 +188,6 @@ class LlmSession(
         updateAssistantPromptNative(nativePtr, assistantPrompt)
     }
 
-    private external fun updateEnableAudioOutputNative(llmPtr: Long, enable: Boolean)
 
 
     private external fun updateMaxNewTokensNative(llmPtr: Long, maxNewTokens: Int)

@@ -238,7 +238,6 @@ fun List<UIMessagePart>.isEmptyInputMessage(): Boolean {
             is UIMessagePart.Image -> message.url.isBlank()
             is UIMessagePart.Document -> message.url.isBlank()
             is UIMessagePart.Video -> message.url.isBlank()
-            is UIMessagePart.Audio -> message.url.isBlank()
             else -> true
         }
     }
@@ -256,7 +255,6 @@ fun List<UIMessagePart>.isEmptyUIMessage(): Boolean {
             is UIMessagePart.Document -> message.url.isBlank()
             is UIMessagePart.Reasoning -> message.reasoning.isBlank()
             is UIMessagePart.Video -> message.url.isBlank()
-            is UIMessagePart.Audio -> message.url.isBlank()
             else -> true
         }
     }
@@ -335,14 +333,6 @@ sealed class UIMessagePart {
 
     @Serializable
     data class Video(
-        val url: String,
-        override var metadata: JsonObject? = null
-    ) : UIMessagePart() {
-        override val priority: Int = 1
-    }
-
-    @Serializable
-    data class Audio(
         val url: String,
         override var metadata: JsonObject? = null
     ) : UIMessagePart() {
