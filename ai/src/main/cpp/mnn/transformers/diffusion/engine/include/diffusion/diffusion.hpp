@@ -11,7 +11,7 @@
 #include <functional>
 #include <string>
 #include <memory>
-#include <MNN/Interpreter.hpp>
+#include <MNN/MNNForwardType.h>
 #include <MNN/expr/Expr.hpp>
 namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
 
