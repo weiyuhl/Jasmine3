@@ -106,4 +106,5 @@
   - 在 `llm.hpp` 增加 `<map>`（用于 `mModulePool`）与 `<utility>`（用于 `std::pair`）。
   - 分支：`min-headers-abi-safe-phase-2` — 构建再次验证通过（`:ai` 与 `:app`）。
   - 已推送分支并准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-2`。
-  - 待合并后清理分支。
+  - 已合并到 `main` 并完成分支清理（本地与远端）。
+  - 导出测试 APK（主分支）：`dist/jasmine-test-20251203-1957-universal.apk`。
