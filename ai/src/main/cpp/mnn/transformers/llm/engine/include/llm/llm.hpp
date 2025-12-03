@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 #include <iosfwd>
+#include <map>
 
 #include <MNN/expr/Expr.hpp>
 namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
