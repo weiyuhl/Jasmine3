@@ -32,12 +32,7 @@ using ChatMessages = std::vector<ChatMessage>;
 struct PromptImagePart;
 struct MultimodalPrompt;
 
-enum TuneType {
-    // op encoder number for commit
-    OP_ENCODER_NUMBER = 0,
-};
-enum class MatchStrictLevel : int;
-enum class NgramSelectRule : int;
+ 
 
 struct KVMeta;
 struct LlmContext {
@@ -101,8 +96,6 @@ public:
         return mContext.get();
     }
 protected:
-    void initRuntime();
-    void setRuntimeHint(std::shared_ptr<Express::Executor::RuntimeManager> &rtg);
     std::shared_ptr<LlmContext> mContext;
     std::shared_ptr<KVMeta> mMeta;
     std::shared_ptr<LlmConfig> mConfig;
@@ -125,12 +118,10 @@ protected:
     Express::VARP logitsAllIdx, logitsLastIdx;
     int mSeqLenIndex = 0;
 protected:
-    std::vector<Express::VARP> forwardVec(const std::vector<int>& input_ids);
-    std::vector<Express::VARP> forwardVec(MNN::Express::VARP input_embeds);
+    
 private:
     std::shared_ptr<Generation> mGenerationStrategy;
-    void setSpeculativeConfig();
-    void updateContext(int seq_len, int gen_len);
+    
 
 private:
     bool mInSpec = false;
