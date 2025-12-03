@@ -67,8 +67,7 @@ set_target_properties(MNN PROPERTIES IMPORTED_LOCATION "${LIB_PATH}/libMNN.so")
 #add_library(mnn_cl SHARED IMPORTED)
 #set_target_properties(mnn_cl PROPERTIES IMPORTED_LOCATION "${LIB_PATH}/libMNN_CL.so")
 #
-#add_library(mnn_audio SHARED IMPORTED)
-#set_target_properties(mnn_audio PROPERTIES IMPORTED_LOCATION "${LIB_PATH}/libMNNAudio.so")
+ 
 #
 #add_library(mnn_cv SHARED IMPORTED)
 #set_target_properties(mnn_cv PROPERTIES IMPORTED_LOCATION "${LIB_PATH}/libMNNOpenCV.so")
