@@ -95,3 +95,5 @@
   - Branch: `min-headers-abi-safe-phase-2` — builds verified (`:ai` and `:app`).
   - Pushed branch and prepared PR link: `https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-2`.
   - Pending: merge to `main` and branch cleanup after review.
+  - Make `llm.hpp` self-contained: add `<map>` for `mModulePool`.
+  - Builds re-verified (`:ai` and `:app`); branch updated.
