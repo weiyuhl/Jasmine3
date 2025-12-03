@@ -5,6 +5,9 @@
 #include <vector>
 #include <string>
 #include <chrono>
+#include <functional>
+#include <utility>
+#include <cstdint>
 #include "nlohmann/json.hpp"
 #include "llm/llm.hpp"
 

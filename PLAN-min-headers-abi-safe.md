@@ -112,4 +112,9 @@
   - 在 `llm.hpp` 增加 `<cstdint>`，确保 `int64_t`（用于 `LlmContext`）在无传递头时也能声明。
   - 分支：`min-headers-abi-safe-phase-3` — 构建已验证（`:ai` 与 `:app`）。
   - 已推送分支并准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-3`。
+  - 已合并到 `main` 并完成分支清理（本地与远端）。
+- 阶段 4（2025-12-03）
+  - 自包含增强（JNI 侧头）：`llm_session.h` 增加 `<functional>/<utility>/<cstdint>`，避免依赖传递头。
+  - 分支：`min-headers-abi-safe-phase-4` — 构建已验证（`:ai` 与 `:app`）。
+  - 已推送分支、准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-4`。
   - 待审阅后合并至 `main` 并清理分支。
