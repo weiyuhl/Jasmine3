@@ -8,8 +8,6 @@ class ChatDataItem {
     @JvmField
     var time: String? = null
 
-    // @JvmField
-    // var audioPlayComponent: AudioPlayerComponent? = null
 
     @JvmField
     var text: String? = null

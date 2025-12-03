@@ -1,0 +1,3 @@
+C:/jasmine/ai/src/main/cpp/build_arm64/CMakeFiles/mnnllmapp.dir
+C:/jasmine/ai/src/main/cpp/build_arm64/CMakeFiles/edit_cache.dir
+C:/jasmine/ai/src/main/cpp/build_arm64/CMakeFiles/rebuild_cache.dir

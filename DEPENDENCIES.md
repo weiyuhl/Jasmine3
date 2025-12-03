@@ -5,10 +5,10 @@
 ## UI 与界面
 - `androidx.core:core-ktx`（app、ai、document、common）— Kotlin 扩展；简化集合与平台 API。
 - `androidx.activity:activity-compose`（app）— Activity 与 Compose 集成。
-- `androidx.compose:compose-bom`（app、ai、search、tts、highlight）— Compose 版本对齐。
+- `androidx.compose:compose-bom`（app、ai、search、highlight）— Compose 版本对齐。
 - `androidx.compose.ui:ui`、`ui-graphics`、`ui-tooling-preview`（app、highlight）— UI 核心、图形与预览。
 - `androidx.compose.material:material-icons-extended`（app）— Material 图标扩展集。
-- `androidx.compose.material3:material3`（app、ai、search、tts、highlight）— Material 3 组件。
+- `androidx.compose.material3:material3`（app、ai、search、highlight）— Material 3 组件。
 - `androidx.compose.material3.adaptive:adaptive`、`adaptive-layout`（app）— 自适应布局。
 - `androidx.appcompat:appcompat`、`com.google.android.material:material`（document、common）— View 系 Material 与兼容支持。
 - `io.github.brdominguez:compose-sonner`（app）— Compose Toast/通知。
@@ -22,10 +22,10 @@
 - `androidx.profileinstaller:profileinstaller`（app）— 安装 Baseline Profile。
 
 ## 网络与序列化
-- `com.squareup.okhttp3:okhttp`、`okhttp-sse`、`logging-interceptor`（app、ai、search、tts、common）— HTTP 客户端、SSE 与日志。
+- `com.squareup.okhttp3:okhttp`、`okhttp-sse`、`logging-interceptor`（app、ai、search、common）— HTTP 客户端、SSE 与日志。
 - `com.squareup.retrofit2:retrofit`、`converter-kotlinx-serialization`（app）— REST 封装与 JSON 转换。
 - `io.ktor:ktor-bom`、`ktor-client-core`、`ktor-client-okhttp`、`ktor-client-content-negotiation`、`ktor-serialization-kotlinx-json`（app）— Ktor 客户端与内容协商。
-- `org.jetbrains.kotlinx:kotlinx-serialization-json`（app、ai、search、highlight、tts、common）— JSON 序列化。
+- `org.jetbrains.kotlinx:kotlinx-serialization-json`（app、ai、search、highlight、common）— JSON 序列化。
 
 ## 数据存储、数据库与分页
 - `androidx.datastore:datastore-preferences`（app）— 轻量键值存储。
@@ -34,7 +34,6 @@
 
 ## 图片与媒体
 - `io.coil-kt.coil3:coil-compose`、`coil-network-okhttp`、`coil-svg`（app）— 图片加载与 SVG 支持。
-- `androidx.media3:media3-exoplayer`、`media3-ui`、`media3-common`（tts）— 媒体播放与 UI。
 - `com.drewnoakes:metadata-extractor`（app）— 图片/文件元数据读取。
 - `com.github.yalantis:ucrop`（app）— 图片裁剪。
 

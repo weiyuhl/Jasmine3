@@ -300,7 +300,7 @@
 - 注入到 Agent 模式：系统消息构建时，若模型不支持原生工具格式，则在 `systemToolsXMLPrompt` 中合并 MCP 工具的 XML 定义与指南，供模型调用
 - 执行与结果注入：
   - 执行：在 `_runToolCall` 判断为 MCP 工具时，使用 `IMCPService.callMCPTool()` 执行
-  - 结果字符串化：`IMCPService.stringifyResult()` 按事件类型（text/image/audio/resource 等）生成可读字符串
+  - 结果字符串化：`IMCPService.stringifyResult()` 按事件类型（text/image/resource 等）生成可读字符串
   - 线程写入：以 `success` 类型的工具消息追加到线程；异常时写入 `tool_error`
 
 ### MCP 工具示例（通用模板）
@@ -315,7 +315,7 @@
 - 结果字符串化示例：
   - Text 事件：直接拼接文本内容为工具结果
   - Resource 事件：输出 `name`、`uri`、`mime` 与摘要（若存在）
-  - Image/Audio 事件：输出资源类型与可访问 `uri`，并在需要时提示用户打开资源
+-  - Image 事件：输出资源类型与可访问 `uri`，并在需要时提示用户打开资源
 - 常见调用流程：
   - 在系统消息中看到该 MCP 工具的 XML 定义后，模型按上述模板在响应末尾输出一次工具调用
   - 工具执行成功后，下一轮用户消息会携带 `success` 类型的工具结果文本，代理循环继续
@@ -329,7 +329,6 @@
 ### MCP 结果字符串化映射（明细）
 - Text：直接拼接文本；如包含多段，按事件顺序合并。
 - Image：输出资源类型与 `uri`/`mime`，必要时附加摘要或说明。
-- Audio：输出资源类型与 `uri`/`mime`；提示可播放或下载。
 - Resource：输出 `name`、`uri`、`mime`、`size`（如有）与摘要；若资源不可直接预览，提供可访问链接或说明。
 
 ---
