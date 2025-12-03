@@ -20,7 +20,6 @@
 
 #include <MNN/expr/Expr.hpp>
 #include <MNN/expr/Module.hpp>
-#include <MNN/expr/MathOp.hpp>
 
 namespace MNN {
 namespace Transformer {
