@@ -5,9 +5,10 @@
 
 #pragma once
 #include <string>
+#include <functional>
+#include <memory>
 #include "diffusion/diffusion.hpp"
 
-using namespace MNN::DIFFUSION;
 namespace mls {
 class DiffusionSession {
 public:
@@ -19,6 +20,6 @@ private:
     bool loaded_{false};
     std::string resource_path_;
     int memory_mode_;
-    std::unique_ptr<Diffusion> diffusion_{nullptr};
+    std::unique_ptr<MNN::DIFFUSION::Diffusion> diffusion_{nullptr};
 };
 }
