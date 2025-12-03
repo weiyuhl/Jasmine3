@@ -50,3 +50,33 @@
 - Do not modify virtual API signatures, ordering, or class member layout.
 - Keep JNI-used overloads and types (`ChatMessages`, vector<int>, context access) intact.
 
+## Progress Log (2025-12-03)
+- Harden .gitignore and remove tracked build artifacts
+  - Added global ignores for binaries/archives/build outputs; ensured `jniLibs`/`libs` are ignored.
+  - Untracked and removed remote `ai/src/main/cpp/build_arm64/*` artifacts.
+  - Commits: "repo: remove tracked build artifacts...", "gitignore: ignore global build artifacts and AI native outputs...".
+- Initial header pruning (LLM/Diffusion)
+  - Removed `#include <MNN/expr/NeuralNetWorkOp.hpp>` and `MathOp.hpp` from engine headers.
+  - Deleted unused MNN headers: `ImageProcess.hpp`, `Matrix.h`, `Rect.h` and `expr/ExprCreator.hpp`, `expr/Scope.hpp`, `expr/Optimizer.hpp`.
+  - Converted `Module.hpp` dependency to forward declarations; replaced `<iostream>` with `<iosfwd>`; removed heavy std headers.
+  - Builds verified; pushed to `main`.
+- Namespace-safe diffusion.hpp
+  - Removed `using namespace`; fully qualified `MNN::Express::VARP` and `MNN::MNNForwardType`.
+  - Added `<string>` and `<memory>` to make header self-contained.
+  - Commit pushed (e.g., de11533).
+- ABI stability adjustments
+  - Restored multimodal virtual declarations in `llm.hpp` to match upstream vtable, while keeping types forward-declared.
+  - Removed unused friend `Pipeline`, unused `TimePerformance` forward decl.
+- Branch `min-headers-abi-safe`
+  - Removed protected non-virtual helpers: `initRuntime`, `setRuntimeHint`, `forwardVec` overloads.
+  - Removed private non-virtuals: `setSpeculativeConfig`, `updateContext`.
+  - Removed unused enums: `TuneType`, `MatchStrictLevel`, `NgramSelectRule`.
+  - Builds verified; merged to `main` (e.g., bb6f9ba, 8f8a599) and pushed.
+- Diffusion private helpers removed
+  - Removed `step_plms`, `text_encoder`, `unet`, `vae_decoder` declarations from `diffusion.hpp`.
+  - Builds verified; pushed to `main` (e.g., 1c72f25).
+- Branch cleanup
+  - Deleted `min-headers-abi-safe` locally and on remote; deleted legacy `min-headers` on remote.
+
+## Pending (Paused)
+- Phase-based merging of remaining non-virtual cleanup and include trimming as described above.
