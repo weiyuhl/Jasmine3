@@ -90,3 +90,8 @@
   - Exported test APK:
     - `dist/jasmine-test-20251203-1933-universal.apk`
   - Status: build successful; lint report generated; artifacts verified.
+- Phase 2 (2025-12-03)
+  - Removed unnecessary include from diffusion header: `<MNN/Interpreter.hpp>`.
+  - Branch: `min-headers-abi-safe-phase-2` — builds verified (`:ai` and `:app`).
+  - Pushed branch and prepared PR link: `https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-2`.
+  - Pending: merge to `main` and branch cleanup after review.
