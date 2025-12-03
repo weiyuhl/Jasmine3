@@ -117,4 +117,5 @@
   - 自包含增强（JNI 侧头）：`llm_session.h` 增加 `<functional>/<utility>/<cstdint>`，避免依赖传递头。
   - 分支：`min-headers-abi-safe-phase-4` — 构建已验证（`:ai` 与 `:app`）。
   - 已推送分支、准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-4`。
-  - 待审阅后合并至 `main` 并清理分支。
+  - 已合并到 `main` 并完成分支清理（本地与远端）。
+  - 导出测试 APK（主分支）：`dist/jasmine-test-20251203-2020-universal.apk`。
