@@ -121,8 +121,7 @@ protected:
     
 private:
     std::shared_ptr<Generation> mGenerationStrategy;
-    void setSpeculativeConfig();
-    void updateContext(int seq_len, int gen_len);
+    
 
 private:
     bool mInSpec = false;
