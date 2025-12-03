@@ -12,7 +12,6 @@
 #include <MNN/Interpreter.hpp>
 #include <MNN/expr/Expr.hpp>
 #include <MNN/expr/MathOp.hpp>
-#include <MNN/expr/NeuralNetWorkOp.hpp>
 #include <MNN/expr/Module.hpp>
 
 using namespace MNN;

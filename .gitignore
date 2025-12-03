@@ -52,6 +52,17 @@ jasmine-remote/
  out/
  dist/
  
- # AI native build outputs
- ai/src/main/cpp/build_*/
- ai/src/main/cpp/**/lib*.so
+# AI native build outputs
+ai/src/main/cpp/build_*/
+ai/src/main/cpp/**/lib*.so
+ 
+ # Native libs and local binary deps
+ **/jniLibs/**
+ **/libs/**
+ *.jar
+ *.zip
+ *.tar
+ *.tar.gz
+ *.tgz
+ *.7z
+ *.gz

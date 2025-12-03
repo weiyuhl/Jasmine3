@@ -21,7 +21,6 @@
 #include <MNN/expr/Expr.hpp>
 #include <MNN/expr/Module.hpp>
 #include <MNN/expr/MathOp.hpp>
-#include <MNN/expr/NeuralNetWorkOp.hpp>
 
 namespace MNN {
 namespace Transformer {
