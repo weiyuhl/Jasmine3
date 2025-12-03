@@ -11,7 +11,7 @@
 #include <vector>
 #include <MNN/Interpreter.hpp>
 #include <MNN/expr/Expr.hpp>
-#include <MNN/expr/Module.hpp>
+namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
 
 using namespace MNN;
 using namespace MNN::Express;

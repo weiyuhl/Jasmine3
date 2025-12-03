@@ -19,7 +19,10 @@
 #include <unordered_map>
 
 #include <MNN/expr/Expr.hpp>
-#include <MNN/expr/Module.hpp>
+#include <memory>
+#include <vector>
+#include <string>
+namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
 
 namespace MNN {
 namespace Transformer {
