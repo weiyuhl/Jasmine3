@@ -119,3 +119,9 @@
   - 已推送分支、准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-4`。
   - 已合并到 `main` 并完成分支清理（本地与远端）。
   - 导出测试 APK（主分支）：`dist/jasmine-test-20251203-2020-universal.apk`。
+- 阶段 5（2025-12-03）
+  - 公共头命名空间安全化：移除 `diffusion_session.h` 中的 `using namespace MNN::DIFFUSION;`。
+  - 增强自包含：新增 `<functional>/<memory>` 并对 `Diffusion` 使用全限定名 `MNN::DIFFUSION::Diffusion`。
+  - 分支：`min-headers-abi-safe-phase-5` — 构建已验证（`:ai` 与 `:app`）。
+  - 已推送分支并准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-5`。
+  - 待审阅后合并至 `main` 并清理分支。
