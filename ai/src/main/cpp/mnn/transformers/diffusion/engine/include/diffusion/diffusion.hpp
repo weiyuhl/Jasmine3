@@ -7,7 +7,6 @@
 #ifndef MNN_DIFFUSION_HPP
 #define MNN_DIFFUSION_HPP
 
-#include <map>
 #include <vector>
 #include <MNN/Interpreter.hpp>
 #include <MNN/expr/Expr.hpp>

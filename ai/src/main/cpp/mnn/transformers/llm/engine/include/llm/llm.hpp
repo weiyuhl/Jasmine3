@@ -11,12 +11,8 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include <fstream>
-#include <sstream>
 #include <iostream>
-#include <streambuf>
 #include <functional>
-#include <unordered_map>
 
 #include <MNN/expr/Expr.hpp>
 #include <memory>

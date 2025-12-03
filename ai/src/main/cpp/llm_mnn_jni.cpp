@@ -11,7 +11,6 @@
 #include <sstream>
 #include <chrono>
 #include "mls_log.h"
-#include "MNN/expr/ExecutorScope.hpp"
 #include "nlohmann/json.hpp"
 #include "llm_stream_buffer.hpp"
 #include "utf8_stream_processor.hpp"
