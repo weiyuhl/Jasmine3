@@ -80,3 +80,13 @@
 
 ## Pending (Paused)
 - Phase-based merging of remaining non-virtual cleanup and include trimming as described above.
+- Build & Test Validation (2025-12-03)
+  - Ran unit tests: `./gradlew :app:testDebugUnitTest` — completed; no failing tests.
+  - Ran lint: `./gradlew :app:lint` — report at `app/build/reports/lint-results-debug.html`.
+  - Built APKs: `./gradlew :app:assembleDebug` — outputs:
+    - `app/build/outputs/apk/debug/jasmine_1.0_arm64-v8a-debug.apk`
+    - `app/build/outputs/apk/debug/jasmine_1.0_universal-debug.apk`
+    - `app/build/outputs/apk/debug/jasmine_1.0_x86_64-debug.apk`
+  - Exported test APK:
+    - `dist/jasmine-test-20251203-1933-universal.apk`
+  - Status: build successful; lint report generated; artifacts verified.
