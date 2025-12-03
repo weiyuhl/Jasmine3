@@ -13,7 +13,6 @@
 #include <string>
 #include <iosfwd>
 #include <functional>
-#include <map>
 
 #include <MNN/expr/Expr.hpp>
 namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
@@ -32,16 +31,8 @@ struct TimePerformance;
 using ChatMessage = std::pair<std::string, std::string>; // <role, content>
 using ChatMessages = std::vector<ChatMessage>;
 
-struct MNN_PUBLIC PromptImagePart {
-    MNN::Express::VARP image_data;
-    int width;
-    int height;
-};
-
-struct MNN_PUBLIC MultimodalPrompt {
-    std::string prompt_template;
-    std::map<std::string, PromptImagePart> images;
-};
+struct PromptImagePart;
+struct MultimodalPrompt;
 
 enum TuneType {
     // op encoder number for commit
@@ -88,35 +79,18 @@ public:
     virtual Express::VARP gen_position_ids(int seq_len);
     virtual Express::VARP embedding(const std::vector<int>& input_ids);
     virtual int sample(Express::VARP logits, int offset = 0, int size = 0);
-    std::vector<Express::VARP> getOutputs() const;
-    int getOutputIndex(const std::string& name) const;
-    void reset();
-    void tuning(TuneType type, std::vector<int> candidates);
+    
     virtual std::vector<Express::VARP> forwardRaw(Express::VARP hiddenState, Express::VARP mask, Express::VARP inputPos);
-    Express::VARP forward(const std::vector<int>& input_ids, bool is_prefill = true);
-    Express::VARP forward(MNN::Express::VARP input_embeds);
-    void switchMode(Stage stage);
-    void setKVCacheInfo(size_t add, size_t remove, int* reserve = nullptr, int n_reserve = 0);
-    size_t getCurrentHistory() const;
-    void eraseHistory(size_t begin, size_t end);
+    
     virtual void response(const std::vector<int>& input_ids, std::ostream* os = &std::cout, const char* end_with = nullptr, int max_new_tokens = -1);
-    void response(const std::string& user_content, std::ostream* os = &std::cout, const char* end_with = nullptr, int max_new_tokens = -1);
     void response(const ChatMessages& chat_prompts, std::ostream* os = &std::cout, const char* end_with = nullptr, int max_new_tokens = -1);
-    void response(MNN::Express::VARP input_embeds, std::ostream* os = &std::cout, const char* end_with = nullptr, int max_new_tokens = -1);
     virtual void generate_init(std::ostream* os = nullptr, const char* end_with = nullptr);
     void generate(int max_token);
-    std::vector<int> generate(const std::vector<int>& input_ids, int max_new_tokens = -1);
-    std::vector<int> generate(MNN::Express::VARP input_embeds, int max_tokens = -1);
-    bool stoped();
-    bool reuse_kv();
+    
     // config function
     std::string dump_config();
     bool set_config(const std::string& content);
-    Llm* create_lora(const std::string& lora_path);
-    std::string get_statistics();
-    // tokenier function
-    bool is_stop(int token);
-    std::string tokenizer_decode(int token);
+    
     virtual std::vector<int> tokenizer_encode(const std::string& query);
     friend class Pipeline;
     
