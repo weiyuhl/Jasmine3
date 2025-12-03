@@ -353,16 +353,6 @@ Java_com_alibaba_mnnllm_android_llm_LlmSession_updateAssistantPromptNative(JNIEn
 }
 }
 extern "C"
-JNIEXPORT void JNICALL
-Java_com_alibaba_mnnllm_android_llm_LlmSession_updateEnableAudioOutputNative(JNIEnv *env,jobject thiz, jlong llm_ptr, jboolean enable) {
-    auto *llm = reinterpret_cast<mls::LlmSession *>(llm_ptr);
-    if (llm) {
-        llm->enableAudioOutput((bool)enable);
-    }
-}
-
-
-extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_alibaba_mnnllm_android_llm_LlmSession_getSystemPromptNative(JNIEnv *env, jobject thiz,
                                                                      jlong llm_ptr) {

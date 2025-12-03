@@ -204,10 +204,6 @@ void LlmSession::SetAssistantPrompt(const std::string& assistant_prompt) {
     MNN_DEBUG("dumped config: %s", llm_->dump_config().c_str());
 }
 
-void LlmSession::enableAudioOutput(bool enable) {
-    enable_audio_output_ = enable;
-}
-
 
     const MNN::Transformer::LlmContext * LlmSession::ResponseWithHistory(
             const std::vector<PromptItem>& full_history,
