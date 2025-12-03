@@ -26,11 +26,6 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
  *             permission = Manifest.permission.CAMERA,
  *             usage = { Text("需要相机权限来拍照") },
  *             required = true
- *         ),
- *         PermissionInfo(
- *             permission = Manifest.permission.RECORD_AUDIO,
- *             usage = { Text("需要录音权限来录制视频") },
- *             required = false
  *         )
  *     )
  * )

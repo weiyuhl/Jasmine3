@@ -25,6 +25,7 @@ import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_OCR_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TRANSLATION_PROMPT
 import com.lhzkml.jasmine.data.datastore.migration.PreferenceStoreV1Migration
+import com.lhzkml.jasmine.data.datastore.migration.PreferenceStoreV2Migration
 import com.lhzkml.jasmine.data.ai.tools.LocalToolOption
 import com.lhzkml.jasmine.data.model.Assistant
 import com.lhzkml.jasmine.data.model.Avatar
@@ -43,7 +44,8 @@ private val Context.settingsStore by preferencesDataStore(
     name = "settings",
     produceMigrations = { context ->
         listOf(
-            PreferenceStoreV1Migration()
+            PreferenceStoreV1Migration(),
+            PreferenceStoreV2Migration()
         )
     }
 )

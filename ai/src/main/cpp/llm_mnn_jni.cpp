@@ -104,13 +104,11 @@ JNIEXPORT jobject JNICALL Java_com_alibaba_mnnllm_android_llm_LlmSession_submitN
     int64_t prompt_len = 0;
     int64_t decode_len = 0;
     int64_t vision_time = 0;
-    int64_t audio_time = 0;
     int64_t prefill_time = 0;
     int64_t decode_time = 0;
     prompt_len += context->prompt_len;
     decode_len += context->gen_seq_len;
     vision_time += context->vision_us;
-    audio_time += context->audio_us;
     prefill_time += context->prefill_us;
     decode_time += context->decode_us;
     jclass hashMapClass = env->FindClass("java/util/HashMap");
@@ -132,10 +130,6 @@ JNIEXPORT jobject JNICALL Java_com_alibaba_mnnllm_android_llm_LlmSession_submitN
                           env->NewObject(env->FindClass("java/lang/Long"),
                                          env->GetMethodID(env->FindClass("java/lang/Long"),
                                                           "<init>", "(J)V"), vision_time));
-    env->CallObjectMethod(hashMap, putMethod, env->NewStringUTF("audio_time"),
-                          env->NewObject(env->FindClass("java/lang/Long"),
-                                         env->GetMethodID(env->FindClass("java/lang/Long"),
-                                                          "<init>", "(J)V"), audio_time));
     env->CallObjectMethod(hashMap, putMethod, env->NewStringUTF("prefill_time"),
                           env->NewObject(env->FindClass("java/lang/Long"),
                                          env->GetMethodID(env->FindClass("java/lang/Long"),
@@ -251,7 +245,6 @@ JNIEXPORT jobject JNICALL Java_com_alibaba_mnnllm_android_llm_LlmSession_submitF
     int64_t prompt_len = 0;
     int64_t decode_len = 0;
     int64_t vision_time = 0;
-    int64_t audio_time = 0;
     int64_t prefill_time = 0;
     int64_t decode_time = 0;
 
@@ -259,7 +252,6 @@ JNIEXPORT jobject JNICALL Java_com_alibaba_mnnllm_android_llm_LlmSession_submitF
         prompt_len += context->prompt_len;
         decode_len += context->gen_seq_len;
         vision_time += context->vision_us;
-        audio_time += context->audio_us;
         prefill_time += context->prefill_us;
         decode_time += context->decode_us;
     }
@@ -280,8 +272,6 @@ JNIEXPORT jobject JNICALL Java_com_alibaba_mnnllm_android_llm_LlmSession_submitF
                           env->NewObject(longClass, longInit, decode_len));
     env->CallObjectMethod(hashMap, hashMapPut, env->NewStringUTF("vision_time"),
                           env->NewObject(longClass, longInit, vision_time));
-    env->CallObjectMethod(hashMap, hashMapPut, env->NewStringUTF("audio_time"),
-                          env->NewObject(longClass, longInit, audio_time));
     env->CallObjectMethod(hashMap, hashMapPut, env->NewStringUTF("prefill_time"),
                           env->NewObject(longClass, longInit, prefill_time));
     env->CallObjectMethod(hashMap, hashMapPut, env->NewStringUTF("decode_time"),
@@ -302,44 +292,7 @@ Java_com_alibaba_mnnllm_android_llm_LlmSession_resetNative(JNIEnv *env, jobject 
     }
 }
 
-extern "C"
-JNIEXPORT jboolean JNICALL
-Java_com_alibaba_mnnllm_android_llm_LlmSession_setWavformCallbackNative(
-        JNIEnv *env, jobject thiz, jlong instance_id, jobject listener) {
-
-    if (instance_id == 0 || !listener) {
-        return JNI_FALSE;
-    }
-    auto *session = reinterpret_cast<mls::LlmSession *>(instance_id);
-    jobject global_ref = env->NewGlobalRef(listener);
-    JavaVM *jvm;
-    env->GetJavaVM(&jvm);
-    session->SetWavformCallback(
-            [jvm, global_ref](const float *data, size_t size, bool is_end) -> bool {
-                bool needDetach = false;
-                JNIEnv *env;
-                if (jvm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_6) != JNI_OK) {
-                    jvm->AttachCurrentThread(&env, NULL);
-                    needDetach = true;
-                }
-                jvm->AttachCurrentThread(&env, NULL);
-                jclass listenerClass = env->GetObjectClass(global_ref);
-                jmethodID onAudioDataMethod = env->GetMethodID(listenerClass, "onAudioData",
-                                                               "([FZ)Z");
-                jfloatArray audioDataArray = env->NewFloatArray(size);
-                env->SetFloatArrayRegion(audioDataArray, 0, size, data);
-                jboolean result = env->CallBooleanMethod(global_ref, onAudioDataMethod,
-                                                         audioDataArray, is_end);
-                env->DeleteLocalRef(audioDataArray);
-                env->DeleteLocalRef(listenerClass);
-                if (needDetach) {
-                    jvm->DetachCurrentThread();
-                }
-                return result == JNI_TRUE;
-            });
-
-    return JNI_TRUE;
-}
+ 
 
 extern "C"
 JNIEXPORT jstring JNICALL

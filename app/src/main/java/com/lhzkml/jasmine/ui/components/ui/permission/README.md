@@ -48,56 +48,7 @@ fun CameraScreen() {
 }
 ```
 
-### 2. 多个权限
-
-```kotlin
-@Composable
-fun MediaScreen() {
-    val mediaPermissions = rememberPermissionState(
-        permissions = setOf(
-            PermissionInfo(
-                permission = Manifest.permission.CAMERA,
-                usage = { 
-                    Text("需要相机权限来拍照")
-                },
-                required = true
-            ),
-            PermissionInfo(
-                permission = Manifest.permission.RECORD_AUDIO,
-                usage = { 
-                    Text("需要录音权限来录制视频")
-                },
-                required = false
-            ),
-            PermissionInfo(
-                permission = Manifest.permission.READ_EXTERNAL_STORAGE,
-                usage = { 
-                    Text("需要存储权限来保存媒体文件")
-                },
-                required = true
-            )
-        )
-    )
-    
-    PermissionManager(permissionState = mediaPermissions) {
-        when {
-            mediaPermissions.allRequiredPermissionsGranted -> {
-                // 所有必需权限已授权
-                MediaContent(hasAudioPermission = mediaPermissions.permissionStates[Manifest.permission.RECORD_AUDIO] == PermissionStatus.Granted)
-            }
-            else -> {
-                // 显示权限请求界面
-                Column {
-                    Text("需要权限才能继续")
-                    Button(onClick = { mediaPermissions.requestPermissions() }) {
-                        Text("请求权限")
-                    }
-                }
-            }
-        }
-    }
-}
-```
+ 
 
 ### 3. 权限状态检查
 
