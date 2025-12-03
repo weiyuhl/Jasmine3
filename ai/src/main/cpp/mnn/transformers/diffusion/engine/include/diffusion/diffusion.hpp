@@ -36,10 +36,7 @@ public:
     bool run(const std::string prompt, const std::string imagePath, int iterNum, int randomSeed, std::function<void(int)> progressCallback);
     bool load();
 private:
-    MNN::Express::VARP step_plms(MNN::Express::VARP sample, MNN::Express::VARP model_output, int index);
-    MNN::Express::VARP text_encoder(const std::vector<int>& ids);
-    MNN::Express::VARP unet(MNN::Express::VARP text_embeddings, int iterNum, int randomSeed, std::function<void(int)> progressCallback);
-    MNN::Express::VARP vae_decoder(MNN::Express::VARP latent);
+    
 private:
     std::shared_ptr<MNN::Express::Executor::RuntimeManager> runtime_manager_;
     std::vector<std::shared_ptr<MNN::Express::Module>> mModules;
