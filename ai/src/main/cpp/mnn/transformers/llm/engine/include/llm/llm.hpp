@@ -15,9 +15,6 @@
 #include <functional>
 
 #include <MNN/expr/Expr.hpp>
-#include <memory>
-#include <vector>
-#include <string>
 namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
 
 namespace MNN {
@@ -33,17 +30,6 @@ struct TimePerformance;
 
 using ChatMessage = std::pair<std::string, std::string>; // <role, content>
 using ChatMessages = std::vector<ChatMessage>;
-
-struct MNN_PUBLIC PromptImagePart {
-    MNN::Express::VARP image_data;
-    int width;
-    int height;
-};
-
-struct MNN_PUBLIC MultimodalPrompt {
-    std::string prompt_template;
-    std::map<std::string, PromptImagePart> images;
-};
 
 enum TuneType {
     // op encoder number for commit
@@ -121,11 +107,7 @@ public:
     std::string tokenizer_decode(int token);
     virtual std::vector<int> tokenizer_encode(const std::string& query);
     friend class Pipeline;
-    virtual std::vector<int> tokenizer_encode(const MultimodalPrompt& multimodal_input);
-    void response(const MultimodalPrompt& multimodal_input, 
-                  std::ostream* os = &std::cout, 
-                  const char* end_with = nullptr, 
-                  int max_new_tokens = -1);
+    
     const LlmContext* getContext() const {
         return mContext.get();
     }
@@ -154,9 +136,6 @@ protected:
     Express::VARP logitsAllIdx, logitsLastIdx;
     int mSeqLenIndex = 0;
 protected:
-    friend class ArGeneration;
-    friend class LookaheadGeneration;
-    friend class MtpGeneration;
     std::vector<Express::VARP> forwardVec(const std::vector<int>& input_ids);
     std::vector<Express::VARP> forwardVec(MNN::Express::VARP input_embeds);
 private:
@@ -171,21 +150,7 @@ private:
     bool mAsync = true;
 };
 
-// Embedding start
-class MNN_PUBLIC Embedding : public Llm {
-public:
-    Embedding(std::shared_ptr<LlmConfig> config);
-    static Embedding* createEmbedding(const std::string& config_path, bool load = true);
-    static float dist(Express::VARP var0, Express::VARP var1);
-    static float cos_sim(Express::VARP var0, Express::VARP var1);
-    virtual void load() override;
-    Express::VARP ids_embedding(const std::vector<int>& ids);
-    Express::VARP txt_embedding(const std::string& txt);
-    int dim() const;
-    virtual Express::VARP gen_attention_mask(int seq_len) override;
-    virtual Express::VARP gen_position_ids(int seq_len) override;
-};
-// Embedding end
+ 
 }
 }
 
