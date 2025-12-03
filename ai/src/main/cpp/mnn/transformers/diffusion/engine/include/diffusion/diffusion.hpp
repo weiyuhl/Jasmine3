@@ -8,12 +8,12 @@
 #define MNN_DIFFUSION_HPP
 
 #include <vector>
+#include <functional>
 #include <MNN/Interpreter.hpp>
 #include <MNN/expr/Expr.hpp>
 namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
 
-using namespace MNN;
-using namespace MNN::Express;
+ 
 
 namespace MNN {
 namespace DIFFUSION {
@@ -27,26 +27,26 @@ typedef enum {
 
 class MNN_PUBLIC Diffusion {
 public:
-    Diffusion(std::string modelPath, DiffusionModelType modelType, MNNForwardType backendType, int memoryMode);
+    Diffusion(std::string modelPath, DiffusionModelType modelType, MNN::MNNForwardType backendType, int memoryMode);
     virtual ~Diffusion();
-    static Diffusion* createDiffusion(std::string modelPath, DiffusionModelType modelType, MNNForwardType backendType, int memoryMode);
+    static Diffusion* createDiffusion(std::string modelPath, DiffusionModelType modelType, MNN::MNNForwardType backendType, int memoryMode);
 
     bool run(const std::string prompt, const std::string imagePath, int iterNum, int randomSeed, std::function<void(int)> progressCallback);
     bool load();
 private:
-    VARP step_plms(VARP sample, VARP model_output, int index);
-    VARP text_encoder(const std::vector<int>& ids);
-    VARP unet(VARP text_embeddings, int iterNum, int randomSeed, std::function<void(int)> progressCallback);
-    VARP vae_decoder(VARP latent);
+    MNN::Express::VARP step_plms(MNN::Express::VARP sample, MNN::Express::VARP model_output, int index);
+    MNN::Express::VARP text_encoder(const std::vector<int>& ids);
+    MNN::Express::VARP unet(MNN::Express::VARP text_embeddings, int iterNum, int randomSeed, std::function<void(int)> progressCallback);
+    MNN::Express::VARP vae_decoder(MNN::Express::VARP latent);
 private:
-    std::shared_ptr<Executor::RuntimeManager> runtime_manager_;
-    std::vector<std::shared_ptr<Module>> mModules;
+    std::shared_ptr<MNN::Express::Executor::RuntimeManager> runtime_manager_;
+    std::vector<std::shared_ptr<MNN::Express::Module>> mModules;
     // step_plms
     std::vector<int> mTimeSteps;
     std::vector<float> mAlphas;
-    std::vector<VARP> mEts;
-    VARP mSample;
-    VARP mLatentVar, mPromptVar, mTimestepVar, mSampleVar;
+    std::vector<MNN::Express::VARP> mEts;
+    MNN::Express::VARP mSample;
+    MNN::Express::VARP mLatentVar, mPromptVar, mTimestepVar, mSampleVar;
     std::vector<float> mInitNoise;
     
 private:
@@ -58,7 +58,7 @@ private:
         2 -> balance mode for memory and generation speed.
      */
     int mMemoryMode;
-    MNNForwardType mBackendType;
+    MNN::MNNForwardType mBackendType;
     std::unique_ptr<Tokenizer> mTokenizer;
 };
 
