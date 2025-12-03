@@ -1,9 +1,0 @@
-# ninja log v5
-7	1238	7864520977103158	CMakeFiles/mnnllmapp.dir/crash_util.cpp.o	5338a452a4365cbd
-6	1420	7864520978964163	CMakeFiles/mnnllmapp.dir/diffusion_session.cpp.o	1b7441984e54049d
-5	7231	7864521036897577	CMakeFiles/mnnllmapp.dir/llm_session.cpp.o	c46e6316f35429d4
-4	5941	7864521023981809	CMakeFiles/mnnllmapp.dir/diffusion_jni.cpp.o	5a85c8aa0c55a8c9
-1	7247	7864521037007572	CMakeFiles/mnnllmapp.dir/llm_mnn_jni.cpp.o	a80db1c34ba28a65
-3	114	7864536328523899	build.ninja	b60d27e7abb4cac0
-1	106	7864536328523899	build.ninja	b60d27e7abb4cac0
-7	105	7864536329582598	libmnnllmapp.so	98bdffc9a12af66a
