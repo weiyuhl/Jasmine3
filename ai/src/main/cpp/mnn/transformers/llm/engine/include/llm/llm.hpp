@@ -11,7 +11,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include <iostream>
+#include <iosfwd>
 #include <functional>
 
 #include <MNN/expr/Expr.hpp>

@@ -1,5 +1,3 @@
-#include <android/asset_manager_jni.h>
-#include <android/bitmap.h>
 #include <android/log.h>
 #include <jni.h>
 #include <string>
