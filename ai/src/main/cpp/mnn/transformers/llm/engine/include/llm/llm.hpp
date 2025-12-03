@@ -12,7 +12,6 @@
 #include <memory>
 #include <string>
 #include <iosfwd>
-#include <functional>
 
 #include <MNN/expr/Expr.hpp>
 namespace MNN { namespace Express { class Module; namespace Executor { class RuntimeManager; } } }
@@ -20,13 +19,12 @@ namespace MNN { namespace Express { class Module; namespace Executor { class Run
 namespace MNN {
 namespace Transformer {
 class Tokenizer;
-class Pipeline;
 class LlmConfig;
 class DiskEmbedding;
 class Sampler;
 class Prompt;
 class Generation;
-struct TimePerformance;
+ 
 
 using ChatMessage = std::pair<std::string, std::string>; // <role, content>
 using ChatMessages = std::vector<ChatMessage>;
@@ -92,7 +90,7 @@ public:
     bool set_config(const std::string& content);
     
     virtual std::vector<int> tokenizer_encode(const std::string& query);
-    friend class Pipeline;
+    
     
     virtual std::vector<int> tokenizer_encode(const MultimodalPrompt& multimodal_input);
     void response(const MultimodalPrompt& multimodal_input, 
