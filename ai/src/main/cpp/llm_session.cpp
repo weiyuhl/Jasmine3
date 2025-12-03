@@ -160,12 +160,7 @@ const MNN::Transformer::LlmContext * LlmSession::Response(const std::string &pro
     }};
     std::ostream output_ostream(&stream_buffer);
 //#define USE_DEBUG_PROMOT
-#ifdef USE_DEBUG_PROMOT
-    std::string debug_prompt = "<audio>/data/user/0/com.alibaba.mnnllm.android/files/history/1746690738111/record_1746690751335.wav</audio>";
-        history_.emplace_back("user", getUserString(debug_prompt.c_str(), false, is_r1_));
-#else
     history_.emplace_back("user", getUserString(prompt.c_str(), false, is_r1_));
-#endif
     MNN_DEBUG("submitNative history count %zu", history_.size());
     for (auto & it : history_) {
         prompt_string_for_debug += it.second;
@@ -177,9 +172,7 @@ const MNN::Transformer::LlmContext * LlmSession::Response(const std::string &pro
         llm_->generate(1);
         current_size++;
     }
-    if (!stop_requested_ && enable_audio_output_) {
-        llm_->generateWavform();
-    }
+    
     auto context = llm_->getContext();
     return context;
 }
@@ -188,32 +181,7 @@ std::string LlmSession::getDebugInfo() {
     return ("last_prompt:\n" + prompt_string_for_debug + "\nlast_response:\n" + response_string_for_debug);
 }
 
-void LlmSession::SetWavformCallback(std::function<bool(const float *, size_t, bool)> callback) {
-    if (llm_ != nullptr && callback != nullptr) {
-        waveform.clear();
-        llm_->setWavformCallback([this, callback = std::move(callback)](const float *ptr, size_t size, bool last_chunk) {
-#if DEBUG_SAVE_WAV
-            waveform.reserve(waveform.size() + size);
-            waveform.insert(waveform.end(), ptr, ptr + size);
-            MNN_DEBUG("waveform size %zu", waveform.size());
-            if (last_chunk) {
-                auto waveform_var = MNN::Express::_Const(waveform.data(), {(int)waveform.size()}, MNN::Express::NCHW, halide_type_of<float>());
-                MNN::AUDIO::save("/data/data/com.alibaba.mnnllm.android/files/output.wav", waveform_var, 24000);
-                waveform.clear();
-            }
-#endif
-            if (!enable_audio_output_ || stop_requested_) {
-                return false;
-            }
-            if (callback) {
-                return !callback(ptr, size, last_chunk);
-            }
-            return false;
-        });
-    } else {
-        MNN_ERROR("no llm instance");
-    }
-}
+ 
 
 void LlmSession::SetMaxNewTokens(int i) {
     max_new_tokens_ = i;
@@ -305,9 +273,7 @@ void LlmSession::enableAudioOutput(bool enable) {
             current_size++;
         }
 
-        if (!stop_requested_ && enable_audio_output_) {
-            llm_->generateWavform();
-        }
+    
 
         return llm_->getContext();
     }
