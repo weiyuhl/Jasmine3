@@ -32,7 +32,6 @@ struct TimePerformance;
 using ChatMessage = std::pair<std::string, std::string>; // <role, content>
 using ChatMessages = std::vector<ChatMessage>;
 
-// Restore multimodal prompt declarations to preserve ABI/vtable stability
 struct MNN_PUBLIC PromptImagePart {
     MNN::Express::VARP image_data;
     int width;
@@ -121,7 +120,6 @@ public:
     virtual std::vector<int> tokenizer_encode(const std::string& query);
     friend class Pipeline;
     
-    // Keep multimodal API declarations (virtual/overload) to avoid ABI issues
     virtual std::vector<int> tokenizer_encode(const MultimodalPrompt& multimodal_input);
     void response(const MultimodalPrompt& multimodal_input, 
                   std::ostream* os = &std::cout, 
