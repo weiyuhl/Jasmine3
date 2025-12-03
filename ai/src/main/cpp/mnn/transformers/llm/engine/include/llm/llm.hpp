@@ -11,6 +11,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <cstdint>
 #include <iosfwd>
 #include <utility>
 #include <map>

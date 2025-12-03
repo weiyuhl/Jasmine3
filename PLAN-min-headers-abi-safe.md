@@ -108,3 +108,8 @@
   - 已推送分支并准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-2`。
   - 已合并到 `main` 并完成分支清理（本地与远端）。
   - 导出测试 APK（主分支）：`dist/jasmine-test-20251203-1957-universal.apk`。
+- 阶段 3（2025-12-03）
+  - 在 `llm.hpp` 增加 `<cstdint>`，确保 `int64_t`（用于 `LlmContext`）在无传递头时也能声明。
+  - 分支：`min-headers-abi-safe-phase-3` — 构建已验证（`:ai` 与 `:app`）。
+  - 已推送分支并准备 PR 链接：`https://github.com/weiyuhl/jasmine/pull/new/min-headers-abi-safe-phase-3`。
+  - 待审阅后合并至 `main` 并清理分支。
