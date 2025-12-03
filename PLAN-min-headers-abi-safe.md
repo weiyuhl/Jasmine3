@@ -97,3 +97,6 @@
   - Pending: merge to `main` and branch cleanup after review.
   - Make `llm.hpp` self-contained: add `<map>` for `mModulePool`.
   - Builds re-verified (`:ai` and `:app`); branch updated.
+  - Add `<MNN/MNNForwardType.h>` in `diffusion.hpp` to ensure `MNNForwardType` is declared without transitive headers.
+  - Add `<utility>` in `llm.hpp` to ensure `std::pair` declaration for `ChatMessage`.
+  - Builds re-verified (`:ai` and `:app`); branch updated.
