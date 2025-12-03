@@ -23,6 +23,35 @@ jasmine-remote/
 /platform-tools/
 /platforms/
 /cmake/
-/# MNN native build outputs
+# MNN native build outputs
 /ai/src/main/cpp/mnn/project/android/build_*/
 /.knownPackages
+ 
+ # Global build artifacts
+ *.o
+ *.obj
+ *.lo
+ *.la
+ *.a
+ *.so
+ *.dll
+ *.lib
+ *.dylib
+ *.class
+ *.apk
+ *.aar
+ 
+ # Ninja / CMake artifacts
+ build.ninja
+ .ninja_log
+ .ninja_deps
+ CMakeCache.txt
+ CMakeFiles/
+ cmake-build*/
+ build*/
+ out/
+ dist/
+ 
+ # AI native build outputs
+ ai/src/main/cpp/build_*/
+ ai/src/main/cpp/**/lib*.so
