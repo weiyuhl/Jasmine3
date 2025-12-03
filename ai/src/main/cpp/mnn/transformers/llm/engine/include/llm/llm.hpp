@@ -101,8 +101,6 @@ public:
         return mContext.get();
     }
 protected:
-    void initRuntime();
-    void setRuntimeHint(std::shared_ptr<Express::Executor::RuntimeManager> &rtg);
     std::shared_ptr<LlmContext> mContext;
     std::shared_ptr<KVMeta> mMeta;
     std::shared_ptr<LlmConfig> mConfig;
@@ -125,8 +123,7 @@ protected:
     Express::VARP logitsAllIdx, logitsLastIdx;
     int mSeqLenIndex = 0;
 protected:
-    std::vector<Express::VARP> forwardVec(const std::vector<int>& input_ids);
-    std::vector<Express::VARP> forwardVec(MNN::Express::VARP input_embeds);
+    
 private:
     std::shared_ptr<Generation> mGenerationStrategy;
     void setSpeculativeConfig();
