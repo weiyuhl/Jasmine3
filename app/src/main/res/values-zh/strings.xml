@@ -5,16 +5,7 @@
   <string name="about_page_version">版本</string>
   <string name="add">添加</string>
   <string name="app_name">jasmine</string>
-  <string name="assistant_importer_import_failed">导入失败</string>
-  <string name="assistant_importer_import_tavern_json">导入酒馆角色卡 (JSON)</string>
-  <string name="assistant_importer_import_tavern_png">导入酒馆角色卡 (PNG)</string>
-  <string name="assistant_importer_importing">导入中...</string>
-  <string name="assistant_importer_missing_data_field">缺少数据字段</string>
-  <string name="assistant_importer_missing_name_field">缺少名称字段</string>
-  <string name="assistant_importer_missing_spec_field">缺少 spec 字段</string>
-  <string name="assistant_importer_read_json_failed">读取JSON失败</string>
-  <string name="assistant_importer_unsupported_file_type">不支持的文件类型: %s</string>
-  <string name="assistant_importer_unsupported_spec">不支持的规格: %s</string>
+  
   <string name="assistant_page_add">添加</string>
   <string name="assistant_page_add_body">添加 Body</string>
   <string name="assistant_page_add_header">添加 Header</string>
@@ -475,7 +466,7 @@
   <string name="setting_provider_page_vertex_ai">Vertex AI</string>
   <string name="settings">设置</string>
   <string name="share">分享</string>
-  <string name="share_handler_page_title">选择一个助手处理分享</string>
+  
   
   <string name="silicon_flow_built_in_models">* 已内置硅基流动免费模型，无需API Key即可使用，如果需要更强大的模型，请自行申请和配置自己的API Key。</string>
   <string name="silicon_flow_description">**全球领先的 AI 能力提供商，加速 AGI 普惠人类。**</string>

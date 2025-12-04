@@ -66,7 +66,7 @@ import com.lhzkml.jasmine.ui.hooks.EditState
 import com.lhzkml.jasmine.ui.hooks.EditStateContent
 import com.lhzkml.jasmine.ui.hooks.useEditState
 import com.lhzkml.jasmine.ui.modifier.onClick
-import com.lhzkml.jasmine.ui.pages.assistant.detail.AssistantImporter
+ 
 import org.koin.androidx.compose.koinViewModel
  
 import kotlin.uuid.Uuid
@@ -190,13 +190,7 @@ private fun AssistantCreationSheet(
                         )
                     }
 
-                    AssistantImporter(
-                        onUpdate = {
-                            update(it)
-                            state.confirm()
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
+                    
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),

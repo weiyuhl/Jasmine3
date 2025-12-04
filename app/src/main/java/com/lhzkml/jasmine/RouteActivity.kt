@@ -65,7 +65,7 @@ import com.lhzkml.jasmine.ui.pages.setting.SettingProviderDetailPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingProviderPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingSearchPage
  
-import com.lhzkml.jasmine.ui.pages.share.handler.ShareHandlerPage
+ 
  
 import com.lhzkml.jasmine.ui.pages.webview.WebViewPage
 import com.lhzkml.jasmine.ui.theme.LocalDarkMode
@@ -126,7 +126,6 @@ class RouteActivity : ComponentActivity() {
         setContent {
             val navStack = rememberNavController()
             this.navStack = navStack
-            ShareHandler(navStack)
             jasmineTheme {
                 setSingletonImageLoaderFactory { context ->
                     ImageLoader.Builder(context)
@@ -148,24 +147,7 @@ class RouteActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun ShareHandler(navBackStack: NavHostController) {
-        val shareIntent = remember {
-            Intent().apply {
-                action = intent?.action
-                putExtra(Intent.EXTRA_TEXT, intent?.getStringExtra(Intent.EXTRA_TEXT))
-                putExtra(Intent.EXTRA_STREAM, intent?.getStringExtra(Intent.EXTRA_STREAM))
-            }
-        }
-
-        LaunchedEffect(navBackStack) {
-            if (shareIntent.action == Intent.ACTION_SEND) {
-                val text = shareIntent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
-                val imageUri = shareIntent.getStringExtra(Intent.EXTRA_STREAM)
-                navBackStack.navigate(Screen.ShareHandler(text, imageUri))
-            }
-        }
-    }
+    
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -232,13 +214,7 @@ class RouteActivity : ComponentActivity() {
                         )
                     }
 
-                    composable<Screen.ShareHandler> { backStackEntry ->
-                        val route = backStackEntry.toRoute<Screen.ShareHandler>()
-                        ShareHandlerPage(
-                            text = route.text,
-                            image = route.streamUri
-                        )
-                    }
+                    
 
                     composable<Screen.History> {
                         HistoryPage()
@@ -321,8 +297,7 @@ sealed interface Screen {
     @Serializable
     data class Chat(val id: String, val text: String? = null, val files: List<String> = emptyList()) : Screen
 
-    @Serializable
-    data class ShareHandler(val text: String, val streamUri: String? = null) : Screen
+    
 
     @Serializable
     data object History : Screen
