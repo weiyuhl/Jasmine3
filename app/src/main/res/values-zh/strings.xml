@@ -216,7 +216,6 @@
   <string name="citations_count">%1$d 条引用</string>
   <string name="code_block_copy">复制代码</string>
   <string name="code_block_preview">预览</string>
-  <string name="collapse_translation">折叠翻译</string>
   <string name="confirm">确认</string>
   <string name="confirm_delete">确认删除</string>
   <string name="copy">复制</string>
@@ -226,7 +225,6 @@
   <string name="delete">删除</string>
   <string name="edit">编辑</string>
   <string name="editing">编辑中</string>
-  <string name="expand_translation">展开翻译</string>
   <string name="export_image_warning">以上内容由人工智能生成，可能包含不准确信息。</string>
   <string name="history_page_cancel">取消</string>
   <string name="history_page_clear">清除</string>
@@ -257,7 +255,6 @@
   <string name="mcp_picker_syncing">正在同步MCP服务器...</string>
   <string name="mcp_picker_title">MCP服务器</string>
   <string name="menu_page_afternoon_greeting">下午好</string>
-  <string name="menu_page_ai_translator">AI翻译</string>
   <string name="menu_page_evening_greeting">晚上好</string>
   <string name="menu_page_knowledge_base">知识库 (施工中)</string>
   <string name="menu_page_morning_greeting">早上好</string>
@@ -372,9 +369,6 @@
   <string name="setting_model_page_title">模型设置</string>
   <string name="setting_model_page_title_model">标题总结模型</string>
   <string name="setting_model_page_title_model_desc">用于总结对话标题的模型, 推荐使用快速且便宜的模型</string>
-  <string name="setting_model_page_translate_model">翻译模型</string>
-  <string name="setting_model_page_translate_model_desc">用于翻译功能的模型</string>
-  <string name="setting_model_page_translate_prompt_vars">变量: 原始文本: {source_text}, 目标语言: {target_lang}</string>
   <string name="setting_page_about">关于</string>
   <string name="setting_page_about_desc">关于本APP</string>
   <string name="setting_page_assistant">助手</string>
@@ -504,21 +498,6 @@
   <string name="stop">停止</string>
   <string name="take_picture">拍照</string>
   <string name="tools_warning">当前模型未开启工具调用，请在设置内启用模型的工具能力，再使用搜索/MCP等功能</string>
-  <string name="translate">翻译</string>
-  <string name="translating">翻译中...</string>
-  <string name="translation_clear">清空翻译</string>
-  <string name="translation_language_selection_title">选择翻译语言</string>
-  <string name="translation_model_not_configured">未配置翻译模型</string>
-  <string name="translation_text">译文</string>
-  <string name="translator_page_cancel">取消</string>
-  <string name="translator_page_input_placeholder">请输入要翻译的文本...</string>
-  <string name="translator_page_input_text">输入文本</string>
-  <string name="translator_page_result">翻译结果</string>
-  <string name="translator_page_result_placeholder">翻译结果将显示在这里</string>
-  <string name="translator_page_target_language">目标语言:</string>
-  <string name="translator_page_title">翻译</string>
-  <string name="translator_page_translate">翻译</string>
-  <string name="unknown_language">未知语言</string>
   <string name="unpin_chat">取消置顶聊天</string>
   <string name="upload_file">上传文件</string>
   <string name="use_web_search">网络搜索</string>

@@ -108,24 +108,13 @@
   <string name="setting_model_page_title">Model Settings</string>
   <string name="setting_model_page_chat_model">Chat Model</string>
   <string name="setting_model_page_title_model">Title Summary Model</string>
-  <string name="setting_model_page_translate_model">Translation Model</string>
-  <string name="setting_model_page_translate_model_desc">The model used for translation features</string>
   <string name="setting_model_page_prompt">Prompt</string>
-  <string name="setting_model_page_translate_prompt_vars">Variables: Source text: {source_text}, Target language: {target_lang}</string>
   <string name="setting_model_page_reset_to_default">Reset to default</string>
   <string name="setting_model_page_suggestion_prompt_vars">Variables: Conversation content: {content}, Language: {locale}</string>
   <string name="setting_model_page_title_model_desc">Model used to summarize conversation titles, recommend using fast and inexpensive models</string>
   <string name="setting_model_page_chat_model_desc">Global default chat model</string>
 
-  <!-- Translator Page -->
-  <string name="translator_page_title">Translator</string>
-  <string name="translator_page_input_text">Input Text</string>
-  <string name="translator_page_input_placeholder">Enter text to translate...</string>
-  <string name="translator_page_result">Translation Result</string>
-  <string name="translator_page_result_placeholder">Translation result will be shown here</string>
-  <string name="translator_page_target_language">Target Language:</string>
-  <string name="translator_page_translate">Translate</string>
-  <string name="translator_page_cancel">Cancel</string>
+  
 
   <!-- Assistant Page -->
   <string name="assistant_page_title">Assistant Switch</string>
@@ -223,7 +212,7 @@
   <string name="menu_page_afternoon_greeting">Good afternoon</string>
   <string name="menu_page_evening_greeting">Good evening</string>
   <string name="menu_page_night_greeting">It is late, take care</string>
-  <string name="menu_page_ai_translator">AI Translator</string>
+  
   <string name="menu_page_knowledge_base">Knowledge Base (WIP)</string>
 
   <!-- ModelList Page -->
@@ -509,27 +498,13 @@
   <string name="create_fork">Create a fork</string>
   <string name="render_with_webview">Render with WebView</string>
 
-  <!-- Translation -->
-  <string name="translate">Translate</string>
-  <string name="translation_language_selection_title">Select Translation Language</string>
-  <string name="translation_text">Translation</string>
-  <string name="expand_translation">Expand Translation</string>
-  <string name="collapse_translation">Collapse Translation</string>
-  <string name="translation_model_not_configured">Translation model not configured</string>
-  <string name="translation_clear">Clear Translation</string>
-  <string name="unknown_language">Unknown Language</string>
-  <string name="translating">Translating...</string>
+  
 
   <!-- Language Names with Emojis -->
   <string name="language_simplified_chinese">简体中文</string>
   <string name="language_english">English</string>
   <string name="language_traditional_chinese">繁體中文</string>
-  <string name="language_japanese">🇯🇵 日本語</string>
-  <string name="language_korean">🇰🇷 한국어</string>
-  <string name="language_french">🇫🇷 Français</string>
-  <string name="language_german">🇩🇪 Deutsch</string>
-  <string name="language_italian">🇮🇹 Italiano</string>
-  <string name="language_spanish">🇪🇸 Español</string>
+  
 
   <string name="setting_page_language_restart_desc">Language will take effect after app restart.</string>
 
