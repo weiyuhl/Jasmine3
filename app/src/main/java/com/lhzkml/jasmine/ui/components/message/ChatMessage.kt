@@ -102,7 +102,6 @@ fun ChatMessage(
     onFork: () -> Unit,
     onRegenerate: () -> Unit,
     onEdit: () -> Unit,
-    onShare: () -> Unit,
     onDelete: () -> Unit,
     onUpdate: (MessageNode) -> Unit,
 ) {
@@ -192,7 +191,6 @@ fun ChatMessage(
             message = message,
             onEdit = onEdit,
             onDelete = onDelete,
-            onShare = onShare,
             onFork = onFork,
             model = model,
             onSelectAndCopy = {

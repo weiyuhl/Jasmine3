@@ -132,7 +132,6 @@ fun ChatMessageActionsSheet(
     model: Model?,
     onDelete: () -> Unit,
     onEdit: () -> Unit,
-    onShare: () -> Unit,
     onFork: () -> Unit,
     onSelectAndCopy: () -> Unit,
     onWebViewPreview: () -> Unit,
@@ -235,32 +234,7 @@ fun ChatMessageActionsSheet(
                 }
             }
 
-            // Share
-            Card(
-                onClick = {
-                    onDismissRequest()
-                    onShare()
-                },
-                shape = MaterialTheme.shapes.medium,
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Share,
-                        contentDescription = null,
-                        modifier = Modifier.padding(4.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.share),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                }
-            }
+            
 
             // Create a Fork
             Card(

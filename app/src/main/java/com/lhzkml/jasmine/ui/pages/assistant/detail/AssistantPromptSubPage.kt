@@ -299,7 +299,6 @@ fun AssistantPromptSubPage(
                             onFork = {},
                             onRegenerate = {},
                             onEdit = {},
-                            onShare = {},
                             onDelete = {},
                             onUpdate = {},
                             conversation = Conversation.ofId(Uuid.random())

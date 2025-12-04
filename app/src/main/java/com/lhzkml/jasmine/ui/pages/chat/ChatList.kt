@@ -181,10 +181,7 @@ private fun SharedTransitionScope.ChatListNormal(
         return lastItem.key == conversation.messageNodes.lastOrNull()?.id && (lastItem.offset + lastItem.size <= state.layoutInfo.viewportEndOffset + lastItem.size * 0.15 + 32)
     }
 
-    // 聊天选择
-    val selectedItems = remember { mutableStateListOf<Uuid>() }
-    var selecting by remember { mutableStateOf(false) }
-    var showExportSheet by remember { mutableStateOf(false) }
+    
 
     // 自动跟随键盘滚动
     ImeLazyListAutoScroller(lazyListState = state)
@@ -238,48 +235,28 @@ private fun SharedTransitionScope.ChatListNormal(
                 key = { index, item -> item.id },
             ) { index, node ->
                 Column {
-                    ListSelectableItem(
-                        key = node.id,
-                        onSelectChange = {
-                            if (!selectedItems.contains(node.id)) {
-                                selectedItems.add(node.id)
-                            } else {
-                                selectedItems.remove(node.id)
-                            }
+                    ChatMessage(
+                        node = node,
+                        conversation = conversation,
+                        model = node.currentMessage.modelId?.let { settings.findModelById(it) },
+                        assistant = settings.getAssistantById(conversation.assistantId),
+                        loading = loading && index == conversation.messageNodes.lastIndex,
+                        onRegenerate = {
+                            onRegenerate(node.currentMessage)
                         },
-                        selectedKeys = selectedItems,
-                        enabled = selecting,
-                    ) {
-                        ChatMessage(
-                            node = node,
-                            conversation = conversation,
-                            model = node.currentMessage.modelId?.let { settings.findModelById(it) },
-                            assistant = settings.getAssistantById(conversation.assistantId),
-                            loading = loading && index == conversation.messageNodes.lastIndex,
-                            onRegenerate = {
-                                onRegenerate(node.currentMessage)
-                            },
-                            onEdit = {
-                                onEdit(node.currentMessage)
-                            },
-                            onFork = {
-                                onForkMessage(node.currentMessage)
-                            },
-                            onDelete = {
-                                onDelete(node.currentMessage)
-                            },
-                            onShare = {
-                                selecting = true  // 使用 CoroutineScope 延迟状态更新
-                                selectedItems.clear()
-                                selectedItems.addAll(conversation.messageNodes.map { it.id }
-                                    .subList(0, conversation.messageNodes.indexOf(node) + 1))
-                            },
-                            onUpdate = {
-                                onUpdateMessage(it)
-                            },
-                            
-                        )
-                    }
+                        onEdit = {
+                            onEdit(node.currentMessage)
+                        },
+                        onFork = {
+                            onForkMessage(node.currentMessage)
+                        },
+                        onDelete = {
+                            onDelete(node.currentMessage)
+                        },
+                        onUpdate = {
+                            onUpdateMessage(it)
+                        },
+                    )
                     if (index == conversation.truncateIndex - 1) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -320,85 +297,6 @@ private fun SharedTransitionScope.ChatListNormal(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            // 完成选择
-            AnimatedVisibility(
-                visible = selecting,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .offset(y = -(48).dp),
-                enter = slideInVertically(
-                    initialOffsetY = { it * 2 },
-                ),
-                exit = slideOutVertically(
-                    targetOffsetY = { it * 2 },
-                ),
-            ) {
-                HorizontalFloatingToolbar(
-                    expanded = true,
-                ) {
-                    Tooltip(
-                        tooltip = {
-                            Text("Clear selection")
-                        }
-                    ) {
-                        IconButton(
-                            onClick = {
-                                selecting = false
-                                selectedItems.clear()
-                            }
-                        ) {
-                            Icon(Icons.Filled.Close, null)
-                        }
-                    }
-                    Tooltip(
-                        tooltip = {
-                            Text("Select all")
-                        }
-                    ) {
-                        IconButton(
-                            onClick = {
-                                if (selectedItems.isNotEmpty()) {
-                                    selectedItems.clear()
-                                } else {
-                                    selectedItems.addAll(conversation.messageNodes.map { it.id })
-                                }
-                            }
-                        ) {
-                            Icon(Icons.Filled.SelectAll, null)
-                        }
-                    }
-                    Tooltip(
-                        tooltip = {
-                            Text("Confirm")
-                        }
-                    ) {
-                        FilledIconButton(
-                            onClick = {
-                                selecting = false
-                                val messages = conversation.messageNodes.filter { it.id in selectedItems }
-                                if (messages.isNotEmpty()) {
-                                    showExportSheet = true
-                                }
-                            }
-                        ) {
-                            Icon(Icons.Filled.Done, null)
-                        }
-                    }
-                }
-            }
-
-            // 导出对话框
-            ChatExportSheet(
-                visible = showExportSheet,
-                onDismissRequest = {
-                    showExportSheet = false
-                    selectedItems.clear()
-                },
-                conversation = conversation,
-                selectedMessages = conversation.messageNodes.filter { it.id in selectedItems }
-                    .map { it.currentMessage }
-            )
-
             val captureProgress = LocalScrollCaptureInProgress.current
 
             
