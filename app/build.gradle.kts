@@ -213,8 +213,7 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
 
-    // ucrop
-    implementation(libs.ucrop)
+    
 
     // pebble (template engine)
     implementation(libs.pebble)

@@ -103,8 +103,7 @@ import androidx.compose.material.icons.filled.UploadFile
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.DeleteSweep
 import com.dokar.sonner.ToastType
-import com.yalantis.ucrop.UCrop
-import com.yalantis.ucrop.UCropActivity
+ 
 import com.lhzkmlai.provider.Model
 import com.lhzkmlai.provider.ModelAbility
 import com.lhzkmlai.provider.ModelType
@@ -881,68 +880,19 @@ private fun FullScreenEditor(
     }
 }
 
-@Composable
-private fun useCropLauncher(
-    onCroppedImageReady: (Uri) -> Unit,
-    onCleanup: (() -> Unit)? = null
-): Pair<ActivityResultLauncher<Intent>, (Uri) -> Unit> {
-    val context = LocalContext.current
-    var cropOutputUri by remember { mutableStateOf<Uri?>(null) }
-
-    val cropActivityLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == android.app.Activity.RESULT_OK) {
-            cropOutputUri?.let { croppedUri ->
-                onCroppedImageReady(croppedUri)
-            }
-        }
-        // Clean up crop output file
-        cropOutputUri?.toFile()?.delete()
-        cropOutputUri = null
-        onCleanup?.invoke()
-    }
-
-    val launchCrop: (Uri) -> Unit = { sourceUri ->
-        val outputFile = File(context.appTempFolder, "crop_output_${System.currentTimeMillis()}.jpg")
-        cropOutputUri = Uri.fromFile(outputFile)
-
-        val cropIntent = UCrop.of(sourceUri, cropOutputUri!!)
-            .withOptions(UCrop.Options().apply {
-                setFreeStyleCropEnabled(true)
-                setAllowedGestures(
-                    UCropActivity.SCALE,
-                    UCropActivity.ROTATE,
-                    UCropActivity.NONE
-                )
-                setCompressionFormat(Bitmap.CompressFormat.PNG)
-            })
-            .withMaxResultSize(4096, 4096)
-            .getIntent(context)
-
-        cropActivityLauncher.launch(cropIntent)
-    }
-
-    return Pair(cropActivityLauncher, launchCrop)
-}
+ 
 
 @Composable
 private fun ImagePickButton(onAddImages: (List<Uri>) -> Unit = {}) {
     val context = LocalContext.current
     val settings = LocalSettings.current
 
-    val (_, launchCrop) = useCropLauncher(
-        onCroppedImageReady = { croppedUri ->
-            onAddImages(context.createChatFilesByContents(listOf(croppedUri)))
-        }
-    )
-
     val imagePickerLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.GetContent()
     ) { selectedUri ->
         if (selectedUri != null) {
             Log.d("ImagePickButton", "Selected URI: $selectedUri")
-            launchCrop(selectedUri)
+            onAddImages(context.createChatFilesByContents(listOf(selectedUri)))
         } else {
             Log.d("ImagePickButton", "No image selected")
         }
