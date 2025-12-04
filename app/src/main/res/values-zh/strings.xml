@@ -213,9 +213,6 @@
   <string name="menu_page_evening_greeting">晚上好</string>
   <string name="menu_page_morning_greeting">早上好</string>
   <string name="menu_page_night_greeting">夜深了，注意休息</string>
-  <string name="mermaid_export">导出</string>
-  <string name="mermaid_export_failed">导出失败</string>
-  <string name="mermaid_export_success">导出成功</string>
   <string name="model_list_favorite">收藏</string>
   <string name="model_list_no_providers">没有可用AI提供商, 请在设置添加</string>
   <string name="model_list_search_placeholder">输入模型名称搜索</string>

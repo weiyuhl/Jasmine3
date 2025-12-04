@@ -221,9 +221,6 @@
   
 
   <!-- Mermaid Diagram -->
-  <string name="mermaid_export">Export</string>
-  <string name="mermaid_export_success">Export successful</string>
-  <string name="mermaid_export_failed">Export failed</string>
 
   <!-- Avatar Component -->
   <string name="avatar_change_avatar">Change Avatar</string>

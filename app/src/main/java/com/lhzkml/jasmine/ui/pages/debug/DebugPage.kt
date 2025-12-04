@@ -40,7 +40,6 @@ import com.lhzkml.jasmine.ui.components.ui.UIAvatar
 import com.lhzkml.jasmine.ui.components.nav.BackButton
 import com.lhzkml.jasmine.ui.components.richtext.MarkdownBlock
 import com.lhzkml.jasmine.ui.components.richtext.MathBlock
-import com.lhzkml.jasmine.ui.components.richtext.Mermaid
 import com.lhzkml.jasmine.ui.context.LocalSettings
 import com.lhzkml.jasmine.ui.context.LocalToaster
 import com.lhzkml.jasmine.ui.theme.JetbrainsMono
@@ -131,28 +130,7 @@ private fun MainPage(vm: DebugVM) {
             },
             name = "A"
         )
-        Mermaid(
-            code = """
-                mindmap
-                  root((mindmap))
-                    Origins
-                      Long history
-                      ::icon(fa fa-book)
-                      Popularisation
-                        British popular psychology author Tony Buzan
-                    Research
-                      On effectiveness<br/>and features
-                      On Automatic creation
-                        Uses
-                            Creative techniques
-                            Strategic planning
-                            Argument mapping
-                    Tools
-                      Pen and paper
-                      Mermaid
-                """.trimIndent(),
-            modifier = Modifier.fillMaxWidth(),
-        )
+        
 
         var counter by remember {
             mutableIntStateOf(0)

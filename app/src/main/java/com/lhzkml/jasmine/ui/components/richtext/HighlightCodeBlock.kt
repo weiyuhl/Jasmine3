@@ -123,13 +123,7 @@ fun HighlightCodeBlock(
             createDocumentLauncher = createDocumentLauncher,
             navController = navController,
         )
-        if (completeCodeBlock && language == "mermaid") {
-            Mermaid(
-                code = code,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            return
-        }
+        
         Spacer(Modifier.height(8.dp))
 
         val textStyle = LocalTextStyle.current.merge(style)
