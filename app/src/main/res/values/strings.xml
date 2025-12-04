@@ -219,10 +219,10 @@
   <!-- Theme Names -->
 
   <!-- Menu Page -->
-  <string name="menu_page_morning_greeting">Good morning&#x1F44B;</string>
-  <string name="menu_page_afternoon_greeting">Good afternoon&#x1F44B;</string>
-  <string name="menu_page_evening_greeting">Good evening&#x1F44B;</string>
-  <string name="menu_page_night_greeting">It's late, take care&#x1F44B;</string>
+  <string name="menu_page_morning_greeting">Good morning</string>
+  <string name="menu_page_afternoon_greeting">Good afternoon</string>
+  <string name="menu_page_evening_greeting">Good evening</string>
+  <string name="menu_page_night_greeting">It's late, take care</string>
   <string name="menu_page_ai_translator">AI Translator</string>
   <string name="menu_page_knowledge_base">Knowledge Base (WIP)</string>
 
