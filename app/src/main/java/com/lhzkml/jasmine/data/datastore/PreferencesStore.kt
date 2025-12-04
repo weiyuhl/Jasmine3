@@ -21,7 +21,6 @@ import com.lhzkmlai.provider.ProviderSetting
 import com.lhzkml.jasmine.AppScope
 import com.lhzkml.jasmine.data.ai.mcp.McpServerConfig
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_OCR_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
  
 import com.lhzkml.jasmine.data.datastore.migration.PreferenceStoreV1Migration
@@ -70,8 +69,7 @@ class SettingsStore(
         val TITLE_MODEL = stringPreferencesKey("title_model")
         val TITLE_PROMPT = stringPreferencesKey("title_prompt")
         val LEARNING_MODE_PROMPT = stringPreferencesKey("learning_mode_prompt")
-        val OCR_MODEL = stringPreferencesKey("ocr_model")
-        val OCR_PROMPT = stringPreferencesKey("ocr_prompt")
+        
 
         // 提供商
         val PROVIDERS = stringPreferencesKey("providers")
@@ -116,8 +114,6 @@ class SettingsStore(
                     ?: SILICONFLOW_QWEN3_8B_ID,
                 titlePrompt = preferences[TITLE_PROMPT] ?: DEFAULT_TITLE_PROMPT,
                 learningModePrompt = preferences[LEARNING_MODE_PROMPT] ?: DEFAULT_LEARNING_MODE_PROMPT,
-                ocrModelId = preferences[OCR_MODEL]?.let { Uuid.parse(it) } ?: Uuid.random(),
-                ocrPrompt = preferences[OCR_PROMPT] ?: DEFAULT_OCR_PROMPT,
                 assistantId = preferences[SELECT_ASSISTANT]?.let { Uuid.parse(it) }
                     ?: DEFAULT_ASSISTANT_ID,
                 
@@ -227,8 +223,7 @@ class SettingsStore(
             preferences[TITLE_MODEL] = settings.titleModelId.toString()
             preferences[TITLE_PROMPT] = settings.titlePrompt
             preferences[LEARNING_MODE_PROMPT] = settings.learningModePrompt
-            preferences[OCR_MODEL] = settings.ocrModelId.toString()
-            preferences[OCR_PROMPT] = settings.ocrPrompt
+            
 
             preferences[PROVIDERS] = JsonInstant.encodeToString(settings.providers)
 
@@ -261,7 +256,7 @@ class SettingsStore(
 
 
 @Serializable
-data class Settings(
+    data class Settings(
     @kotlinx.serialization.Transient
     val init: Boolean = false,
     val themeId: String = PresetThemes[0].id,
@@ -273,8 +268,7 @@ data class Settings(
     val titleModelId: Uuid = Uuid.random(),
     val titlePrompt: String = DEFAULT_TITLE_PROMPT,
     val learningModePrompt: String = DEFAULT_LEARNING_MODE_PROMPT,
-    val ocrModelId: Uuid = Uuid.random(),
-    val ocrPrompt: String = DEFAULT_OCR_PROMPT,
+    
     val assistantId: Uuid = DEFAULT_ASSISTANT_ID,
     val providers: List<ProviderSetting> = DEFAULT_PROVIDERS,
     val assistants: List<Assistant> = DEFAULT_ASSISTANTS,

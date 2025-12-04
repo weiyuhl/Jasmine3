@@ -54,7 +54,6 @@ import com.lhzkml.jasmine.data.ai.mcp.McpManager
 import com.lhzkml.jasmine.data.ai.tools.LocalTools
 import com.lhzkml.jasmine.data.ai.transformers.Base64ImageToLocalFileTransformer
 import com.lhzkml.jasmine.data.ai.transformers.DocumentAsPromptTransformer
-import com.lhzkml.jasmine.data.ai.transformers.OcrTransformer
 import com.lhzkml.jasmine.data.ai.transformers.PlaceholderTransformer
 import com.lhzkml.jasmine.data.ai.transformers.RegexOutputTransformer
 import com.lhzkml.jasmine.data.ai.transformers.TemplateTransformer
@@ -85,7 +84,6 @@ private val inputTransformers by lazy {
     listOf(
         PlaceholderTransformer,
         DocumentAsPromptTransformer,
-        OcrTransformer,
     )
 }
 

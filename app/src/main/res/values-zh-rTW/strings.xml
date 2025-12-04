@@ -354,9 +354,7 @@
   <string name="setting_model_page_chat_model_desc">全域預設聊天模型</string>
   <string name="setting_model_page_learning_mode">學習模式提示</string>
   <string name="setting_model_page_learning_mode_desc">設定學習模式所使用的提示詞</string>
-  <string name="setting_model_page_ocr_model">OCR 模型</string>
-  <string name="setting_model_page_ocr_model_desc">用於圖片光學字元辨識的模型</string>
-  <string name="setting_model_page_ocr_prompt_vars">變數：圖片資料：{images}</string>
+  
   <string name="setting_model_page_prompt">提示詞</string>
   <string name="setting_model_page_reset_to_default">重置為預設值</string>
   <string name="setting_model_page_suggestion_prompt_vars">變數: 對話內容: {content}, 語言: {locale}</string>
@@ -437,11 +435,9 @@
   <string name="setting_provider_page_filter_placeholder">輸入模型名稱篩選</string>
   <string name="setting_provider_page_image">圖片</string>
   <string name="setting_provider_page_image_model">圖像</string>
-  <string name="setting_provider_page_image_qr_decode_failed">解析圖片中的二維碼失敗：%s</string>
-  <string name="setting_provider_page_image_read_failed">無法讀取圖片</string>
-  <string name="setting_provider_page_import_dialog_message">請選擇匯入方式：</string>
-  <string name="setting_provider_page_import_dialog_title">匯入供應商配置</string>
-  <string name="setting_provider_page_import_success">匯入成功</string>
+  
+  
+  
   <string name="setting_provider_page_input_modality">輸入模態</string>
   <string name="setting_provider_page_location">位置（例如 us-central1）</string>
   <string name="setting_provider_page_model_count">%d個模型</string>
@@ -455,8 +451,7 @@
   <string name="setting_provider_page_name">名稱</string>
   <string name="setting_provider_page_network_proxy">網路代理</string>
   <string name="setting_provider_page_no_models">暫無模型</string>
-  <string name="setting_provider_page_no_permission">沒有權限</string>
-  <string name="setting_provider_page_no_qr_found">未找到有效的二維碼</string>
+  
   <string name="setting_provider_page_output_modality">輸出模態</string>
   <string name="setting_provider_page_private_key">私鑰</string>
   <string name="setting_provider_page_project_id">專案 ID</string>
@@ -466,16 +461,15 @@
   <string name="setting_provider_page_proxy_password">密碼 (可選)</string>
   <string name="setting_provider_page_proxy_port">埠號</string>
   <string name="setting_provider_page_proxy_username">使用者名稱 (可選)</string>
-  <string name="setting_provider_page_qr_decode_failed">解析二維碼失敗：%s</string>
+  
   <string name="setting_provider_page_reasoning">推理</string>
   <string name="setting_provider_page_response_api">Response API</string>
   <string name="setting_provider_page_response_api_warning">Response API是OpenAI新一代API，大部分提供商並不支持，如果你不知道這是什麼，不要開啟</string>
   <string name="setting_provider_page_save">保存</string>
   <string name="setting_provider_page_save_success">保存成功</string>
-  <string name="setting_provider_page_scan_error">錯誤: %s</string>
-  <string name="setting_provider_page_scan_qr_code">掃描二維碼</string>
+  
   <string name="setting_provider_page_search_providers">搜尋提供者</string>
-  <string name="setting_provider_page_select_from_gallery">從相簿選擇</string>
+  
   <string name="setting_provider_page_service_account_email">服務帳戶郵箱</string>
   <string name="setting_provider_page_share">分享</string>
   <string name="setting_provider_page_test">測試</string>

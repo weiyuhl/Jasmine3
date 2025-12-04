@@ -44,7 +44,6 @@ import androidx.compose.material.icons.filled.Visibility
 import com.lhzkmlai.provider.ModelType
 import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_OCR_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
 import com.lhzkml.jasmine.data.datastore.Settings
 import com.lhzkml.jasmine.ui.components.ai.ModelSelector
@@ -92,7 +91,7 @@ fun SettingModelPage(vm: SettingVM = koinViewModel()) {
             }
 
             item {
-                DefaultOcrModelSetting(settings = settings, vm = vm)
+                
             }
         }
     }
@@ -303,100 +302,7 @@ private fun LearningModePromptSetting(
     }
 }
 
-@Composable
-private fun DefaultOcrModelSetting(
-    settings: Settings,
-    vm: SettingVM
-) {
-    var showModal by remember { mutableStateOf(false) }
-    ModelFeatureCard(
-        title = {
-            Text(
-                stringResource(R.string.setting_model_page_ocr_model),
-                maxLines = 1
-            )
-        },
-        description = {
-            Text(stringResource(R.string.setting_model_page_ocr_model_desc))
-        },
-        icon = {
-            Icon(Icons.Filled.Visibility, null)
-        },
-        actions = {
-            Box(modifier = Modifier.weight(1f)) {
-                ModelSelector(
-                    modelId = settings.ocrModelId,
-                    type = ModelType.CHAT,
-                    onSelect = {
-                        vm.updateSettings(
-                            settings.copy(
-                                ocrModelId = it.id
-                            )
-                        )
-                    },
-                    providers = settings.providers,
-                    modifier = Modifier.wrapContentWidth()
-                )
-            }
-            IconButton(
-                onClick = {
-                    showModal = true
-                }
-            ) {
-                Icon(Icons.Filled.Settings, null)
-            }
-        }
-    )
-
-    if (showModal) {
-        ModalBottomSheet(
-            onDismissRequest = {
-                showModal = false
-            },
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                FormItem(
-                    label = {
-                        Text(stringResource(R.string.setting_model_page_prompt))
-                    },
-                    description = {
-                        Text(stringResource(R.string.setting_model_page_ocr_prompt_vars))
-                    }
-                ) {
-                    OutlinedTextField(
-                        value = settings.ocrPrompt,
-                        onValueChange = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    ocrPrompt = it
-                                )
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        maxLines = 10,
-                    )
-                    TextButton(
-                        onClick = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    ocrPrompt = DEFAULT_OCR_PROMPT
-                                )
-                            )
-                        }
-                    ) {
-                        Text(stringResource(R.string.setting_model_page_reset_to_default))
-                    }
-                }
-            }
-        }
-    }
-}
+ 
 
 @Composable
 private fun ModelFeatureCard(
