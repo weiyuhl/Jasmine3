@@ -53,12 +53,7 @@ data class MultiplePermissionResult(
     val allRequiredGranted: Boolean
 )
 
-val PermissionCamera = PermissionInfo(
-    permission = Manifest.permission.CAMERA,
-    displayName = { Text(stringResource(R.string.permission_camera)) },
-    usage = { Text(stringResource(R.string.permission_camera_desc)) },
-    required = true
-)
+ 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 val PermissionNotification = PermissionInfo(
