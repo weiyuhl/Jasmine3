@@ -20,7 +20,6 @@ import com.lhzkmlai.provider.Model
 import com.lhzkmlai.provider.ProviderSetting
 import com.lhzkml.jasmine.AppScope
 import com.lhzkml.jasmine.data.ai.mcp.McpServerConfig
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
  
 import com.lhzkml.jasmine.data.datastore.migration.PreferenceStoreV1Migration
@@ -68,7 +67,7 @@ class SettingsStore(
         val SELECT_MODEL = stringPreferencesKey("chat_model")
         val TITLE_MODEL = stringPreferencesKey("title_model")
         val TITLE_PROMPT = stringPreferencesKey("title_prompt")
-        val LEARNING_MODE_PROMPT = stringPreferencesKey("learning_mode_prompt")
+        
         
 
         // 提供商
@@ -113,7 +112,7 @@ class SettingsStore(
                 titleModelId = preferences[TITLE_MODEL]?.let { Uuid.parse(it) }
                     ?: SILICONFLOW_QWEN3_8B_ID,
                 titlePrompt = preferences[TITLE_PROMPT] ?: DEFAULT_TITLE_PROMPT,
-                learningModePrompt = preferences[LEARNING_MODE_PROMPT] ?: DEFAULT_LEARNING_MODE_PROMPT,
+                
                 assistantId = preferences[SELECT_ASSISTANT]?.let { Uuid.parse(it) }
                     ?: DEFAULT_ASSISTANT_ID,
                 
@@ -222,7 +221,7 @@ class SettingsStore(
             preferences[SELECT_MODEL] = settings.chatModelId.toString()
             preferences[TITLE_MODEL] = settings.titleModelId.toString()
             preferences[TITLE_PROMPT] = settings.titlePrompt
-            preferences[LEARNING_MODE_PROMPT] = settings.learningModePrompt
+            
             
 
             preferences[PROVIDERS] = JsonInstant.encodeToString(settings.providers)
@@ -267,7 +266,7 @@ class SettingsStore(
     val chatModelId: Uuid = Uuid.random(),
     val titleModelId: Uuid = Uuid.random(),
     val titlePrompt: String = DEFAULT_TITLE_PROMPT,
-    val learningModePrompt: String = DEFAULT_LEARNING_MODE_PROMPT,
+    
     
     val assistantId: Uuid = DEFAULT_ASSISTANT_ID,
     val providers: List<ProviderSetting> = DEFAULT_PROVIDERS,

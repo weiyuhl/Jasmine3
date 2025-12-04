@@ -33,7 +33,6 @@ import com.lhzkmlai.ui.UIMessagePart
 import com.lhzkmlai.ui.handleMessageChunk
 import com.lhzkmlai.ui.limitContext
 import com.lhzkmlai.ui.truncate
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
 import com.lhzkml.jasmine.data.ai.transformers.InputMessageTransformer
 import com.lhzkml.jasmine.data.ai.transformers.MessageTransformer
 import com.lhzkml.jasmine.data.ai.transformers.OutputMessageTransformer
@@ -241,12 +240,7 @@ class GenerationHandler(
                     append(buildRecentChatsPrompt(assistant))
                 }
 
-                // 学习模式
-                if (assistant.learningMode) {
-                    appendLine()
-                    append(settings.learningModePrompt.ifEmpty { DEFAULT_LEARNING_MODE_PROMPT })
-                    appendLine()
-                }
+                
 
                 // 工具prompt
                 tools.forEach { tool ->

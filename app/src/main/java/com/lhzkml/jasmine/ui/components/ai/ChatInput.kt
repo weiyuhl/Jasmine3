@@ -678,28 +678,7 @@ private fun FilesPicker(
             modifier = Modifier.fillMaxWidth()
         )
 
-        ListItem(
-            leadingContent = {
-                Icon(
-                    imageVector = Icons.Filled.School,
-                    contentDescription = stringResource(R.string.chat_page_learning_mode),
-                )
-            },
-            headlineContent = {
-                Text(stringResource(R.string.chat_page_learning_mode))
-            },
-            supportingContent = {
-                Text(stringResource(R.string.chat_page_learning_mode_desc))
-            },
-            trailingContent = {
-                Switch(
-                    checked = assistant.learningMode,
-                    onCheckedChange = {
-                        onUpdateAssistant(assistant.copy(learningMode = it))
-                    }
-                )
-            },
-        )
+        
 
         ListItem(
             leadingContent = {

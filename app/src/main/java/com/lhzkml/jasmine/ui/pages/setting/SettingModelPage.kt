@@ -38,12 +38,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.automirrored.filled.MenuBook
-import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Visibility
 import com.lhzkmlai.provider.ModelType
 import com.lhzkml.jasmine.R
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
 import com.lhzkml.jasmine.data.datastore.Settings
 import com.lhzkml.jasmine.ui.components.ai.ModelSelector
@@ -86,9 +84,7 @@ fun SettingModelPage(vm: SettingVM = koinViewModel()) {
 
             
 
-            item {
-                LearningModePromptSetting(settings = settings, vm = vm)
-            }
+            
 
             item {
                 
@@ -228,79 +224,7 @@ private fun DefaultChatModelSetting(
     )
 }
 
-@Composable
-private fun LearningModePromptSetting(
-    settings: Settings,
-    vm: SettingVM
-) {
-    var showModal by remember { mutableStateOf(false) }
-    ModelFeatureCard(
-        title = {
-            Text(stringResource(R.string.setting_model_page_learning_mode), maxLines = 1)
-        },
-        description = {
-            Text(stringResource(R.string.setting_model_page_learning_mode_desc))
-        },
-        icon = {
-            Icon(Icons.Filled.School, null)
-        },
-        actions = {
-            IconButton(
-                onClick = {
-                    showModal = true
-                }
-            ) {
-                Icon(Icons.Filled.Settings, null)
-            }
-        }
-    )
-
-    if (showModal) {
-        ModalBottomSheet(
-            onDismissRequest = {
-                showModal = false
-            },
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                FormItem(
-                    label = {
-                        Text(stringResource(R.string.setting_model_page_prompt))
-                    },
-                ) {
-                    OutlinedTextField(
-                        value = settings.learningModePrompt,
-                        onValueChange = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    learningModePrompt = it
-                                )
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        maxLines = 10,
-                    )
-                    TextButton(
-                        onClick = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    learningModePrompt = DEFAULT_LEARNING_MODE_PROMPT
-                                )
-                            )
-                        }
-                    ) {
-                        Text(stringResource(R.string.setting_model_page_reset_to_default))
-                    }
-                }
-            }
-        }
-    }
-}
+ 
 
  
 
