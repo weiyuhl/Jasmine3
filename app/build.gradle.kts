@@ -187,9 +187,7 @@ dependencies {
     // DataStore
     implementation(libs.androidx.datastore.preferences)
 
-    // Image metadata extractor
-    // https://github.com/drewnoakes/metadata-extractor
-    implementation(libs.metadata.extractor)
+    
 
     // koin
     implementation(platform(libs.koin.bom))
@@ -226,7 +224,7 @@ dependencies {
     // serialization
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.androidx.exifinterface)
+    
 
     // Room
     implementation(libs.androidx.room.runtime)
