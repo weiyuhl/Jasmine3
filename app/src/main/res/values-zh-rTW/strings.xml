@@ -243,8 +243,8 @@
   <string name="history_page_undo">撤銷</string>
   <string name="history_page_unpin">取消置頂</string>
   <string name="language_english">English</string>
-  <string name="language_spanish">🇪🇸 西班牙文</string>
   <string name="language_traditional_chinese">繁體中文</string>
+  <string name="language_simplified_chinese">簡體中文</string>
   <string name="setting_page_language_restart_desc">語言設定將在重啟應用後生效。</string>
   <string name="mcp_picker_syncing">正在同步MCP伺服器...</string>
   <string name="mcp_picker_title">MCP伺服器</string>
@@ -363,9 +363,6 @@
   <string name="setting_model_page_title">模型設定</string>
   <string name="setting_model_page_title_model">標題摘要模型</string>
   <string name="setting_model_page_title_model_desc">用於摘要對話標題的模型, 推薦使用快速且便宜的模型</string>
-  <string name="setting_model_page_translate_model">翻譯模型</string>
-  <string name="setting_model_page_translate_model_desc">用於翻譯功能的模型</string>
-  <string name="setting_model_page_translate_prompt_vars">變數: 原始文字: {source_text}, 目標語言: {target_lang}</string>
   <string name="setting_page_about">關於</string>
   <string name="setting_page_about_desc">關於本APP</string>
   <string name="setting_page_assistant">助手</string>

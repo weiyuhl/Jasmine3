@@ -243,14 +243,8 @@
   <string name="history_page_undo">撤销</string>
   <string name="history_page_unpin">取消置顶</string>
   <string name="language_english">English</string>
-  <string name="language_french">🇫🇷 Français</string>
-  <string name="language_german">🇩🇪 Deutsch</string>
-  <string name="language_italian">🇮🇹 Italiano</string>
-  <string name="language_japanese">🇯🇵 日本語</string>
-  <string name="language_korean">🇰🇷 한국어</string>
-  <string name="language_simplified_chinese">简体中文</string>
-  <string name="language_spanish">🇪🇸 西班牙语</string>
   <string name="language_traditional_chinese">繁體中文</string>
+  <string name="language_simplified_chinese">简体中文</string>
   <string name="setting_page_language_restart_desc">语言设置将在重启应用后生效。</string>
   <string name="mcp_picker_syncing">正在同步MCP服务器...</string>
   <string name="mcp_picker_title">MCP服务器</string>
