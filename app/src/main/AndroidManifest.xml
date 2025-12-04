@@ -3,15 +3,9 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-  <uses-feature
-    android:name="android.hardware.camera"
-    android:required="false" />
-  <uses-feature
-    android:name="android.hardware.camera.autofocus"
-    android:required="false" />
+  
 
   <application
     android:name=".jasmineApp"
@@ -41,21 +35,10 @@
         <category android:name="android.intent.category.DEFAULT" />
         <data android:mimeType="text/plain" />
       </intent-filter>
-      <meta-data
-          android:name="android.app.shortcuts"
-          android:resource="@xml/shortcuts" />
+      
     </activity>
 
-    <activity
-        android:name=".ui.activity.ShortcutHandlerActivity"
-        android:exported="true"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <data android:scheme="jasmine" android:host="shortcut" />
-        </intent-filter>
-    </activity>
+    
 
     <activity
       android:name="com.yalantis.ucrop.UCropActivity"

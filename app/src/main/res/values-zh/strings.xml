@@ -479,12 +479,12 @@
   <string name="settings">设置</string>
   <string name="share">分享</string>
   <string name="share_handler_page_title">选择一个助手处理分享</string>
-  <string name="shortcut_take_picture">拍照提问</string>
+  
   <string name="silicon_flow_built_in_models">* 已内置硅基流动免费模型，无需API Key即可使用，如果需要更强大的模型，请自行申请和配置自己的API Key。</string>
   <string name="silicon_flow_description">**全球领先的 AI 能力提供商，加速 AGI 普惠人类。**</string>
   <string name="silicon_flow_website">官网: [https://cloud.siliconflow.cn/](https://cloud.siliconflow.cn/i/u1Ia4Ycf)</string>
   <string name="stop">停止</string>
-  <string name="take_picture">拍照</string>
+  
   <string name="tools_warning">当前模型未开启工具调用，请在设置内启用模型的工具能力，再使用搜索/MCP等功能</string>
   <string name="unpin_chat">取消置顶聊天</string>
   <string name="upload_file">上传文件</string>

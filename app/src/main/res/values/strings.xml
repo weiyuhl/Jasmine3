@@ -13,8 +13,7 @@
   <string name="built_in_search_title">Built-in Search</string>
   <string name="built_in_search_description">Enable model\'s built-in search functionality</string>
   <string name="photo">Photo</string>
-  <string name="take_picture">Take Picture</string>
-  <string name="shortcut_take_picture">Take Picture &amp; Ask</string>
+  
   <string name="upload_file">Upload File</string>
   <string name="copy">Copy</string>
   <string name="regenerate">Regenerate</string>

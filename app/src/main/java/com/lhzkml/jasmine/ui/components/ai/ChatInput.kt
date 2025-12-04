@@ -88,7 +88,7 @@ import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HomeRepairService
-import androidx.core.content.FileProvider
+ 
 import androidx.core.net.toFile
 import androidx.core.net.toUri
 import coil3.compose.AsyncImage
@@ -97,7 +97,7 @@ import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.PhotoCamera
+ 
 import androidx.compose.material.icons.filled.VideoLibrary
 import androidx.compose.material.icons.filled.UploadFile
 import androidx.compose.material.icons.filled.School
@@ -120,10 +120,8 @@ import com.lhzkml.jasmine.data.datastore.getCurrentChatModel
 import com.lhzkml.jasmine.data.model.Assistant
 import com.lhzkml.jasmine.data.model.Conversation
 import com.lhzkml.jasmine.ui.components.ui.KeepScreenOn
-import com.lhzkml.jasmine.ui.components.ui.permission.PermissionCamera
-import com.lhzkml.jasmine.ui.components.ui.permission.PermissionManager
 import com.lhzkml.jasmine.ui.components.ui.ToggleSurface
-import com.lhzkml.jasmine.ui.components.ui.permission.rememberPermissionState
+ 
 import com.lhzkml.jasmine.ui.context.LocalSettings
 import com.lhzkml.jasmine.ui.context.LocalToaster
 import com.lhzkml.jasmine.ui.hooks.ChatInputState
@@ -133,7 +131,7 @@ import com.lhzkml.jasmine.utils.getFileMimeType
 import com.lhzkml.jasmine.utils.getFileNameFromUri
 import java.io.File
 import kotlin.time.Duration.Companion.seconds
-import kotlin.uuid.Uuid
+ 
 
 enum class ExpandState {
     Collapsed,
@@ -658,11 +656,7 @@ private fun FilesPicker(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            TakePicButton {
-                state.addImages(it)
-                onDismiss()
-            }
-
+            
             ImagePickButton {
                 state.addImages(it)
                 onDismiss()
@@ -966,68 +960,7 @@ private fun ImagePickButton(onAddImages: (List<Uri>) -> Unit = {}) {
     }
 }
 
-@Composable
-fun TakePicButton(onAddImages: (List<Uri>) -> Unit = {}) {
-    val cameraPermission = rememberPermissionState(PermissionCamera)
-
-    val context = LocalContext.current
-    val settings = LocalSettings.current
-    var cameraOutputUri by remember { mutableStateOf<Uri?>(null) }
-    var cameraOutputFile by remember { mutableStateOf<File?>(null) }
-
-    val (_, launchCrop) = useCropLauncher(
-        onCroppedImageReady = { croppedUri ->
-            onAddImages(context.createChatFilesByContents(listOf(croppedUri)))
-        },
-        onCleanup = {
-            // Clean up camera temp file after cropping is done
-            cameraOutputFile?.delete()
-            cameraOutputFile = null
-            cameraOutputUri = null
-        }
-    )
-
-    val cameraLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.TakePicture()
-    ) { captureSuccessful ->
-        if (captureSuccessful && cameraOutputUri != null) {
-            launchCrop(cameraOutputUri!!)
-        } else {
-            // Clean up camera temp file if capture failed
-            cameraOutputFile?.delete()
-            cameraOutputFile = null
-            cameraOutputUri = null
-        }
-    }
-
-    // 使用权限管理器包装
-        PermissionManager(
-            permissionState = cameraPermission
-        ) {
-            BigIconTextButton(
-                icon = {
-                    Icon(Icons.Filled.PhotoCamera, null)
-                },
-                text = {
-                    Text(stringResource(R.string.take_picture))
-                }
-            ) {
-            if (cameraPermission.allRequiredPermissionsGranted) {
-                // 权限已授权，直接启动相机
-                cameraOutputFile = context.cacheDir.resolve("camera_${Uuid.random()}.jpg")
-                cameraOutputUri = FileProvider.getUriForFile(
-                    context,
-                    "${context.packageName}.fileprovider",
-                    cameraOutputFile!!
-                )
-                cameraLauncher.launch(cameraOutputUri!!)
-            } else {
-                // 请求权限
-                cameraPermission.requestPermissions()
-            }
-        }
-    }
-}
+ 
 
 @Composable
 fun VideoPickButton(onAddVideos: (List<Uri>) -> Unit = {}) {
