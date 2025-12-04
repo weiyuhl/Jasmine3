@@ -7,7 +7,6 @@ import com.lhzkml.jasmine.ui.pages.chat.ChatVM
 import com.lhzkml.jasmine.ui.pages.debug.DebugVM
 import com.lhzkml.jasmine.ui.pages.developer.DeveloperVM
 import com.lhzkml.jasmine.ui.pages.history.HistoryVM
-import com.lhzkml.jasmine.ui.pages.imggen.ImgGenVM
 import com.lhzkml.jasmine.ui.pages.setting.SettingVM
 import com.lhzkml.jasmine.ui.pages.share.handler.ShareHandlerVM
 import com.lhzkml.jasmine.ui.pages.translator.TranslatorVM
@@ -47,6 +46,5 @@ val viewModelModule = module {
         )
     }
     viewModelOf(::BackupVM)
-    viewModelOf(::ImgGenVM)
     viewModelOf(::DeveloperVM)
 }

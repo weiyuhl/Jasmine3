@@ -13,10 +13,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.lhzkmlai.core.TokenUsage
 import com.lhzkmlai.ui.UIMessage
 import com.lhzkml.jasmine.data.db.dao.ConversationDAO
-import com.lhzkml.jasmine.data.db.dao.GenMediaDAO
 import com.lhzkml.jasmine.data.db.dao.MemoryDAO
 import com.lhzkml.jasmine.data.db.entity.ConversationEntity
-import com.lhzkml.jasmine.data.db.entity.GenMediaEntity
 import com.lhzkml.jasmine.data.db.entity.MemoryEntity
 import com.lhzkml.jasmine.data.model.MessageNode
 import com.lhzkml.jasmine.utils.JsonInstant
@@ -24,7 +22,7 @@ import com.lhzkml.jasmine.utils.JsonInstant
 private const val TAG = "AppDatabase"
 
 @Database(
-    entities = [ConversationEntity::class, MemoryEntity::class, GenMediaEntity::class],
+    entities = [ConversationEntity::class, MemoryEntity::class],
     version = 11,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -44,7 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun memoryDao(): MemoryDAO
 
-    abstract fun genMediaDao(): GenMediaDAO
+    // Image generation DAO removed
 }
 
 object TokenUsageConverter {

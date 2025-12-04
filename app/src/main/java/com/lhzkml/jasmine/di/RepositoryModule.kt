@@ -1,7 +1,6 @@
 package com.lhzkml.jasmine.di
 
 import com.lhzkml.jasmine.data.repository.ConversationRepository
-import com.lhzkml.jasmine.data.repository.GenMediaRepository
 import com.lhzkml.jasmine.data.repository.MemoryRepository
 import org.koin.dsl.module
 
@@ -14,7 +13,5 @@ val repositoryModule = module {
         MemoryRepository(get())
     }
 
-    single {
-        GenMediaRepository(get())
-    }
+    // Image generation repository removed
 }

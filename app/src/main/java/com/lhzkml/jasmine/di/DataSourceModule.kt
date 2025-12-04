@@ -59,9 +59,7 @@ val dataSourceModule = module {
         get<AppDatabase>().memoryDao()
     }
 
-    single {
-        get<AppDatabase>().genMediaDao()
-    }
+    // Image generation DAO removed
 
     single { McpManager(settingsStore = get(), appScope = get()) }
 
