@@ -141,30 +141,7 @@ fun AssistantPickerSheet(
 
             Greeting()
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Card(
-                    onClick = {
-                        onDismiss()
-                        navController.navigate(Screen.Translator)
-                    },
-                    shape = MaterialTheme.shapes.large,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    ListItem(
-                        leadingContent = { Icon(imageVector = Icons.Filled.Language, contentDescription = null) },
-                        headlineContent = { Text(stringResource(R.string.menu_page_ai_translator)) },
-                        colors = ListItemDefaults.colors(containerColor = Color.Transparent)
-                    )
-                }
-
-                // Image generation feature removed
-            }
+            
 
             Spacer(modifier = Modifier.height(16.dp))
 

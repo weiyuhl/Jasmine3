@@ -87,7 +87,6 @@ import com.lhzkml.jasmine.utils.JsonInstant
 import com.lhzkml.jasmine.utils.base64Encode
 import com.lhzkml.jasmine.utils.openUrl
 import com.lhzkml.jasmine.utils.urlDecode
-import java.util.Locale
 import kotlin.time.Duration.Companion.milliseconds
 
 private val EmptyJson = JsonObject(emptyMap())
@@ -106,8 +105,6 @@ fun ChatMessage(
     onShare: () -> Unit,
     onDelete: () -> Unit,
     onUpdate: (MessageNode) -> Unit,
-    onTranslate: ((UIMessage, Locale) -> Unit)? = null,
-    onClearTranslation: (UIMessage) -> Unit = {},
 ) {
     val message = node.messages[node.selectIndex]
     val chatMessages = conversation.currentMessages
@@ -162,12 +159,7 @@ fun ChatMessage(
             model = model,
         )
 
-        message.translation?.let { translation ->
-            CollapsibleTranslationText(
-                content = translation,
-                onClickCitation = {}
-            )
-        }
+        
 
         val showActions = if (lastMessage) {
             !loading
@@ -190,9 +182,7 @@ fun ChatMessage(
                     onUpdate = onUpdate,
                     onOpenActionSheet = {
                         showActionsSheet = true
-                    },
-                    onTranslate = onTranslate,
-                    onClearTranslation = onClearTranslation
+                    }
                 )
             }
         }

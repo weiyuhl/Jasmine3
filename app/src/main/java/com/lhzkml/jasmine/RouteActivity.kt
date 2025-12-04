@@ -66,7 +66,7 @@ import com.lhzkml.jasmine.ui.pages.setting.SettingProviderPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingSearchPage
  
 import com.lhzkml.jasmine.ui.pages.share.handler.ShareHandlerPage
-import com.lhzkml.jasmine.ui.pages.translator.TranslatorPage
+ 
 import com.lhzkml.jasmine.ui.pages.webview.WebViewPage
 import com.lhzkml.jasmine.ui.theme.LocalDarkMode
 import com.lhzkml.jasmine.ui.theme.jasmineTheme
@@ -255,9 +255,7 @@ class RouteActivity : ComponentActivity() {
 
                     
 
-                    composable<Screen.Translator> {
-                        TranslatorPage()
-                    }
+                    
 
                     composable<Screen.Setting> {
                         SettingPage()
@@ -336,9 +334,6 @@ sealed interface Screen {
     data class AssistantDetail(val id: String) : Screen
 
     
-
-    @Serializable
-    data object Translator : Screen
 
     @Serializable
     data object Setting : Screen

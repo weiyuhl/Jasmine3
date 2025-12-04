@@ -23,7 +23,7 @@ import com.lhzkml.jasmine.data.ai.mcp.McpServerConfig
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_OCR_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TRANSLATION_PROMPT
+ 
 import com.lhzkml.jasmine.data.datastore.migration.PreferenceStoreV1Migration
 import com.lhzkml.jasmine.data.datastore.migration.PreferenceStoreV2Migration
 import com.lhzkml.jasmine.data.ai.tools.LocalToolOption
@@ -116,10 +116,7 @@ class SettingsStore(
                     ?: SILICONFLOW_QWEN3_8B_ID,
                 titleModelId = preferences[TITLE_MODEL]?.let { Uuid.parse(it) }
                     ?: SILICONFLOW_QWEN3_8B_ID,
-                translateModeId = preferences[TRANSLATE_MODEL]?.let { Uuid.parse(it) }
-                    ?: SILICONFLOW_QWEN3_8B_ID,
                 titlePrompt = preferences[TITLE_PROMPT] ?: DEFAULT_TITLE_PROMPT,
-                translatePrompt = preferences[TRANSLATION_PROMPT] ?: DEFAULT_TRANSLATION_PROMPT,
                 learningModePrompt = preferences[LEARNING_MODE_PROMPT] ?: DEFAULT_LEARNING_MODE_PROMPT,
                 ocrModelId = preferences[OCR_MODEL]?.let { Uuid.parse(it) } ?: Uuid.random(),
                 ocrPrompt = preferences[OCR_PROMPT] ?: DEFAULT_OCR_PROMPT,
@@ -230,9 +227,7 @@ class SettingsStore(
             preferences[FAVORITE_MODELS] = JsonInstant.encodeToString(settings.favoriteModels)
             preferences[SELECT_MODEL] = settings.chatModelId.toString()
             preferences[TITLE_MODEL] = settings.titleModelId.toString()
-            preferences[TRANSLATE_MODEL] = settings.translateModeId.toString()
             preferences[TITLE_PROMPT] = settings.titlePrompt
-            preferences[TRANSLATION_PROMPT] = settings.translatePrompt
             preferences[LEARNING_MODE_PROMPT] = settings.learningModePrompt
             preferences[OCR_MODEL] = settings.ocrModelId.toString()
             preferences[OCR_PROMPT] = settings.ocrPrompt
@@ -279,8 +274,6 @@ data class Settings(
     val chatModelId: Uuid = Uuid.random(),
     val titleModelId: Uuid = Uuid.random(),
     val titlePrompt: String = DEFAULT_TITLE_PROMPT,
-    val translateModeId: Uuid = Uuid.random(),
-    val translatePrompt: String = DEFAULT_TRANSLATION_PROMPT,
     val learningModePrompt: String = DEFAULT_LEARNING_MODE_PROMPT,
     val ocrModelId: Uuid = Uuid.random(),
     val ocrPrompt: String = DEFAULT_OCR_PROMPT,

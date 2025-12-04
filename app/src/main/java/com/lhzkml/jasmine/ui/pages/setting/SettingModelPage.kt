@@ -46,7 +46,6 @@ import com.lhzkml.jasmine.R
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_LEARNING_MODE_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_OCR_PROMPT
 import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TITLE_PROMPT
-import com.lhzkml.jasmine.data.ai.prompts.DEFAULT_TRANSLATION_PROMPT
 import com.lhzkml.jasmine.data.datastore.Settings
 import com.lhzkml.jasmine.ui.components.ai.ModelSelector
 import com.lhzkml.jasmine.ui.components.nav.BackButton
@@ -86,9 +85,7 @@ fun SettingModelPage(vm: SettingVM = koinViewModel()) {
                 // 建议模型设置项已移除
             }
 
-            item {
-                DefaultTranslationModelSetting(settings = settings, vm = vm)
-            }
+            
 
             item {
                 LearningModePromptSetting(settings = settings, vm = vm)
@@ -101,100 +98,7 @@ fun SettingModelPage(vm: SettingVM = koinViewModel()) {
     }
 }
 
-@Composable
-private fun DefaultTranslationModelSetting(
-    settings: Settings,
-    vm: SettingVM
-) {
-    var showModal by remember { mutableStateOf(false) }
-    ModelFeatureCard(
-        title = {
-            Text(
-                stringResource(R.string.setting_model_page_translate_model),
-                maxLines = 1
-            )
-        },
-        description = {
-            Text(stringResource(R.string.setting_model_page_translate_model_desc))
-        },
-        icon = {
-            Icon(Icons.Filled.Language, null)
-        },
-        actions = {
-            Box(modifier = Modifier.weight(1f)) {
-                ModelSelector(
-                    modelId = settings.translateModeId,
-                    type = ModelType.CHAT,
-                    onSelect = {
-                        vm.updateSettings(
-                            settings.copy(
-                                translateModeId = it.id
-                            )
-                        )
-                    },
-                    providers = settings.providers,
-                    modifier = Modifier.wrapContentWidth()
-                )
-            }
-            IconButton(
-                onClick = {
-                    showModal = true
-                }
-            ) {
-                Icon(Icons.Filled.Settings, null)
-            }
-        }
-    )
-
-    if (showModal) {
-        ModalBottomSheet(
-            onDismissRequest = {
-                showModal = false
-            },
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                FormItem(
-                    label = {
-                        Text(stringResource(R.string.setting_model_page_prompt))
-                    },
-                    description = {
-                        Text(stringResource(R.string.setting_model_page_translate_prompt_vars))
-                    }
-                ) {
-                    OutlinedTextField(
-                        value = settings.translatePrompt,
-                        onValueChange = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    translatePrompt = it
-                                )
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        maxLines = 10,
-                    )
-                    TextButton(
-                        onClick = {
-                            vm.updateSettings(
-                                settings.copy(
-                                    translatePrompt = DEFAULT_TRANSLATION_PROMPT
-                                )
-                            )
-                        }
-                    ) {
-                        Text(stringResource(R.string.setting_model_page_reset_to_default))
-                    }
-                }
-            }
-        }
-    }
-}
+ 
 
 // DefaultSuggestionModelSetting 已移除
 

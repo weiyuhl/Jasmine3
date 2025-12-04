@@ -113,8 +113,6 @@ fun ChatList(
     onForkMessage: (UIMessage) -> Unit = {},
     onDelete: (UIMessage) -> Unit = {},
     onUpdateMessage: (MessageNode) -> Unit = {},
-    onTranslate: ((UIMessage, java.util.Locale) -> Unit)? = null,
-    onClearTranslation: (UIMessage) -> Unit = {},
     onJumpToMessage: (Int) -> Unit = {},
     onBlankAreaTap: () -> Unit = {},
 ) {
@@ -146,8 +144,7 @@ fun ChatList(
                     onForkMessage = onForkMessage,
                     onDelete = onDelete,
                     onUpdateMessage = onUpdateMessage,
-                    onTranslate = onTranslate,
-                    onClearTranslation = onClearTranslation,
+                    
                     onBlankAreaTap = onBlankAreaTap,
                     animatedVisibilityScope = this@AnimatedContent,
                 )
@@ -168,8 +165,6 @@ private fun SharedTransitionScope.ChatListNormal(
     onForkMessage: (UIMessage) -> Unit,
     onDelete: (UIMessage) -> Unit,
     onUpdateMessage: (MessageNode) -> Unit,
-    onTranslate: ((UIMessage, java.util.Locale) -> Unit)?,
-    onClearTranslation: (UIMessage) -> Unit,
     onBlankAreaTap: () -> Unit,
     animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
@@ -282,8 +277,7 @@ private fun SharedTransitionScope.ChatListNormal(
                             onUpdate = {
                                 onUpdateMessage(it)
                             },
-                            onTranslate = onTranslate,
-                            onClearTranslation = onClearTranslation
+                            
                         )
                     }
                     if (index == conversation.truncateIndex - 1) {

@@ -9,7 +9,6 @@ import com.lhzkml.jasmine.ui.pages.developer.DeveloperVM
 import com.lhzkml.jasmine.ui.pages.history.HistoryVM
 import com.lhzkml.jasmine.ui.pages.setting.SettingVM
 import com.lhzkml.jasmine.ui.pages.share.handler.ShareHandlerVM
-import com.lhzkml.jasmine.ui.pages.translator.TranslatorVM
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -38,7 +37,7 @@ val viewModelModule = module {
             context = get(),
         )
     }
-    viewModelOf(::TranslatorVM)
+    
     viewModel<ShareHandlerVM> {
         ShareHandlerVM(
             text = it.get(),

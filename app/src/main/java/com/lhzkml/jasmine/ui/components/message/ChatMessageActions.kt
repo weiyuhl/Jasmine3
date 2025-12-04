@@ -45,7 +45,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Stop
-import androidx.compose.material.icons.filled.Translate
+ 
  
 import kotlinx.coroutines.delay
 import kotlinx.datetime.toJavaLocalDateTime
@@ -68,12 +68,9 @@ fun ColumnScope.ChatMessageActionButtons(
     onUpdate: (MessageNode) -> Unit,
     onRegenerate: () -> Unit,
     onOpenActionSheet: () -> Unit,
-    onTranslate: ((UIMessage, Locale) -> Unit)? = null,
-    onClearTranslation: (UIMessage) -> Unit = {},
 ) {
     val context = LocalContext.current
     var isPendingDelete by remember { mutableStateOf(false) }
-    var showTranslateDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(isPendingDelete) {
         if (isPendingDelete) {
@@ -102,25 +99,7 @@ fun ColumnScope.ChatMessageActionButtons(
                 .size(16.dp)
         )
 
-        if (message.role == MessageRole.ASSISTANT) {
-            if (onTranslate != null) {
-                Icon(
-                    imageVector = Icons.Filled.Translate,
-                    contentDescription = stringResource(R.string.translate),
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = LocalIndication.current,
-                            onClick = {
-                                showTranslateDialog = true
-                            }
-                        )
-                        .padding(8.dp)
-                        .size(16.dp)
-                )
-            }
-        }
+        
 
         Icon(
             imageVector = Icons.Filled.MoreHoriz,
@@ -144,22 +123,7 @@ fun ColumnScope.ChatMessageActionButtons(
         )
     }
 
-    // Translation dialog
-    if (showTranslateDialog && onTranslate != null) {
-        LanguageSelectionDialog(
-            onLanguageSelected = { language ->
-                showTranslateDialog = false
-                onTranslate(message, language)
-            },
-            onClearTranslation = {
-                showTranslateDialog = false
-                onClearTranslation(message)
-            },
-            onDismissRequest = {
-                showTranslateDialog = false
-            },
-        )
-    }
+    
 }
 
 @Composable

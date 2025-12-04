@@ -488,10 +488,6 @@ class ChatVM(
         }
     }
 
-    fun translateMessage(message: UIMessage, targetLanguage: Locale) {
-        chatService.translateMessage(_conversationId, message, targetLanguage)
-    }
-
     fun generateTitle(conversation: Conversation, force: Boolean = false) {
         viewModelScope.launch {
             val conversationFull = conversationRepo.getConversationById(conversation.id) ?: return@launch
@@ -500,10 +496,6 @@ class ChatVM(
     }
 
     // 建议生成功能已移除
-
-    fun clearTranslationField(messageId: Uuid) {
-        chatService.clearTranslationField(_conversationId, messageId)
-    }
 
     fun updateConversation(newConversation: Conversation) {
         viewModelScope.launch {
