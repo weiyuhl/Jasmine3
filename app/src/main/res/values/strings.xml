@@ -366,7 +366,7 @@
   <string name="setting_provider_page_enabled">Enabled</string>
   <string name="setting_provider_page_disabled">Disabled</string>
   <string name="setting_provider_page_model_count">%d models</string>
-  <string name="setting_provider_page_share">Share</string>
+  
   <string name="setting_provider_page_models">Models</string>
   <string name="setting_provider_page_configuration">Configuration</string>
   <string name="setting_provider_page_save_success">Save successful</string>

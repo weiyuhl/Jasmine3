@@ -83,7 +83,6 @@ import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Cable
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SettingsEthernet
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
@@ -110,11 +109,9 @@ import com.lhzkml.jasmine.ui.components.ai.ModelTypeTag
 import com.lhzkml.jasmine.ui.components.ai.ProviderBalanceText
 import com.lhzkml.jasmine.ui.components.nav.BackButton
 import com.lhzkml.jasmine.ui.components.ui.AutoAIIcon
-import com.lhzkml.jasmine.ui.components.ui.ShareSheet
 import com.lhzkml.jasmine.ui.components.ui.SiliconFlowPowerByIcon
 import com.lhzkml.jasmine.ui.components.ui.Tag
 import com.lhzkml.jasmine.ui.components.ui.TagType
-import com.lhzkml.jasmine.ui.components.ui.rememberShareSheetState
 import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.context.LocalToaster
 import com.lhzkml.jasmine.ui.hooks.useEditState
@@ -176,15 +173,7 @@ fun SettingProviderDetailPage(id: Uuid, vm: SettingVM = koinViewModel()) {
                     }
                 },
                 actions = {
-                    val shareSheetState = rememberShareSheetState()
-                    ShareSheet(shareSheetState)
-                    IconButton(
-                        onClick = {
-                            shareSheetState.show(provider)
-                        }
-                    ) {
-                        Icon(Icons.Filled.Share, null)
-                    }
+                    
                 }
             )
         },

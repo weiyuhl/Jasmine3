@@ -471,7 +471,7 @@
   <string name="setting_provider_page_search_providers">搜尋提供者</string>
   
   <string name="setting_provider_page_service_account_email">服務帳戶郵箱</string>
-  <string name="setting_provider_page_share">分享</string>
+  
   <string name="setting_provider_page_test">測試</string>
   <string name="setting_provider_page_test_connection">測試連接</string>
   <string name="setting_provider_page_test_success">測試成功</string>
