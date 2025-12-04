@@ -88,7 +88,7 @@ import com.lhzkml.jasmine.ui.components.ui.BitmapComposer
 import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.context.LocalSettings
 import com.lhzkml.jasmine.ui.context.LocalToaster
-import com.lhzkml.jasmine.ui.theme.jasmineTheme
+import com.lhzkml.jasmine.ui.theme.JasmineTheme
 import com.lhzkml.jasmine.utils.JsonInstant
 import com.lhzkml.jasmine.utils.exportImage
 import com.lhzkml.jasmine.utils.getActivity
@@ -380,7 +380,7 @@ private fun ExportedChatImage(
 ) {
     val navBackStack = rememberNavController()
     val highlighter = koinInject<Highlighter>()
-    jasmineTheme {
+    JasmineTheme {
         CompositionLocalProvider(
             LocalNavController provides navBackStack,
             LocalHighlighter provides highlighter
@@ -413,7 +413,7 @@ private fun ExportedChatImage(
                             )
                         }
                         // Use painterResource for the logo
-                        val painter = painterResource(id = R.mipmap.ic_launcher_foreground)
+                        val painter = painterResource(id = R.mipmap.ic_launcher)
                         Image(
                             painter = painter,
                             contentDescription = "Logo",

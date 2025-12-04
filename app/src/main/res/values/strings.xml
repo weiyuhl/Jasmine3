@@ -68,7 +68,6 @@
   <string name="setting_page_search_title">Search Service</string>
   <string name="setting_page_search_providers">Search Providers</string>
   <string name="setting_page_search_add_provider">Add Provider</string>
-  <string name="setting_page_search_provider_type">Provider Type</string>
   <string name="setting_page_search_delete_provider">Delete Provider</string>
   <string name="setting_page_search_common_options">Common Options</string>
   <string name="setting_page_search_result_size">Result Size</string>
@@ -129,7 +128,6 @@
   <string name="assistant_page_memory_desc">When memory is enabled, the model will try to actively record your information during conversations and use it in subsequent conversations. This feature requires the model to support tool calls to work properly</string>
   <string name="assistant_page_recent_chats">Reference Recent Chats</string>
   <string name="assistant_page_recent_chats_desc">When enabled, the assistant will reference recent chat history to provide more contextual responses</string>
-  <string name="assistant_page_manage_memory">Manage Memory (%d items)</string>
   <string name="assistant_page_cancel">Cancel</string>
   <string name="assistant_page_save">Save</string>
   <string name="assistant_page_manage_memory_title">Manage Memory</string>
@@ -137,13 +135,11 @@
   <string name="assistant_page_delete_dialog_text">Are you sure you want to delete this assistant? This action cannot be undone.</string>
   <string name="assistant_page_default_assistant">Default Assistant</string>
   <string name="setting_provider_page_delete_dialog_text">Are you sure you want to delete this provider? This action cannot be undone.</string>
-  <string name="assistant_page_temperature_value">Temperature: %s</string>
   <string name="assistant_page_memory_count">Memory: %d</string>
   <string name="assistant_page_no_system_prompt">No system prompt</string>
   <string name="assistant_page_clone">Clone</string>
   <string name="assistant_page_top_p_value">Top P: %s</string>
   <string name="assistant_page_thinking_budget">Thinking Budget</string>
-  <string name="assistant_page_thinking_budget_default">Default</string>
   <string name="assistant_page_max_tokens">Max Tokens</string>
   <string name="assistant_page_max_tokens_desc">Maximum number of tokens to generate. Leave empty for no limit.</string>
   <string name="assistant_page_max_tokens_no_limit">No limit</string>
@@ -162,11 +158,6 @@
   <string name="assistant_page_local_tools_javascript_engine_title">JavaScript Engine</string>
   <string name="assistant_page_local_tools_javascript_engine_desc">Execute JavaScript code with QuickJS engine for calculations and scripting</string>
   <string name="assistant_page_local_tools_filesystem_title">File System Tools</string>
-  <string name="assistant_page_local_tools_filesystem_desc"></string>
-  <string name="assistant_page_local_tools_read_file_title">Read File</string>
-  <string name="assistant_page_local_tools_read_file_desc">Read local file content via SAF</string>
-  <string name="assistant_page_local_tools_list_files_title">List Files</string>
-  <string name="assistant_page_local_tools_list_files_desc">List files under a directory via DocumentFile</string>
   <string name="assistant_page_local_tools_filesystem_capability_read_file">• Read file read_local_file</string>
   <string name="assistant_page_local_tools_filesystem_capability_list_directory">• List directory list_directory</string>
   <string name="assistant_page_local_tools_filesystem_capability_get_dir_tree">• Directory tree get_dir_tree</string>
@@ -205,7 +196,6 @@
   <string name="menu_page_evening_greeting">Good evening</string>
   <string name="menu_page_night_greeting">It is late, take care</string>
   
-  <string name="menu_page_knowledge_base">Knowledge Base (WIP)</string>
 
   <!-- ModelList Page -->
   <string name="model_list_select_model">Select Model</string>
@@ -217,20 +207,16 @@
   <string name="about_page_title">About</string>
   <string name="about_page_version">Version</string>
   <string name="about_page_system">System</string>
-  <string name="add">Add</string>
   
 
   <!-- History Page -->
   <string name="history_page_title">Chat History</string>
-  <string name="history_page_reset_chat">Reset Chat</string>
   <string name="history_page_search_placeholder">Enter keywords to search chat</string>
   <string name="history_page_new_conversation">New Conversation</string>
-  <string name="history_page_clear">Clear</string>
   <string name="history_page_search">Search</string>
   <string name="history_page_delete_all">Delete All</string>
   <string name="history_page_conversation_deleted">Conversation deleted</string>
   <string name="history_page_undo">Undo</string>
-  <string name="history_page_delete_all_conversations">Delete All Conversations</string>
   <string name="history_page_delete_all_confirmation">Are you sure you want to delete all conversations? This action cannot be undone.</string>
   <string name="history_page_delete_confirmation">Are you sure you want to delete this conversation? This action cannot be undone.</string>
   <string name="history_page_delete">Delete</string>
@@ -258,7 +244,6 @@
 
 
   <!-- Reasoning -->
-  <string name="reasoning_set_budget">Set reasoning budget (%1$d tokens)</string>
 
   <!-- Chat Page - Nickname Edit -->
   <string name="chat_page_edit_nickname">Edit Nickname</string>
@@ -345,7 +330,7 @@
 
   <!-- MCP Picker -->
   <string name="mcp_picker_title">MCP Servers</string>
-  <string name="mcp_picker_syncing">Syncing MCP servers...</string>
+  <string name="mcp_picker_syncing">Syncing MCP servers…</string>
 
   <!-- Setting Provider Page -->
   <string name="setting_provider_page_title">Providers</string>
@@ -438,13 +423,11 @@
   <string name="backup_page_test_connection">Test Connection</string>
   <string name="backup_page_restore">Restore</string>
   <string name="backup_page_backup_now">Backup Now</string>
-  <string name="backup_page_backing_up">Backing up...</string>
+  <string name="backup_page_backing_up">Backing up…</string>
   <string name="backup_page_webdav_backup_files">WebDAV Backup Files</string>
-  <string name="backup_page_last_modified">Last Modified</string>
-  <string name="backup_page_size">Size</string>
   <string name="backup_page_delete">Delete</string>
   <string name="backup_page_restore_now">Restore</string>
-  <string name="backup_page_restoring">Restoring...</string>
+  <string name="backup_page_restoring">Restoring…</string>
   <string name="backup_page_connection_success">Connection successful</string>
   <string name="backup_page_connection_failed">Connection failed: %s</string>
   <string name="backup_page_backup_success">Backup successful</string>
@@ -458,9 +441,9 @@
   <string name="backup_page_restart_desc">The app needs to restart for the changes to take effect.</string>
   <string name="backup_page_local_backup_export">Export to File</string>
   <string name="backup_page_local_backup_import">Import from File</string>
-  <string name="backup_page_exporting">Exporting...</string>
+  <string name="backup_page_exporting">Exporting…</string>
   <string name="backup_page_export_desc">Export app data to a file</string>
-  <string name="backup_page_importing">Importing...</string>
+  <string name="backup_page_importing">Importing…</string>
   <string name="backup_page_import_desc">Import local backup file</string>
   <string name="backup_page_import_from_other_app">Import from other app</string>
   <string name="backup_page_import_from_chatbox">Import from ChatBox</string>
@@ -468,7 +451,6 @@
 
   <!-- Tag Input -->
   
-  <string name="assistant_page_remove">Remove</string>
 
   <!-- Long Press Actions -->
   <string name="select_and_copy">Select and Copy</string>
@@ -542,8 +524,6 @@
   <string name="assistant_page_regex_visual_only">Visual Only (affects display only, not actual message)</string>
   <string name="assistant_page_regex_title">Message Regexes</string>
   <string name="assistant_page_regex_desc">Define regex patterns to transform messages before sending/receiving</string>
-  <string name="setting_display_page_developer_mode">Developer Mode</string>
-  <string name="setting_display_page_developer_mode_desc">Show more debugging features. Not recommended for general users.</string>
     <string name="chat_message_tool_scrape_prefix">Scrape website: %1$s</string>
   <string name="chat_message_tool_scrape_web">Scrape web page</string>
   <string name="search_ability_search">Search</string>

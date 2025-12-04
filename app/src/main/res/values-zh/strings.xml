@@ -3,7 +3,6 @@
   <string name="about_page_system">系统</string>
   <string name="about_page_title">关于</string>
   <string name="about_page_version">版本</string>
-  <string name="add">添加</string>
   <string name="app_name">jasmine</string>
   
   <string name="assistant_page_add">添加</string>
@@ -42,11 +41,6 @@
   <string name="assistant_page_local_tools_markdown_note_saf_restriction">• 仅在已授权 SAF 目录内写入</string>
   <string name="assistant_page_local_tools_markdown_note_utf8">• 使用 UTF-8 编码写入（无 BOM）</string>
   <string name="assistant_page_local_tools_filesystem_title">文件系统工具</string>
-  <string name="assistant_page_local_tools_filesystem_desc"></string>
-  <string name="assistant_page_local_tools_read_file_title">读取文件</string>
-  <string name="assistant_page_local_tools_read_file_desc">读取本地文件内容并返回</string>
-  <string name="assistant_page_local_tools_list_files_title">列出文件</string>
-  <string name="assistant_page_local_tools_list_files_desc">列出指定目录下的文件和文件夹</string>
   <string name="assistant_page_local_tools_filesystem_capability_read_file">• 读取文件 read_local_file</string>
   <string name="assistant_page_local_tools_filesystem_capability_list_directory">• 列出目录 list_directory</string>
   <string name="assistant_page_local_tools_filesystem_capability_get_dir_tree">• 目录树 get_dir_tree</string>
@@ -58,7 +52,6 @@
   <string name="assistant_page_local_tools_filesystem_capability_edit_file">• 编辑文件 edit_file</string>
   <string name="assistant_page_local_tools_filesystem_capability_rewrite_file">• 重写文件 rewrite_file</string>
   <string name="assistant_page_local_tools_filesystem_capability_saf_restriction">• 仅允许访问已授权 SAF 根目录下的资源</string>
-  <string name="assistant_page_manage_memory">管理记忆 (%d条)</string>
   <string name="assistant_page_manage_memory_title">管理记忆</string>
   <string name="assistant_page_max_tokens">最大Token数</string>
   <string name="assistant_page_max_tokens_desc">最大生成Token数量。留空表示无限制。</string>
@@ -83,7 +76,6 @@
   <string name="assistant_page_regex_replace_string">替换字符串</string>
   <string name="assistant_page_regex_title">消息正则表达式</string>
   <string name="assistant_page_regex_visual_only">仅视觉（仅影响显示，不影响实际消息）</string>
-  <string name="assistant_page_remove">移除</string>
   <string name="assistant_page_save">保存</string>
   <string name="assistant_page_stream_output">流式输出</string>
   <string name="assistant_page_stream_output_desc">是否启用消息的流式输出</string>
@@ -96,7 +88,6 @@
   <string name="assistant_page_tab_prompt">提示词</string>
   <string name="assistant_page_tab_request">自定义请求</string>
   <string name="assistant_page_temperature">温度</string>
-  <string name="assistant_page_temperature_value">温度: %s</string>
   <string name="assistant_page_template_preview">预览:</string>
   <string name="assistant_page_template_variable_date">日期</string>
   <string name="assistant_page_template_variable_message">内容</string>
@@ -104,7 +95,6 @@
   <string name="assistant_page_template_variable_time">时间</string>
   <string name="assistant_page_template_variables_label">变量:</string>
   <string name="assistant_page_thinking_budget">思考预算</string>
-  <string name="assistant_page_thinking_budget_default">默认</string>
   <string name="assistant_page_title">助手切换</string>
   <string name="assistant_management_page_title">助手管理</string>
   <string name="assistant_page_top_p">Top P</string>
@@ -115,7 +105,7 @@
   <string name="avatar_pick_image">选择图片</string>
   <string name="avatar_reset">重置</string>
   <string name="back">返回</string>
-  <string name="backup_page_backing_up">备份中...</string>
+  <string name="backup_page_backing_up">备份中…</string>
   <string name="backup_page_backup_items">备份项目</string>
   <string name="backup_page_backup_now">立即备份</string>
   <string name="backup_page_backup_success">备份成功</string>
@@ -126,15 +116,14 @@
   <string name="backup_page_delete_failed">删除失败: %s</string>
   <string name="backup_page_delete_success">删除成功</string>
   <string name="backup_page_export_desc">导出APP数据为文件</string>
-  <string name="backup_page_exporting">正在导出...</string>
+  <string name="backup_page_exporting">正在导出…</string>
   <string name="backup_page_files">文件</string>
   <string name="backup_page_import_chatbox_desc">导入ChatBox数据</string>
   <string name="backup_page_import_desc">导入本地备份文件</string>
   <string name="backup_page_import_export">导入和导出</string>
   <string name="backup_page_import_from_chatbox">从ChatBox导入</string>
   <string name="backup_page_import_from_other_app">从其他APP导入</string>
-  <string name="backup_page_importing">正在恢复...</string>
-  <string name="backup_page_last_modified">最后修改时间</string>
+  <string name="backup_page_importing">正在恢复…</string>
   <string name="backup_page_loading_failed">加载备份文件失败: %s</string>
   <string name="backup_page_local_backup_export">导出为文件</string>
   <string name="backup_page_local_backup_import">备份文件导入</string>
@@ -146,8 +135,7 @@
   <string name="backup_page_restore_failed">恢复失败: %s</string>
   <string name="backup_page_restore_now">恢复</string>
   <string name="backup_page_restore_success">恢复成功</string>
-  <string name="backup_page_restoring">恢复中...</string>
-  <string name="backup_page_size">大小</string>
+  <string name="backup_page_restoring">恢复中…</string>
   <string name="backup_page_test_connection">测试连接</string>
   <string name="backup_page_title">备份与恢复</string>
   <string name="backup_page_unknown_error">未知错误</string>
@@ -157,7 +145,7 @@
   <string name="backup_page_webdav_server_address">WebDAV 服务器地址</string>
   <string name="built_in_search_description">是否启用模型内置的搜索功能</string>
   <string name="built_in_search_title">模型内置搜索</string>
-  <string name="calculating">计算中...</string>
+  <string name="setting_page_search_add_provider">添加搜索源</string>
   <string name="cancel">取消</string>
   <string name="cancel_edit">取消编辑</string>
   <string name="chat_input_placeholder">输入消息与AI聊天</string>
@@ -212,16 +200,13 @@
   <string name="editing">编辑中</string>
   <string name="export_image_warning">以上内容由人工智能生成，可能包含不准确信息。</string>
   <string name="history_page_cancel">取消</string>
-  <string name="history_page_clear">清除</string>
   <string name="history_page_conversation_deleted">对话已删除</string>
   <string name="history_page_delete">删除</string>
   <string name="history_page_delete_all">删除全部</string>
   <string name="history_page_delete_all_confirmation">确定要删除所有对话吗？此操作无法撤销。</string>
-  <string name="history_page_delete_all_conversations">确认删除</string>
   <string name="history_page_delete_confirmation">确定要删除这个对话吗？此操作无法撤销。</string>
   <string name="history_page_new_conversation">新对话</string>
   <string name="history_page_pin">置顶</string>
-  <string name="history_page_reset_chat">重置聊天</string>
   <string name="history_page_search">搜索</string>
   <string name="history_page_search_placeholder">输入关键词搜索聊天</string>
   <string name="history_page_title">聊天历史</string>
@@ -231,11 +216,10 @@
   <string name="language_traditional_chinese">繁體中文</string>
   <string name="language_simplified_chinese">简体中文</string>
   <string name="setting_page_language_restart_desc">语言设置将在重启应用后生效。</string>
-  <string name="mcp_picker_syncing">正在同步MCP服务器...</string>
+  <string name="mcp_picker_syncing">正在同步MCP服务器…</string>
   <string name="mcp_picker_title">MCP服务器</string>
   <string name="menu_page_afternoon_greeting">下午好</string>
   <string name="menu_page_evening_greeting">晚上好</string>
-  <string name="menu_page_knowledge_base">知识库 (施工中)</string>
   <string name="menu_page_morning_greeting">早上好</string>
   <string name="menu_page_night_greeting">夜深了，注意休息</string>
   <string name="mermaid_export">导出</string>
@@ -285,7 +269,6 @@
   <string name="reasoning_medium_desc">模型将使用更多推理来回答问题。</string>
   <string name="reasoning_off">关闭</string>
   <string name="reasoning_off_desc">关闭推理功能，模型将直接回答问题。</string>
-  <string name="reasoning_set_budget">设置推理预算 (%1$d tokens)</string>
   <string name="regenerate">重新生成</string>
   <string name="render_with_webview">网页视图渲染</string>
   <string name="search_ability_scrape">抓取</string>
@@ -297,8 +280,6 @@
   
   <string name="setting_display_page_create_new_conversation_on_start_desc">当应用启动时，自动创建一个新的对话</string>
   <string name="setting_display_page_create_new_conversation_on_start_title">启动时新建对话</string>
-  <string name="setting_display_page_developer_mode">开发者模式</string>
-  <string name="setting_display_page_developer_mode_desc">显示更多调试功能,不建议普通用户使用。</string>
 
 
   <string name="setting_display_page_notification_message_generated">生成消息后启用通知</string>
@@ -376,10 +357,8 @@
   <string name="setting_page_model_and_services">模型与服务</string>
   <string name="setting_page_providers">提供商</string>
   <string name="setting_page_providers_desc">配置AI提供商</string>
-  <string name="setting_page_search_add_provider">添加提供商</string>
   <string name="setting_page_search_common_options">通用选项</string>
   <string name="setting_page_search_delete_provider">删除提供商</string>
-  <string name="setting_page_search_provider_type">提供商类型</string>
   <string name="setting_page_search_providers">搜索提供商</string>
   <string name="setting_page_search_result_size">结果数量</string>
   <string name="setting_page_search_service">搜索服务</string>

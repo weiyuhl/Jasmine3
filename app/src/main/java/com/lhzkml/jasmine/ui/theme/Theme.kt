@@ -37,7 +37,7 @@ enum class ColorMode {
 }
 
 @Composable
-fun jasmineTheme(
+fun JasmineTheme(
     content: @Composable () -> Unit
 ) {
     val settings by rememberUserSettingsState()

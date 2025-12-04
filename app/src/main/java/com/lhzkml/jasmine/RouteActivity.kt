@@ -69,7 +69,7 @@ import com.lhzkml.jasmine.ui.pages.setting.SettingSearchPage
  
 import com.lhzkml.jasmine.ui.pages.webview.WebViewPage
 import com.lhzkml.jasmine.ui.theme.LocalDarkMode
-import com.lhzkml.jasmine.ui.theme.jasmineTheme
+import com.lhzkml.jasmine.ui.theme.JasmineTheme
 import okhttp3.OkHttpClient
 import org.koin.android.ext.android.inject
 import kotlin.uuid.Uuid
@@ -104,19 +104,11 @@ class RouteActivity : ComponentActivity() {
 
         val res = newBase.resources
         val config = android.content.res.Configuration(res.configuration)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            val localeList = android.os.LocaleList(locale)
-            android.os.LocaleList.setDefault(localeList)
-            config.setLocales(localeList)
-            val localizedContext = newBase.createConfigurationContext(config)
-            super.attachBaseContext(localizedContext)
-        } else {
-            java.util.Locale.setDefault(locale)
-            config.setLocale(locale)
-            @Suppress("DEPRECATION")
-            res.updateConfiguration(config, res.displayMetrics)
-            super.attachBaseContext(newBase)
-        }
+        val localeList = android.os.LocaleList(locale)
+        android.os.LocaleList.setDefault(localeList)
+        config.setLocales(localeList)
+        val localizedContext = newBase.createConfigurationContext(config)
+        super.attachBaseContext(localizedContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,7 +118,7 @@ class RouteActivity : ComponentActivity() {
         setContent {
             val navStack = rememberNavController()
             this.navStack = navStack
-            jasmineTheme {
+            JasmineTheme {
                 setSingletonImageLoaderFactory { context ->
                     ImageLoader.Builder(context)
                         .crossfade(true)

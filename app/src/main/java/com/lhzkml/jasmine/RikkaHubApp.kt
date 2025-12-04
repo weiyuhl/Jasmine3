@@ -18,7 +18,6 @@ import com.lhzkml.jasmine.di.appModule
 import com.lhzkml.jasmine.di.dataSourceModule
 import com.lhzkml.jasmine.di.repositoryModule
 import com.lhzkml.jasmine.di.viewModelModule
-import com.lhzkml.jasmine.utils.DatabaseUtil
 import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -40,8 +39,7 @@ class jasmineApp : Application() {
         }
         this.createNotificationChannel()
 
-        // set cursor window size
-        DatabaseUtil.setCursorWindowSize(24 * 1024 * 1024)
+        
 
         // delete temp files
         deleteTempFiles()

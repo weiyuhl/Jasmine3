@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.petterp.floatingx.FloatingX
 import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.listener.control.IFxAppControl
-import com.lhzkml.jasmine.ui.theme.jasmineTheme
+import com.lhzkml.jasmine.ui.theme.JasmineTheme
 
 @Composable
 fun FloatingWindow(
@@ -40,7 +40,7 @@ fun FloatingWindow(
             setEnableAnimation(true)
             setLayoutView(ComposeView(context).apply {
                 setContent {
-                    jasmineTheme {
+                    JasmineTheme {
                         content()
                     }
                 }
