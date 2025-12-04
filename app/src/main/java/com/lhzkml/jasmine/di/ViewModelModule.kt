@@ -8,7 +8,6 @@ import com.lhzkml.jasmine.ui.pages.debug.DebugVM
 import com.lhzkml.jasmine.ui.pages.developer.DeveloperVM
 import com.lhzkml.jasmine.ui.pages.history.HistoryVM
 import com.lhzkml.jasmine.ui.pages.setting.SettingVM
-import com.lhzkml.jasmine.ui.pages.share.handler.ShareHandlerVM
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -38,12 +37,6 @@ val viewModelModule = module {
         )
     }
     
-    viewModel<ShareHandlerVM> {
-        ShareHandlerVM(
-            text = it.get(),
-            settingsStore = get(),
-        )
-    }
     viewModelOf(::BackupVM)
     viewModelOf(::DeveloperVM)
 }
