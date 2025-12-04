@@ -5,27 +5,22 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+ 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+ 
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+ 
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.zIndex
 import coil3.compose.rememberAsyncImagePainter
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Download
-import com.dokar.sonner.ToastType
+ 
 import com.jvziyaoyao.scale.image.pager.ImagePager
 import com.jvziyaoyao.scale.zoomable.pager.rememberZoomablePagerState
-import kotlinx.coroutines.launch
-import com.lhzkml.jasmine.ui.context.LocalToaster
-import com.lhzkml.jasmine.utils.saveMessageImage
+ 
 
 @Composable
 fun ImagePreviewDialog(
@@ -34,8 +29,7 @@ fun ImagePreviewDialog(
 ) {
     val context = LocalContext.current
     val state = rememberZoomablePagerState { images.size }
-    val toaster = LocalToaster.current
-    val scope = rememberCoroutineScope()
+    
     Dialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
@@ -53,35 +47,7 @@ fun ImagePreviewDialog(
                 },
             )
 
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .zIndex(1f)
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                IconButton(
-                    onClick = {
-                        scope.launch {
-                            runCatching {
-                                toaster.show("正在保存")
-                                val imgUrl = images[state.currentPage]
-                                context.saveMessageImage(imgUrl)
-                                toaster.show(message = "已保存图片", type = ToastType.Success)
-                                onDismissRequest()
-                            }.onFailure {
-                                it.printStackTrace()
-                                toaster.show(
-                                    message = it.toString(),
-                                    type = ToastType.Error
-                                )
-                            }
-                        }
-                    }
-                ) {
-                    Icon(Icons.Filled.Download, null, tint = Color.White)
-                }
-            }
+            
         }
     }
 }

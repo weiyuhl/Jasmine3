@@ -15,8 +15,9 @@ import kotlinx.coroutines.withContext
 import com.lhzkmlai.ui.UIMessage
 import com.lhzkmlai.ui.UIMessagePart
 import com.lhzkml.jasmine.Screen
-import java.io.ByteArrayOutputStream
+ 
 import java.io.File
+import java.io.ByteArrayOutputStream
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.uuid.Uuid
@@ -48,42 +49,7 @@ fun Context.copyMessageToClipboard(message: UIMessage) {
     this.writeClipboardText(message.toText())
 }
 
-@OptIn(ExperimentalEncodingApi::class)
-suspend fun Context.saveMessageImage(image: String) = withContext(Dispatchers.IO) {
-    when {
-        image.startsWith("data:image") -> {
-            val byteArray = Base64.decode(image.substringAfter("base64,").toByteArray())
-            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-            exportImage(this@saveMessageImage.getActivity()!!, bitmap)
-        }
-
-        image.startsWith("file:") -> {
-            val file = image.toUri().toFile()
-            exportImageFile(this@saveMessageImage.getActivity()!!, file)
-        }
-
-        image.startsWith("http") -> {
-            kotlin.runCatching { // Use runCatching to handle potential network exceptions
-                val url = java.net.URL(image)
-                val connection = url.openConnection() as java.net.HttpURLConnection
-                connection.connect()
-
-                if (connection.responseCode == java.net.HttpURLConnection.HTTP_OK) {
-                    val bitmap = BitmapFactory.decodeStream(connection.inputStream)
-                    exportImage(this@saveMessageImage.getActivity()!!, bitmap)
-                } else {
-                    Log.e(
-                        TAG,
-                        "saveMessageImage: Failed to download image from $image, response code: ${connection.responseCode}"
-                    )
-                    null // Return null on failure
-                }
-            }.getOrNull() // Return null if any exception occurs during download
-        }
-
-        else -> error("Invalid image format")
-    }
-}
+ 
 
 fun Context.createChatFilesByContents(uris: List<Uri>): List<Uri> {
     val newUris = mutableListOf<Uri>()
