@@ -25,7 +25,6 @@ import com.lhzkmlai.core.MessageRole
 import com.lhzkmlai.core.ReasoningLevel
 import com.lhzkmlai.core.TokenUsage
 import com.lhzkmlai.provider.BuiltInTools
-import com.lhzkmlai.provider.ImageGenerationParams
 import com.lhzkmlai.provider.Modality
 import com.lhzkmlai.provider.Model
 import com.lhzkmlai.provider.ModelAbility
@@ -35,9 +34,6 @@ import com.lhzkmlai.provider.ProviderSetting
 import com.lhzkmlai.provider.TextGenerationParams
 import com.lhzkmlai.provider.providers.vertex.ServiceAccountTokenProvider
 import com.lhzkmlai.registry.ModelRegistry
-import com.lhzkmlai.ui.ImageAspectRatio
-import com.lhzkmlai.ui.ImageGenerationItem
-import com.lhzkmlai.ui.ImageGenerationResult
 import com.lhzkmlai.ui.MessageChunk
 import com.lhzkmlai.ui.UIMessage
 import com.lhzkmlai.ui.UIMessageAnnotation
@@ -676,73 +672,4 @@ class GoogleProvider(private val client: OkHttpClient) : Provider<ProviderSettin
         )
     }
 
-    override suspend fun generateImage(
-        providerSetting: ProviderSetting,
-        params: ImageGenerationParams
-    ): ImageGenerationResult = withContext(Dispatchers.IO) {
-        require(providerSetting is ProviderSetting.Google) {
-            "Expected Google provider setting"
-        }
-
-        val requestBody = buildJsonObject {
-            putJsonArray("instances") {
-                add(buildJsonObject {
-                    put("prompt", params.prompt)
-                })
-            }
-            putJsonObject("parameters") {
-                put("sampleCount", params.numOfImages)
-                put("aspectRatio", when(params.aspectRatio) {
-                    ImageAspectRatio.SQUARE -> "1:1"
-                    ImageAspectRatio.LANDSCAPE -> "16:9"
-                    ImageAspectRatio.PORTRAIT -> "9:16"
-                })
-            }
-        }.mergeCustomBody(params.customBody)
-
-        val url = buildUrl(
-            providerSetting = providerSetting,
-            path = if (providerSetting.vertexAI) {
-                "publishers/google/models/${params.model.modelId}:predict"
-            } else {
-                "models/${params.model.modelId}:predict"
-            }
-        )
-
-        val request = transformRequest(
-            providerSetting = providerSetting,
-            request = Request.Builder()
-                .url(url)
-                .headers(params.customHeaders.toHeaders())
-                .post(
-                    json.encodeToString(requestBody).toRequestBody("application/json".toMediaType())
-                )
-                .configureReferHeaders(providerSetting.baseUrl)
-                .build()
-        )
-
-        val response = client.configureClientWithProxy(providerSetting.proxy).newCall(request).await()
-        if (!response.isSuccessful) {
-            error("Failed to generate image: ${response.code} ${response.body.string()}")
-        }
-
-        val bodyStr = response.body.string()
-        val bodyJson = json.parseToJsonElement(bodyStr).jsonObject
-
-        val predictions =  bodyJson["predictions"]?.jsonArray ?: error("No predictions in response")
-
-        val items = predictions.mapNotNull { prediction ->
-            val predictionObj = prediction.jsonObject
-            val bytesBase64Encoded = predictionObj["bytesBase64Encoded"]?.jsonPrimitive?.contentOrNull
-
-            if (bytesBase64Encoded != null) {
-                ImageGenerationItem(
-                    data = bytesBase64Encoded,
-                    mimeType = "image/png"
-                )
-            } else null
-        }
-
-        ImageGenerationResult(items = items)
-    }
 }

@@ -9,16 +9,12 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
-import com.lhzkmlai.provider.ImageGenerationParams
 import com.lhzkmlai.provider.Model
 import com.lhzkmlai.provider.Provider
 import com.lhzkmlai.provider.ProviderSetting
 import com.lhzkmlai.provider.TextGenerationParams
 import com.lhzkmlai.provider.providers.openai.ChatCompletionsAPI
 import com.lhzkmlai.provider.providers.openai.ResponseAPI
-import com.lhzkmlai.ui.ImageAspectRatio
-import com.lhzkmlai.ui.ImageGenerationItem
-import com.lhzkmlai.ui.ImageGenerationResult
 import com.lhzkmlai.ui.MessageChunk
 import com.lhzkmlai.ui.UIMessage
 import com.lhzkmlai.util.KeyRoulette
@@ -138,60 +134,4 @@ class OpenAIProvider(
         )
     }
 
-    override suspend fun generateImage(
-        providerSetting: ProviderSetting,
-        params: ImageGenerationParams
-    ): ImageGenerationResult = withContext(Dispatchers.IO) {
-        require(providerSetting is ProviderSetting.OpenAI) {
-            "Expected OpenAI provider setting"
-        }
-
-        val key = keyRoulette.next(providerSetting.apiKey)
-
-        val requestBody = json.encodeToString(
-            buildJsonObject {
-                put("model", params.model.modelId)
-                put("prompt", params.prompt)
-                put("n", params.numOfImages)
-                put("response_format", "b64_json")
-                put(
-                    "size", when (params.aspectRatio) {
-                        ImageAspectRatio.SQUARE -> "1024x1024"
-                        ImageAspectRatio.LANDSCAPE -> "1536x1024"
-                        ImageAspectRatio.PORTRAIT -> "1024x1536"
-                    }
-                )
-            }.mergeCustomBody(params.customBody)
-        )
-
-        val request = Request.Builder()
-            .url("${providerSetting.baseUrl}/images/generations")
-            .headers(params.customHeaders.toHeaders())
-            .addHeader("Authorization", "Bearer $key")
-            .addHeader("Content-Type", "application/json")
-            .post(requestBody.toRequestBody("application/json".toMediaType()))
-            .build()
-
-        val response = client.configureClientWithProxy(providerSetting.proxy).newCall(request).await()
-        if (!response.isSuccessful) {
-            error("Failed to generate image: ${response.code} ${response.body?.string()}")
-        }
-
-        val bodyStr = response.body?.string() ?: ""
-        val bodyJson = json.parseToJsonElement(bodyStr).jsonObject
-        val data = bodyJson["data"]?.jsonArray ?: error("No data in response")
-
-        val items = data.map { imageJson ->
-            val imageObj = imageJson.jsonObject
-            val b64Json = imageObj["b64_json"]?.jsonPrimitive?.contentOrNull
-                ?: error("No b64_json in response")
-
-            ImageGenerationItem(
-                data = b64Json,
-                mimeType = "image/png"
-            )
-        }
-
-        ImageGenerationResult(items = items)
-    }
 }

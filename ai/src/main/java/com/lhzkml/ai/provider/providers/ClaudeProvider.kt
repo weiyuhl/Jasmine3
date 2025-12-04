@@ -23,13 +23,11 @@ import kotlinx.serialization.json.putJsonArray
 import com.lhzkmlai.core.MessageRole
 import com.lhzkmlai.core.ReasoningLevel
 import com.lhzkmlai.core.TokenUsage
-import com.lhzkmlai.provider.ImageGenerationParams
 import com.lhzkmlai.provider.Model
 import com.lhzkmlai.provider.ModelAbility
 import com.lhzkmlai.provider.Provider
 import com.lhzkmlai.provider.ProviderSetting
 import com.lhzkmlai.provider.TextGenerationParams
-import com.lhzkmlai.ui.ImageGenerationResult
 import com.lhzkmlai.ui.MessageChunk
 import com.lhzkmlai.ui.UIMessage
 import com.lhzkmlai.ui.UIMessageChoice
@@ -88,12 +86,6 @@ class ClaudeProvider(private val client: OkHttpClient) : Provider<ProviderSettin
             }
         }
 
-    override suspend fun generateImage(
-        providerSetting: ProviderSetting,
-        params: ImageGenerationParams
-    ): ImageGenerationResult {
-        error("Claude provider does not support image generation")
-    }
 
     override suspend fun generateText(
         providerSetting: ProviderSetting.Claude,
