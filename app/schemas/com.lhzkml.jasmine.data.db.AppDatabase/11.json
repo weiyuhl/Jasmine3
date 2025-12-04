@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "d4531feb17ecd98589ce788814c4f17b",
+    "identityHash": "c48252cd63ba413a7a3ac7148183fec4",
     "entities": [
       {
         "tableName": "ConversationEntity",
@@ -103,53 +103,11 @@
             "id"
           ]
         }
-      },
-      {
-        "tableName": "GenMediaEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `path` TEXT NOT NULL, `model_id` TEXT NOT NULL, `prompt` TEXT NOT NULL, `create_at` INTEGER NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "path",
-            "columnName": "path",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "modelId",
-            "columnName": "model_id",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "prompt",
-            "columnName": "prompt",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "createAt",
-            "columnName": "create_at",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": true,
-          "columnNames": [
-            "id"
-          ]
-        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd4531feb17ecd98589ce788814c4f17b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c48252cd63ba413a7a3ac7148183fec4')"
     ]
   }
 }
