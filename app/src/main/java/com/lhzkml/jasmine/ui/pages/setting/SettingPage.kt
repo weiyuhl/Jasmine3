@@ -57,7 +57,6 @@ import com.lhzkml.jasmine.ui.components.ui.Select
 import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.hooks.rememberColorMode
 import com.lhzkml.jasmine.ui.theme.ColorMode
-import com.lhzkml.jasmine.utils.countChatFiles
 import com.lhzkml.jasmine.utils.openUrl
 import com.lhzkml.jasmine.utils.plus
 import org.koin.androidx.compose.koinViewModel
@@ -202,32 +201,7 @@ fun SettingPage(vm: SettingVM = koinViewModel()) {
                 )
             }
 
-            item {
-                val context = LocalContext.current
-                val storageState by produceState(-1 to 0L) {
-                    value = context.countChatFiles()
-                }
-                SettingItem(
-                    navController = navController,
-                    title = { Text(stringResource(R.string.setting_page_chat_storage)) },
-                    description = {
-                        if (storageState.first == -1) {
-                            Text(stringResource(R.string.calculating))
-                        } else {
-                            Text(
-                                stringResource(
-                                    R.string.setting_page_chat_storage_desc,
-                                    storageState.first,
-                                    storageState.second / 1024 / 1024.0
-                                )
-                            )
-                        }
-                    },
-                    icon = {
-                        Icon(Icons.Filled.Storage, "Storage")
-                    },
-                )
-            }
+            
 
             stickyHeader {
                 Text(
