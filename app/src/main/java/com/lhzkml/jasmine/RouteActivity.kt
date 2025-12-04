@@ -56,7 +56,6 @@ import com.lhzkml.jasmine.ui.pages.chat.ChatPage
 import com.lhzkml.jasmine.ui.pages.debug.DebugPage
 import com.lhzkml.jasmine.ui.pages.developer.DeveloperPage
 import com.lhzkml.jasmine.ui.pages.history.HistoryPage
-import com.lhzkml.jasmine.ui.pages.imggen.ImageGenPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingAboutPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingDisplayPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingMcpPage
@@ -268,9 +267,7 @@ class RouteActivity : ComponentActivity() {
                         BackupPage()
                     }
 
-                    composable<Screen.ImageGen> {
-                        ImageGenPage()
-                    }
+                    // Image generation feature removed
 
                     composable<Screen.WebView> { backStackEntry ->
                         val route = backStackEntry.toRoute<Screen.WebView>()
@@ -349,8 +346,6 @@ sealed interface Screen {
     @Serializable
     data object Backup : Screen
 
-    @Serializable
-    data object ImageGen : Screen
 
     @Serializable
     data class WebView(val url: String = "", val content: String = "") : Screen

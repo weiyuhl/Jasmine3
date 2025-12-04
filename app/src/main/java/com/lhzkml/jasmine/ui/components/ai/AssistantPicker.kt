@@ -39,7 +39,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.TheaterComedy
 import kotlinx.coroutines.launch
@@ -164,20 +163,7 @@ fun AssistantPickerSheet(
                     )
                 }
 
-                Card(
-                    onClick = {
-                        onDismiss()
-                        navController.navigate(Screen.ImageGen)
-                    },
-                    shape = MaterialTheme.shapes.large,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    ListItem(
-                        leadingContent = { Icon(imageVector = Icons.Filled.Image, contentDescription = null) },
-                        headlineContent = { Text(stringResource(R.string.menu_page_image_generation)) },
-                        colors = ListItemDefaults.colors(containerColor = Color.Transparent)
-                    )
-                }
+                // Image generation feature removed
             }
 
             Spacer(modifier = Modifier.height(16.dp))
