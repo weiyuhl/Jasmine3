@@ -166,14 +166,6 @@
   <string name="chat_page_edit_nickname">編輯暱稱</string>
   <string name="chat_page_edit_title">編輯標題</string>
   <string name="chat_page_edit_title_warning">請先聊天再編輯標題吧</string>
-  <string name="chat_page_export_format">匯出格式</string>
-  <string name="chat_page_export_image">匯出為圖片</string>
-  <string name="chat_page_export_image_desc">將對話匯出為PNG圖片</string>
-  <string name="chat_page_export_image_expand_reasoning">展開思維過程</string>
-  <string name="chat_page_export_markdown">Markdown</string>
-  <string name="chat_page_export_markdown_desc">將對話匯出為markdown檔案</string>
-  <string name="chat_page_export_share_via">分享方式</string>
-  <string name="chat_page_export_success">已匯出為%1$s</string>
   <string name="chat_page_history">聊天歷史</string>
   
   <string name="chat_page_new_chat">新聊天</string>
@@ -197,7 +189,6 @@
   <string name="delete">刪除</string>
   <string name="edit">編輯</string>
   <string name="editing">編輯中</string>
-  <string name="export_image_warning">「以上內容由人工智慧生成，可能包含不準確之處。」</string>
   <string name="history_page_cancel">取消</string>
   <string name="history_page_conversation_deleted">對話已刪除</string>
   <string name="history_page_delete">刪除</string>
@@ -440,7 +431,6 @@
   <string name="setting_provider_page_tool">工具</string>
   <string name="setting_provider_page_vertex_ai">Vertex AI</string>
   <string name="settings">設定</string>
-  <string name="share">分享</string>
   
   
   <string name="silicon_flow_built_in_models">* 已內建矽基流動免費模型，無需API Key即可使用，如需更強大的模型，請自行申請和配置自己的API Key。</string>

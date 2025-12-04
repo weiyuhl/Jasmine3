@@ -38,9 +38,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LoadingIndicator
@@ -63,7 +61,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalScrollCaptureInProgress
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.input.pointer.pointerInput
@@ -76,8 +73,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceAtLeast
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.SelectAll
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Close
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -90,8 +85,6 @@ import com.lhzkml.jasmine.data.datastore.getAssistantById
 import com.lhzkml.jasmine.data.model.Conversation
 import com.lhzkml.jasmine.data.model.MessageNode
 import com.lhzkml.jasmine.ui.components.message.ChatMessage
-import com.lhzkml.jasmine.ui.components.ui.ListSelectableItem
-import com.lhzkml.jasmine.ui.components.ui.Tooltip
 import com.lhzkml.jasmine.ui.hooks.ImeLazyListAutoScroller
 import com.lhzkml.jasmine.utils.plus
 import kotlin.uuid.Uuid
@@ -297,7 +290,7 @@ private fun SharedTransitionScope.ChatListNormal(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            val captureProgress = LocalScrollCaptureInProgress.current
+            
 
             
 
