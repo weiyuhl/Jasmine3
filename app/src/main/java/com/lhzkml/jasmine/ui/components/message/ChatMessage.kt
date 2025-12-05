@@ -422,21 +422,31 @@ private fun MessagePartsBlock(
 
     
 
-    // Images
+    // Images: user uploads shown as image; assistant outputs shown as text
     val images = parts.filterIsInstance<UIMessagePart.Image>()
     if (images.isNotEmpty()) {
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-
-            images.fastForEach {
-                ZoomableAsyncImage(
-                    model = it.url,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clip(MaterialTheme.shapes.medium)
-                        .height(72.dp)
-                )
+            images.fastForEach { img ->
+                if (role == MessageRole.USER) {
+                    ZoomableAsyncImage(
+                        model = img.url,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .clip(MaterialTheme.shapes.medium)
+                            .height(72.dp)
+                    )
+                } else {
+                    SelectionContainer {
+                        Text(
+                            text = img.url,
+                            modifier = Modifier
+                                .clip(MaterialTheme.shapes.medium)
+                                .padding(8.dp)
+                        )
+                    }
+                }
             }
         }
     }

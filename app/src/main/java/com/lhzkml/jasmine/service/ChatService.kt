@@ -52,7 +52,6 @@ import com.lhzkml.jasmine.data.ai.GenerationChunk
 import com.lhzkml.jasmine.data.ai.GenerationHandler
 import com.lhzkml.jasmine.data.ai.mcp.McpManager
 import com.lhzkml.jasmine.data.ai.tools.LocalTools
-import com.lhzkml.jasmine.data.ai.transformers.Base64ImageToLocalFileTransformer
 import com.lhzkml.jasmine.data.ai.transformers.DocumentAsPromptTransformer
 import com.lhzkml.jasmine.data.ai.transformers.PlaceholderTransformer
 import com.lhzkml.jasmine.data.ai.transformers.RegexOutputTransformer
@@ -90,7 +89,6 @@ private val inputTransformers by lazy {
 private val outputTransformers by lazy {
     listOf(
         ThinkTagTransformer,
-        Base64ImageToLocalFileTransformer,
         RegexOutputTransformer,
     )
 }
