@@ -249,44 +249,48 @@ private fun ProviderItem(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                AutoAIIcon(
-                    name = provider.name,
-                    modifier = Modifier.size(36.dp)
-                )
                 Spacer(modifier = Modifier.weight(1f))
                 dragHandle()
             }
-            Column(
-                modifier = Modifier,
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    text = provider.name,
-                    style = MaterialTheme.typography.titleLarge,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                AutoAIIcon(
+                    name = provider.name,
+                    modifier = Modifier.size(22.dp)
                 )
-                ProvideTextStyle(MaterialTheme.typography.labelSmall) {
-                    CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.7f)) {
-                        provider.shortDescription()
-                    }
-                }
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                Column(
+                    modifier = Modifier,
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
-                    Tag(type = if (provider.enabled) TagType.SUCCESS else TagType.WARNING) {
-                        Text(stringResource(if (provider.enabled) R.string.setting_provider_page_enabled else R.string.setting_provider_page_disabled))
+                    Text(
+                        text = provider.name,
+                        style = MaterialTheme.typography.titleLarge,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    ProvideTextStyle(MaterialTheme.typography.labelSmall) {
+                        CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.7f)) {
+                            provider.shortDescription()
+                        }
                     }
-                    Tag(type = TagType.INFO) {
-                        Text(
-                            stringResource(
-                                R.string.setting_provider_page_model_count,
-                                provider.models.size
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Tag(type = if (provider.enabled) TagType.SUCCESS else TagType.WARNING) {
+                            Text(stringResource(if (provider.enabled) R.string.setting_provider_page_enabled else R.string.setting_provider_page_disabled))
+                        }
+                        Tag(type = TagType.INFO) {
+                            Text(
+                                stringResource(
+                                    R.string.setting_provider_page_model_count,
+                                    provider.models.size
+                                )
                             )
-                        )
+                        }
                     }
-                    
                 }
             }
         }
