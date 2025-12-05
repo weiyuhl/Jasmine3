@@ -66,3 +66,4 @@ ai/src/main/cpp/**/lib*.so
  *.tgz
  *.7z
  *.gz
+/.vscode/
