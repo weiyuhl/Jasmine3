@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.composed
+import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
 fun Modifier.onClick(
@@ -18,3 +20,14 @@ fun Modifier.onClick(
     indication = LocalIndication.current,
     role = Role.Button,
 ))
+
+@Composable
+fun Modifier.clearFocusOnTap(): Modifier = composed {
+    val focusManager = LocalFocusManager.current
+    val interactionSource = remember { MutableInteractionSource() }
+    clickable(
+        interactionSource = interactionSource,
+        indication = null,
+        onClick = { focusManager.clearFocus() }
+    )
+}

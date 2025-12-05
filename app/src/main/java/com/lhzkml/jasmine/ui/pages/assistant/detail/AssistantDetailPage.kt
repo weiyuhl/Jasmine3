@@ -25,7 +25,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -34,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
+import com.lhzkml.jasmine.ui.modifier.clearFocusOnTap
+import androidx.compose.ui.focus.onFocusChanged
 import com.lhzkmlai.provider.ModelType
 import com.lhzkmlai.provider.ProviderSetting
 import com.lhzkml.jasmine.R
@@ -100,7 +105,8 @@ fun AssistantDetailPage(id: String) {
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .clearFocusOnTap(),
         ) {
             SecondaryScrollableTabRow(
                 selectedTabIndex = pagerState.currentPage,
@@ -287,18 +293,30 @@ private fun AssistantBasicSettings(
                 }
             ) {
                 if (assistant.temperature != null) {
-                    Slider(
-                        value = assistant.temperature,
-                        onValueChange = {
-                            onUpdate(
-                                assistant.copy(
-                                    temperature = it.toFixed(2).toFloatOrNull() ?: 0.6f
-                                )
-                            )
+                    var temperatureText by remember(assistant.temperature) { mutableStateOf(assistant.temperature?.toString() ?: "") }
+                    OutlinedTextField(
+                        value = temperatureText,
+                        onValueChange = { text ->
+                            temperatureText = text
                         },
-                        valueRange = 0f..2f,
-                        steps = 19,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .onFocusChanged { focusState ->
+                                if (!focusState.isFocused) {
+                                    val v = temperatureText.toFloatOrNull()
+                                    val clamped = v?.coerceIn(0f, 2f)
+                                    val rounded = clamped?.let { (it * 100).roundToInt() / 100f }
+                                    if (rounded != null) {
+                                        onUpdate(
+                                            assistant.copy(
+                                                temperature = rounded
+                                            )
+                                        )
+                                    }
+                                }
+                            },
+                        placeholder = { Text("0.0–2.0") },
+                        singleLine = true,
                     )
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -364,18 +382,30 @@ private fun AssistantBasicSettings(
                 }
             ) {
                 assistant.topP?.let { topP ->
-                    Slider(
-                        value = topP,
-                        onValueChange = {
-                            onUpdate(
-                                assistant.copy(
-                                    topP = it.toFixed(2).toFloatOrNull() ?: 1.0f
-                                )
-                            )
+                    var topPText by remember(assistant.topP) { mutableStateOf(topP.toString()) }
+                    OutlinedTextField(
+                        value = topPText,
+                        onValueChange = { text ->
+                            topPText = text
                         },
-                        valueRange = 0f..1f,
-                        steps = 0,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .onFocusChanged { focusState ->
+                                if (!focusState.isFocused) {
+                                    val v = topPText.toFloatOrNull()
+                                    val clamped = v?.coerceIn(0f, 1f)
+                                    val rounded = clamped?.let { (it * 100).roundToInt() / 100f }
+                                    if (rounded != null) {
+                                        onUpdate(
+                                            assistant.copy(
+                                                topP = rounded
+                                            )
+                                        )
+                                    }
+                                }
+                            },
+                        placeholder = { Text("0.0–1.0") },
+                        singleLine = true,
                     )
                     Text(
                         text = stringResource(
@@ -399,18 +429,29 @@ private fun AssistantBasicSettings(
                     )
                 }
             ) {
-                Slider(
-                    value = assistant.contextMessageSize.toFloat(),
-                    onValueChange = {
-                        onUpdate(
-                            assistant.copy(
-                                contextMessageSize = it.roundToInt()
-                            )
-                        )
+                var contextSizeText by remember(assistant.contextMessageSize) { mutableStateOf(assistant.contextMessageSize.toString()) }
+                OutlinedTextField(
+                    value = contextSizeText,
+                    onValueChange = { text ->
+                        contextSizeText = text
                     },
-                    valueRange = 0f..512f,
-                    steps = 0,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onFocusChanged { focusState ->
+                            if (!focusState.isFocused) {
+                                val v = contextSizeText.toIntOrNull()
+                                val clamped = v?.coerceIn(0, 512)
+                                if (clamped != null) {
+                                    onUpdate(
+                                        assistant.copy(
+                                            contextMessageSize = clamped
+                                        )
+                                    )
+                                }
+                            }
+                        },
+                    placeholder = { Text("0–512") },
+                    singleLine = true,
                 )
                 Text(
                     text = if(assistant.contextMessageSize > 0) stringResource(
