@@ -33,6 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -293,7 +295,7 @@ private fun AssistantBasicSettings(
                 }
             ) {
                 if (assistant.temperature != null) {
-                    var temperatureText by remember(assistant.temperature) { mutableStateOf(assistant.temperature?.toString() ?: "") }
+                    var temperatureText by remember(assistant.temperature) { mutableStateOf(assistant.temperature?.toFixed(2) ?: "") }
                     OutlinedTextField(
                         value = temperatureText,
                         onValueChange = { text ->
@@ -303,20 +305,26 @@ private fun AssistantBasicSettings(
                             .fillMaxWidth()
                             .onFocusChanged { focusState ->
                                 if (!focusState.isFocused) {
-                                    val v = temperatureText.toFloatOrNull()
-                                    val clamped = v?.coerceIn(0f, 2f)
-                                    val rounded = clamped?.let { (it * 100).roundToInt() / 100f }
-                                    if (rounded != null) {
-                                        onUpdate(
-                                            assistant.copy(
-                                                temperature = rounded
+                                    val t = temperatureText.trim()
+                                    if (t.isEmpty()) {
+                                        temperatureText = assistant.temperature?.toFixed(2) ?: ""
+                                    } else {
+                                        val v = t.toFloatOrNull()
+                                        val clamped = v?.coerceIn(0f, 2f)
+                                        val rounded = clamped?.let { (it * 100).roundToInt() / 100f }
+                                        if (rounded != null) {
+                                            onUpdate(
+                                                assistant.copy(
+                                                    temperature = rounded
+                                                )
                                             )
-                                        )
+                                        }
                                     }
                                 }
                             },
                         placeholder = { Text("0.0–2.0") },
                         singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     )
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -382,7 +390,7 @@ private fun AssistantBasicSettings(
                 }
             ) {
                 assistant.topP?.let { topP ->
-                    var topPText by remember(assistant.topP) { mutableStateOf(topP.toString()) }
+                    var topPText by remember(assistant.topP) { mutableStateOf(topP.toFixed(2)) }
                     OutlinedTextField(
                         value = topPText,
                         onValueChange = { text ->
@@ -392,20 +400,26 @@ private fun AssistantBasicSettings(
                             .fillMaxWidth()
                             .onFocusChanged { focusState ->
                                 if (!focusState.isFocused) {
-                                    val v = topPText.toFloatOrNull()
-                                    val clamped = v?.coerceIn(0f, 1f)
-                                    val rounded = clamped?.let { (it * 100).roundToInt() / 100f }
-                                    if (rounded != null) {
-                                        onUpdate(
-                                            assistant.copy(
-                                                topP = rounded
+                                    val t = topPText.trim()
+                                    if (t.isEmpty()) {
+                                        topPText = topP.toFixed(2)
+                                    } else {
+                                        val v = t.toFloatOrNull()
+                                        val clamped = v?.coerceIn(0f, 1f)
+                                        val rounded = clamped?.let { (it * 100).roundToInt() / 100f }
+                                        if (rounded != null) {
+                                            onUpdate(
+                                                assistant.copy(
+                                                    topP = rounded
+                                                )
                                             )
-                                        )
+                                        }
                                     }
                                 }
                             },
                         placeholder = { Text("0.0–1.0") },
                         singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     )
                     Text(
                         text = stringResource(
@@ -439,19 +453,25 @@ private fun AssistantBasicSettings(
                         .fillMaxWidth()
                         .onFocusChanged { focusState ->
                             if (!focusState.isFocused) {
-                                val v = contextSizeText.toIntOrNull()
-                                val clamped = v?.coerceIn(0, 512)
-                                if (clamped != null) {
-                                    onUpdate(
-                                        assistant.copy(
-                                            contextMessageSize = clamped
+                                val t = contextSizeText.trim()
+                                if (t.isEmpty()) {
+                                    contextSizeText = assistant.contextMessageSize.toString()
+                                } else {
+                                    val v = t.toIntOrNull()
+                                    val clamped = v?.coerceIn(0, 512)
+                                    if (clamped != null) {
+                                        onUpdate(
+                                            assistant.copy(
+                                                contextMessageSize = clamped
+                                            )
                                         )
-                                    )
+                                    }
                                 }
                             }
                         },
                     placeholder = { Text("0–512") },
                     singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 )
                 Text(
                     text = if(assistant.contextMessageSize > 0) stringResource(
