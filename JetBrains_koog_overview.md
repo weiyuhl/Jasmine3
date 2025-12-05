@@ -9,7 +9,7 @@ Koog 是一个基于 Kotlin 的多平台 AI Agent 框架（支持 JVM、JS、Was
 - 特性系统（事件、跟踪、记忆、持久化、OpenTelemetry 等）
 - 企业框架集成（Spring Boot、Ktor）
 
-当前版本：`0.5.2`（发布到 Maven Central，DeepWiki/README/构建脚本均有体现）。
+当前版本：`0.5.4`（发布到 Maven Central，README/构建脚本均已更新）。
 
 参考：
 - GitHub 仓库：https://github.com/JetBrains/koog
