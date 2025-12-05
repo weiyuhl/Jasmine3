@@ -44,7 +44,7 @@ private fun AIIcon(
             .build()
     }
     Surface(
-        modifier = modifier.size(24.dp),
+        modifier = modifier,
         shape = rememberAvatarShape(loading),
         color = color,
     ) {

@@ -258,7 +258,7 @@ private fun ProviderItem(
             ) {
                 AutoAIIcon(
                     name = provider.name,
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(32.dp)
                 )
                 Column(
                     modifier = Modifier,
