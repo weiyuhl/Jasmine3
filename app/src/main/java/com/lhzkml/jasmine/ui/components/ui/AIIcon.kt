@@ -113,7 +113,6 @@ private fun computeAIIconByName(name: String): String? {
         PATTERN_CLOUDFLARE.containsMatchIn(lowerName) -> "cloudflare-color.svg"
         PATTERN_MINIMAX.containsMatchIn(lowerName) -> "minimax-color.svg"
         PATTERN_XAI.containsMatchIn(lowerName) -> "xai.svg"
-        PATTERN_JUHENEXT.containsMatchIn(lowerName) -> "juhenext.png"
         PATTERN_KIMI.containsMatchIn(lowerName) -> "kimi-color.svg"
         PATTERN_MOONSHOT.containsMatchIn(lowerName) -> "moonshot.svg"
         PATTERN_INTERN.containsMatchIn(lowerName) -> "internlm-color.svg"
@@ -168,7 +167,6 @@ private val PATTERN_GITHUB = Regex("github")
 private val PATTERN_CLOUDFLARE = Regex("cloudflare")
 private val PATTERN_MINIMAX = Regex("minimax")
 private val PATTERN_XAI = Regex("xai")
-private val PATTERN_JUHENEXT = Regex("juhenext")
 private val PATTERN_KIMI = Regex("kimi")
 private val PATTERN_MOONSHOT = Regex("moonshot|月之暗面")
 private val PATTERN_INTERN = Regex("intern|书生")

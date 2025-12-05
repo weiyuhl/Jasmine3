@@ -128,26 +128,6 @@ val DEFAULT_PROVIDERS = listOf(
         builtIn = true
     ),
     ProviderSetting.OpenAI(
-        id = Uuid.parse("89e67540-32fe-4c62-9970-2e9aed9bd59d"),
-        name = "JuheNext",
-        baseUrl = "https://api.juheai.top/v1",
-        apiKey = "",
-        enabled = false,
-        builtIn = true,
-        description = {
-            Text(
-                text = buildAnnotatedString {
-                    append("一站式API中转平台, 官网：")
-                    withLink(LinkAnnotation.Url("https://api.juheai.top/register?aff=qG7E")) {
-                        withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
-                            append("https://api.juheai.top")
-                        }
-                    }
-                }
-            )
-        }
-    ),
-    ProviderSetting.OpenAI(
         id = Uuid.parse("ef5d149b-8e34-404b-818c-6ec242e5c3c5"),
         name = "腾讯Hunyuan",
         baseUrl = "https://api.hunyuan.cloud.tencent.com/v1",
