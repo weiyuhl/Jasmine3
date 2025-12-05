@@ -278,23 +278,22 @@ private fun AssistantBasicSettings(
                 }
             )
             HorizontalDivider()
+            // Hoisted state for Temperature input and its initial snapshot
+            var temperatureText by remember(assistant.id, assistant.temperature != null) { mutableStateOf(assistant.temperature?.toFixed(2) ?: "") }
+            val initialTempText = remember(assistant.id, assistant.temperature != null) { assistant.temperature?.toFixed(2) ?: "" }
             FormItem(
                 modifier = Modifier.padding(8.dp),
                 label = {
                     Text(stringResource(R.string.assistant_page_temperature))
                 },
                 tail = {
-                    val initialTemp = remember(assistant.id) { assistant.temperature }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         TextButton(onClick = {
-                            onUpdate(
-                                assistant.copy(
-                                    temperature = initialTemp
-                                )
-                            )
+                            // Only reset input text; do not alter switch state or persist value
+                            temperatureText = initialTempText
                         }) {
                             Text("重置")
                         }
@@ -312,7 +311,6 @@ private fun AssistantBasicSettings(
                 }
             ) {
                 if (assistant.temperature != null) {
-                    var temperatureText by remember(assistant.temperature) { mutableStateOf(assistant.temperature?.toFixed(2) ?: "") }
                     OutlinedTextField(
                         value = temperatureText,
                         onValueChange = { text ->
@@ -335,6 +333,11 @@ private fun AssistantBasicSettings(
                                                     temperature = rounded
                                                 )
                                             )
+                                            // Reflect clamped & formatted value back to input
+                                            temperatureText = rounded.toFixed(2)
+                                        } else {
+                                            // Invalid input: restore to current saved value
+                                            temperatureText = assistant.temperature?.toFixed(2) ?: ""
                                         }
                                     }
                                 }
@@ -381,6 +384,9 @@ private fun AssistantBasicSettings(
                 }
             }
             HorizontalDivider()
+            // Hoisted state for Top P input and its initial snapshot
+            var topPText by remember(assistant.id, assistant.topP != null) { mutableStateOf(assistant.topP?.toFixed(2) ?: "") }
+            val initialTopText = remember(assistant.id, assistant.topP != null) { assistant.topP?.toFixed(2) ?: "" }
             FormItem(
                 modifier = Modifier.padding(8.dp),
                 label = {
@@ -394,17 +400,13 @@ private fun AssistantBasicSettings(
                     )
                 },
                 tail = {
-                    val initialTop = remember(assistant.id) { assistant.topP }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         TextButton(onClick = {
-                            onUpdate(
-                                assistant.copy(
-                                    topP = initialTop
-                                )
-                            )
+                            // Only reset input text; do not alter switch state or persist value
+                            topPText = initialTopText
                         }) {
                             Text("重置")
                         }
@@ -422,7 +424,6 @@ private fun AssistantBasicSettings(
                 }
             ) {
                 assistant.topP?.let { topP ->
-                    var topPText by remember(assistant.topP) { mutableStateOf(topP.toFixed(2)) }
                     OutlinedTextField(
                         value = topPText,
                         onValueChange = { text ->
@@ -445,6 +446,11 @@ private fun AssistantBasicSettings(
                                                     topP = rounded
                                                 )
                                             )
+                                            // Reflect clamped & formatted value back to input
+                                            topPText = rounded.toFixed(2)
+                                        } else {
+                                            // Invalid input: restore to current saved value
+                                            topPText = topP.toFixed(2)
                                         }
                                     }
                                 }
@@ -464,6 +470,9 @@ private fun AssistantBasicSettings(
                 }
             }
             HorizontalDivider()
+            // Hoisted state for Context Size input and its initial snapshot
+            var contextSizeText by remember(assistant.id) { mutableStateOf(assistant.contextMessageSize.toString()) }
+            val initialContextText = remember(assistant.id) { assistant.contextMessageSize.toString() }
             FormItem(
                 modifier = Modifier.padding(8.dp),
                 label = {
@@ -475,19 +484,14 @@ private fun AssistantBasicSettings(
                     )
                 },
                 tail = {
-                    val initialContext = remember(assistant.id) { assistant.contextMessageSize }
                     TextButton(onClick = {
-                        onUpdate(
-                            assistant.copy(
-                                contextMessageSize = initialContext
-                            )
-                        )
+                        // Only reset input text; do not persist value
+                        contextSizeText = initialContextText
                     }) {
                         Text("重置")
                     }
                 }
             ) {
-                var contextSizeText by remember(assistant.contextMessageSize) { mutableStateOf(assistant.contextMessageSize.toString()) }
                 OutlinedTextField(
                     value = contextSizeText,
                     onValueChange = { text ->
@@ -509,6 +513,11 @@ private fun AssistantBasicSettings(
                                                 contextMessageSize = clamped
                                             )
                                         )
+                                        // Reflect clamped value back to input
+                                        contextSizeText = clamped.toString()
+                                    } else {
+                                        // Invalid input: restore to current saved value
+                                        contextSizeText = assistant.contextMessageSize.toString()
                                     }
                                 }
                             }

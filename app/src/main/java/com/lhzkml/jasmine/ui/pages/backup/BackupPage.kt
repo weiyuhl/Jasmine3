@@ -80,6 +80,7 @@ import com.lhzkml.jasmine.utils.onError
 import com.lhzkml.jasmine.utils.onLoading
 import com.lhzkml.jasmine.utils.onSuccess
 import com.lhzkml.jasmine.utils.toLocalDateTime
+import com.lhzkml.jasmine.ui.modifier.clearFocusOnTap
 import org.koin.androidx.compose.koinViewModel
 import java.io.File
 import java.io.FileInputStream
@@ -173,12 +174,15 @@ private fun WebDavPage(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
-            .imePadding(),
+            .imePadding()
+            .clearFocusOnTap(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Card {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .padding(16.dp)
+                    .clearFocusOnTap(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 FormItem(
