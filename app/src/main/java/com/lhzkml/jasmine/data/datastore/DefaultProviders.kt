@@ -107,14 +107,6 @@ val DEFAULT_PROVIDERS = listOf(
         builtIn = true
     ),
     ProviderSetting.OpenAI(
-        id = Uuid.parse("3dfd6f9b-f9d9-417f-80c1-ff8d77184191"),
-        name = "火山引擎",
-        baseUrl = "https://ark.cn-beijing.volces.com/api/v3",
-        apiKey = "",
-        enabled = false,
-        builtIn = true
-    ),
-    ProviderSetting.OpenAI(
         id = Uuid.parse("d6c4d8c6-3f62-4ca9-a6f3-7ade6b15ecc3"),
         name = "月之暗面",
         baseUrl = "https://api.moonshot.cn/v1",

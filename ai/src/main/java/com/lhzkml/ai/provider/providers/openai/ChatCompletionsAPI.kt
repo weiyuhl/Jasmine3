@@ -302,12 +302,7 @@ class ChatCompletionsAPI(
                         if (level != ReasoningLevel.AUTO) put("thinking_budget", params.thinkingBudget ?: 0)
                     }
 
-                    "ark.cn-beijing.volces.com" -> {
-                        // 豆包 (火山)
-                        put("thinking", buildJsonObject {
-                            put("type", if (!level.isEnabled) "disabled" else "enabled")
-                        })
-                    }
+                    
 
                     "api.mistral.ai" -> {
                         // Mistral 不支持

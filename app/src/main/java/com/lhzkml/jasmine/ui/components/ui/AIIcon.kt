@@ -99,7 +99,6 @@ private fun computeAIIconByName(name: String): String? {
         PATTERN_DEEPSEEK.containsMatchIn(lowerName) -> "deepseek-color.svg"
         PATTERN_GROK.containsMatchIn(lowerName) -> "grok.svg"
         PATTERN_QWEN.containsMatchIn(lowerName) -> "qwen-color.svg"
-        PATTERN_DOUBAO.containsMatchIn(lowerName) -> "doubao-color.svg"
         PATTERN_OPENROUTER.containsMatchIn(lowerName) -> "openrouter.svg"
         PATTERN_ZHIPU.containsMatchIn(lowerName) -> "zhipu-color.svg"
         PATTERN_MISTRAL.containsMatchIn(lowerName) -> "mistral-color.svg"
@@ -108,7 +107,6 @@ private fun computeAIIconByName(name: String): String? {
         PATTERN_GEMMA.containsMatchIn(lowerName) -> "gemma-color.svg"
         PATTERN_PERPLEXITY.containsMatchIn(lowerName) -> "perplexity-color.svg"
         PATTERN_ALIYUN.containsMatchIn(lowerName) -> "alibabacloud-color.svg"
-        PATTERN_BYTEDANCE.containsMatchIn(lowerName) -> "bytedance-color.svg"
         PATTERN_SILLICON_CLOUD.containsMatchIn(lowerName) -> "siliconflow.svg"
         PATTERN_OLLAMA.containsMatchIn(lowerName) -> "ollama.svg"
         PATTERN_GITHUB.containsMatchIn(lowerName) -> "github.svg"
@@ -158,7 +156,6 @@ private val PATTERN_CLAUDE = Regex("claude")
 private val PATTERN_DEEPSEEK = Regex("deepseek")
 private val PATTERN_GROK = Regex("grok")
 private val PATTERN_QWEN = Regex("qwen|qwq|qvq")
-private val PATTERN_DOUBAO = Regex("doubao")
 private val PATTERN_OPENROUTER = Regex("openrouter")
 private val PATTERN_ZHIPU = Regex("zhipu|智谱|glm")
 private val PATTERN_MISTRAL = Regex("mistral")
@@ -166,7 +163,6 @@ private val PATTERN_META = Regex("meta\\b|(?<!o)llama")
 private val PATTERN_HUNYUAN = Regex("hunyuan|tencent")
 private val PATTERN_GEMMA = Regex("gemma")
 private val PATTERN_PERPLEXITY = Regex("perplexity")
-private val PATTERN_BYTEDANCE = Regex("bytedance|火山")
 private val PATTERN_ALIYUN = Regex("aliyun|阿里云|百炼")
 private val PATTERN_SILLICON_CLOUD = Regex("silicon|硅基")
 private val PATTERN_OLLAMA = Regex("ollama")
