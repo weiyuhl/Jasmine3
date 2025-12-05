@@ -1,0 +1,105 @@
+Jasmine 项目 Lint 警告清单（附问题说明与修复建议）
+
+【统计】
+- app 模块：46 个警告（含类别：NewerVersionAvailable 10、UseKtx 15、RtlHardcoded 4、PluralsCandidate 4、UnusedResources 4、IconLocation 4、其余各 1）
+- common 模块：3 个警告（ObsoleteSdkInt 1、UseTomlInstead 2）
+
+【警告与建议】
+
+1) NewerVersionAvailable（依赖版本过旧）
+- 问题说明：版本目录 `libs.versions.toml` 中部分依赖版本落后（如 `okhttp 5.1.0`、`mcp 0.7.7`、`pebble 3.2.4`、`ktor 3.3.2` 等存在更新版本）。
+- 影响：可能错过安全修复、性能优化或 API 改进；与新组件兼容性下降。
+- 修复建议：
+  - 在 `gradle/libs.versions.toml` 按报告提示将版本更新到最新稳定版。
+  - 优先升级网络/安全相关库（如 OkHttp），并运行完整回归与发布构建。
+  - 若有破坏性变更，逐项查看发行说明并按需调整代码。
+
+2) UseKtx（未使用 KTX 扩展函数）
+- 问题说明：代码仍在使用旧 API，而存在更简洁的 Kotlin 扩展形式。
+- 影响：代码冗长、可读性与可维护性降低。
+- 修复建议：
+  - 典型迁移：`Uri.parse(str)` 改为 `str.toUri()`；`Bundle()` + `put...()` 改为 `bundleOf(...)`；`TextView.doOnTextChanged` 等使用 KTX 扩展。
+  - 查阅 AndroidX KTX 文档，统一采用扩展函数替代旧式调用。
+
+3) RtlHardcoded（使用 left/right 而非 start/end）
+- 问题说明：布局或代码中使用了 `LEFT/RIGHT` 属性（如 `Gravity.LEFT/RIGHT`、`layout_marginLeft`），不利于 RTL（阿拉伯语等）方向支持。
+- 影响：在 RTL 语言下 UI 对齐错误、体验受损。
+- 修复建议：
+  - 将 `LEFT/RIGHT` 全量替换为 `START/END`；边距、对齐、文本方向统一使用 `start/end` 属性。
+  - 验证 RTL 环境（系统语言切换为阿拉伯语/希伯来语）下的界面。
+
+4) PluralsCandidate（应使用复数资源）
+- 问题说明：包含数量的字符串（如 "X items"）没有使用 `plurals` 资源，而是普通 `string`。
+- 影响：不同数量下语法不正确，国际化质量下降。
+- 修复建议：
+  - 在 `res/values` 定义 `plurals`，并以 `getQuantityString(R.plurals.xxx, count, count)` 取值。
+  - 将相关 `string` 迁移为 `plurals` 并替换调用处。
+
+5) UnusedResources（未使用资源）
+- 问题说明：存在未被引用的图片/字符串/布局等资源。
+- 影响：增大包体、增加维护负担。
+- 修复建议：
+  - 删除未使用资源；若通过反射或动态加载使用，使用 `tools:keep` 或在 lint 配置中抑制对应资源。
+  - 运行构建后复核是否有误删导致的运行时问题。
+
+6) IconLocation（位图放在密度无关目录）
+- 问题说明：将位图资源置于 `drawable` 或密度无关目录，未按屏幕密度区分。
+- 影响：在不同设备密度下显示模糊或占用不合理内存。
+- 修复建议：
+  - 将位图按密度放入 `drawable-ldpi/mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi`；通用图标尽量使用矢量（`vector`）。
+  - 应用启动图标放置在 `mipmap-` 前缀目录。
+
+7) IconLauncherShape（启动图标形状不够明显）
+- 问题说明：启动图标轮廓不够区分，未遵循自适应图标的设计建议。
+- 影响：在不同形状遮罩下可识别性差。
+- 修复建议：
+  - 采用前景/背景分层的自适应图标，确保前景图形在安全区内、轮廓清晰。
+  - 参考官方 Material 与 Adaptive Icons 规范重新设计图标。
+
+8) ModifierParameter（Compose 修饰符参数位置不规范）
+- 问题说明：Composable 的可选参数中，`modifier: Modifier` 未置于第一个位置。
+- 影响：不符合 Compose API 约定，降低可读性与可复用性。
+- 修复建议：
+  - 统一签名为：`@Composable fun Xxx(modifier: Modifier = Modifier, ...)`，将 `modifier` 移到首个可选参数。
+
+9) AutoboxingStateCreation（State<T> 自动装箱）
+- 问题说明：使用了 `mutableStateOf<Int>` 等导致装箱；在频繁更新的原生类型上有额外开销。
+- 影响：增加内存分配与性能损耗。
+- 修复建议：
+  - 使用原生类型专用状态：`mutableIntStateOf`、`mutableLongStateOf`、`mutableFloatStateOf` 等。
+
+10) UnnecessaryArrayInit（不必要的数组初始化）
+- 问题说明：数组创建时额外指定冗余初始值（如 `IntArray(n) { 0 }`）。
+- 影响：增加无意义的初始化步骤。
+- 修复建议：
+  - 使用默认构造：`IntArray(n)`、`arrayOfNulls<T>(n)`，仅在确需自定义初值时使用初始化 lambda。
+
+11) VectorPath（矢量路径过长）
+- 问题说明：`vector` 的 `pathData` 过长复杂，影响解析与绘制性能。
+- 影响：首帧渲染与内存占用上升。
+- 修复建议：
+  - 简化 SVG/Vector 路径（合并、减少节点），或改用经压缩的位图资源。
+
+12) Typos（拼写错误）
+- 问题说明：字符串或标识符存在拼写错误。
+- 影响：降低可读性，可能影响检索与本地化质量。
+- 修复建议：
+  - 修正拼写；对用户可见文本同步更新翻译。
+
+13) UseTomlInstead（应使用版本目录）
+- 问题说明：在 Gradle 脚本中直接写了 `group:artifact:version`，未使用 `libs.versions.toml` 的版本目录。
+- 影响：版本分散、难以统一升级；重复维护。
+- 修复建议：
+  - 将如 `io.github.petterpx:floatingx:2.3.7`、`floatingx-compose:2.3.7` 等移动到 `gradle/libs.versions.toml` 的 `[libraries]`。
+  - 在 `build.gradle.kts` 中改用 `libs.xxx` 形式引用；必要时新增 `[versions]` 与 `[bundles]` 以整合相关依赖。
+
+14) ObsoleteSdkInt（过时的 SDK_INT 版本判断）
+- 模块：common（1 条）
+- 问题说明：代码中存在如 `SDK_INT >= 24` 的分支，但项目 `minSdk` 已 ≥ 26，判断恒为真。
+- 影响：冗余分支、可读性与维护性下降。
+- 修复建议：
+  - 删除不必要的版本判断与旧分支，直接使用新 API。
+
+【执行与验证建议】
+- 升级依赖后运行：`./gradlew lint`、`./gradlew assemble`，确保无新增警告且构建通过。
+- 对 UI 相关项（RTL、Icon）在不同系统语言、不同密度设备上做一次手动验证。
