@@ -79,9 +79,6 @@ fun AssistantDetailPage(id: String) {
         vm.update(assistant)
     }
 
-    var initialTemperature by remember(id) { mutableStateOf<Float?>(assistant.temperature) }
-    var initialTopP by remember(id) { mutableStateOf<Float?>(assistant.topP) }
-    var initialContextSize by remember(id) { mutableStateOf(assistant.contextMessageSize) }
 
     val tabs = listOf(
         stringResource(R.string.assistant_page_tab_basic),
@@ -287,6 +284,7 @@ private fun AssistantBasicSettings(
                     Text(stringResource(R.string.assistant_page_temperature))
                 },
                 tail = {
+                    val initialTemp = remember(assistant.id) { assistant.temperature }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -294,7 +292,7 @@ private fun AssistantBasicSettings(
                         TextButton(onClick = {
                             onUpdate(
                                 assistant.copy(
-                                    temperature = initialTemperature
+                                    temperature = initialTemp
                                 )
                             )
                         }) {
@@ -396,6 +394,7 @@ private fun AssistantBasicSettings(
                     )
                 },
                 tail = {
+                    val initialTop = remember(assistant.id) { assistant.topP }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -403,7 +402,7 @@ private fun AssistantBasicSettings(
                         TextButton(onClick = {
                             onUpdate(
                                 assistant.copy(
-                                    topP = initialTopP
+                                    topP = initialTop
                                 )
                             )
                         }) {
@@ -476,10 +475,11 @@ private fun AssistantBasicSettings(
                     )
                 },
                 tail = {
+                    val initialContext = remember(assistant.id) { assistant.contextMessageSize }
                     TextButton(onClick = {
                         onUpdate(
                             assistant.copy(
-                                contextMessageSize = initialContextSize
+                                contextMessageSize = initialContext
                             )
                         )
                     }) {
