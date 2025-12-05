@@ -26,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.ProvideTextStyle
@@ -159,6 +160,12 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
                             .fillMaxWidth(),
                         provider = provider,
                         dragHandle = {},
+                        onToggleEnabled = { enabled ->
+                            val newProviders = settings.providers.map { p ->
+                                if (p.id == provider.id) p.copyProvider(enabled = enabled) else p
+                            }
+                            vm.updateSettings(settings.copy(providers = newProviders))
+                        },
                         onClick = {
                             navController.navigate(Screen.SettingProviderDetail(providerId = provider.id.toString()))
                         }
@@ -228,6 +235,7 @@ private fun ProviderItem(
     provider: ProviderSetting,
     modifier: Modifier = Modifier,
     dragHandle: @Composable () -> Unit,
+    onToggleEnabled: (Boolean) -> Unit,
     onClick: () -> Unit
 ) {
     Card(
@@ -261,7 +269,7 @@ private fun ProviderItem(
                     modifier = Modifier.size(32.dp)
                 )
                 Column(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Text(
@@ -292,6 +300,10 @@ private fun ProviderItem(
                         }
                     }
                 }
+                Switch(
+                    checked = provider.enabled,
+                    onCheckedChange = onToggleEnabled
+                )
             }
         }
     }
