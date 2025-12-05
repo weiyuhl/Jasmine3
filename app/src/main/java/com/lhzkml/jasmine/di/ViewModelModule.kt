@@ -4,7 +4,6 @@ import com.lhzkml.jasmine.ui.pages.assistant.AssistantVM
 import com.lhzkml.jasmine.ui.pages.assistant.detail.AssistantDetailVM
 import com.lhzkml.jasmine.ui.pages.backup.BackupVM
 import com.lhzkml.jasmine.ui.pages.chat.ChatVM
-import com.lhzkml.jasmine.ui.pages.debug.DebugVM
 import com.lhzkml.jasmine.ui.pages.developer.DeveloperVM
 import com.lhzkml.jasmine.ui.pages.history.HistoryVM
 import com.lhzkml.jasmine.ui.pages.setting.SettingVM
@@ -25,7 +24,6 @@ val viewModelModule = module {
         )
     }
     viewModelOf(::SettingVM)
-    viewModelOf(::DebugVM)
     viewModelOf(::HistoryVM)
     viewModelOf(::AssistantVM)
     viewModel<AssistantDetailVM> {

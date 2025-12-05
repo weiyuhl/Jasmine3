@@ -101,9 +101,7 @@ fun SettingAboutPage() {
                     },
                     modifier = Modifier.combinedClickable(
                         onClick = {},
-                        onLongClick = {
-                            navController.navigate(Screen.Debug)
-                        },
+                        onLongClick = {},
                         interactionSource = remember { MutableInteractionSource() },
                         indication = LocalIndication.current,
                     )

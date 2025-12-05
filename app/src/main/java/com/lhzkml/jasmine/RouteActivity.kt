@@ -53,7 +53,6 @@ import com.lhzkml.jasmine.ui.pages.assistant.AssistantPage
 import com.lhzkml.jasmine.ui.pages.assistant.detail.AssistantDetailPage
 import com.lhzkml.jasmine.ui.pages.backup.BackupPage
 import com.lhzkml.jasmine.ui.pages.chat.ChatPage
-import com.lhzkml.jasmine.ui.pages.debug.DebugPage
 import com.lhzkml.jasmine.ui.pages.developer.DeveloperPage
 import com.lhzkml.jasmine.ui.pages.history.HistoryPage
 import com.lhzkml.jasmine.ui.pages.setting.SettingAboutPage
@@ -276,9 +275,7 @@ class RouteActivity : ComponentActivity() {
                         DeveloperPage()
                     }
 
-                    composable<Screen.Debug> {
-                        DebugPage()
-                    }
+                    
                 }
             }
         }
@@ -336,6 +333,5 @@ sealed interface Screen {
     @Serializable
     data object Developer : Screen
 
-    @Serializable
-    data object Debug : Screen
+    
 }
