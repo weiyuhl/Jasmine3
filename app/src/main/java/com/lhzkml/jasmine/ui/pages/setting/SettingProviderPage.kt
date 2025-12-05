@@ -151,7 +151,7 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
                 verticalItemSpacing = 8.dp,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 state = lazyListState,
-                columns = StaggeredGridCells.Fixed(2)
+                columns = StaggeredGridCells.Fixed(1)
             ) {
                 items(filteredProviders, key = { it.id }) { provider ->
                     ProviderItem(
