@@ -72,7 +72,7 @@ fun SettingAboutPage() {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     AsyncImage(
-                        model = R.drawable.placeholder,
+                        model = R.mipmap.ic_launcher_foreground,
                         contentDescription = "Logo",
                         modifier = Modifier
                             .clip(CircleShape)
