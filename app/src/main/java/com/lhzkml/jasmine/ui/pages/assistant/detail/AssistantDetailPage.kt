@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SecondaryScrollableTabRow
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -77,6 +78,10 @@ fun AssistantDetailPage(id: String) {
     fun onUpdate(assistant: Assistant) {
         vm.update(assistant)
     }
+
+    var initialTemperature by remember(id) { mutableStateOf<Float?>(assistant.temperature) }
+    var initialTopP by remember(id) { mutableStateOf<Float?>(assistant.topP) }
+    var initialContextSize by remember(id) { mutableStateOf(assistant.contextMessageSize) }
 
     val tabs = listOf(
         stringResource(R.string.assistant_page_tab_basic),
@@ -282,16 +287,30 @@ private fun AssistantBasicSettings(
                     Text(stringResource(R.string.assistant_page_temperature))
                 },
                 tail = {
-                    Switch(
-                        checked = assistant.temperature != null,
-                        onCheckedChange = { enabled ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        TextButton(onClick = {
                             onUpdate(
                                 assistant.copy(
-                                    temperature = if (enabled) 1.0f else null
+                                    temperature = initialTemperature
                                 )
                             )
+                        }) {
+                            Text("重置")
                         }
-                    )
+                        Switch(
+                            checked = assistant.temperature != null,
+                            onCheckedChange = { enabled ->
+                                onUpdate(
+                                    assistant.copy(
+                                        temperature = if (enabled) 1.0f else null
+                                    )
+                                )
+                            }
+                        )
+                    }
                 }
             ) {
                 if (assistant.temperature != null) {
@@ -377,16 +396,30 @@ private fun AssistantBasicSettings(
                     )
                 },
                 tail = {
-                    Switch(
-                        checked = assistant.topP != null,
-                        onCheckedChange = { enabled ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        TextButton(onClick = {
                             onUpdate(
                                 assistant.copy(
-                                    topP = if (enabled) 1.0f else null
+                                    topP = initialTopP
                                 )
                             )
+                        }) {
+                            Text("重置")
                         }
-                    )
+                        Switch(
+                            checked = assistant.topP != null,
+                            onCheckedChange = { enabled ->
+                                onUpdate(
+                                    assistant.copy(
+                                        topP = if (enabled) 1.0f else null
+                                    )
+                                )
+                            }
+                        )
+                    }
                 }
             ) {
                 assistant.topP?.let { topP ->
@@ -441,6 +474,17 @@ private fun AssistantBasicSettings(
                     Text(
                         text = stringResource(R.string.assistant_page_context_message_desc),
                     )
+                },
+                tail = {
+                    TextButton(onClick = {
+                        onUpdate(
+                            assistant.copy(
+                                contextMessageSize = initialContextSize
+                            )
+                        )
+                    }) {
+                        Text("重置")
+                    }
                 }
             ) {
                 var contextSizeText by remember(assistant.contextMessageSize) { mutableStateOf(assistant.contextMessageSize.toString()) }
@@ -618,4 +662,3 @@ private fun AssistantMcpSettings(
         onUpdateAssistant = onUpdate,
     )
 }
-
