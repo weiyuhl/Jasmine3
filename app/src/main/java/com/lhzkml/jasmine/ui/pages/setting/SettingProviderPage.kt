@@ -241,9 +241,7 @@ private fun ProviderItem(
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = if (provider.enabled) {
-                MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-            } else MaterialTheme.colorScheme.errorContainer,
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
         ),
         onClick = {
             onClick()
@@ -287,9 +285,6 @@ private fun ProviderItem(
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Tag(type = if (provider.enabled) TagType.SUCCESS else TagType.WARNING) {
-                            Text(stringResource(if (provider.enabled) R.string.setting_provider_page_enabled else R.string.setting_provider_page_disabled))
-                        }
                         Tag(type = TagType.INFO) {
                             Text(
                                 stringResource(
