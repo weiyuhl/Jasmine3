@@ -245,12 +245,43 @@ private fun AssistantItem(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
-                    Text(
-                        text = assistant.name.ifBlank { stringResource(R.string.assistant_page_default_assistant) },
-                        style = MaterialTheme.typography.titleLarge,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = assistant.name.ifBlank { stringResource(R.string.assistant_page_default_assistant) },
+                            style = MaterialTheme.typography.titleLarge,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
+                        )
+                        if (assistant.id !in DEFAULT_ASSISTANTS_IDS) {
+                            Tooltip(tooltip = { Text(stringResource(R.string.assistant_page_delete)) }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Delete,
+                                    contentDescription = stringResource(R.string.assistant_page_delete),
+                                    modifier = Modifier
+                                        .onClick {
+                                            showDeleteDialog = true
+                                        }
+                                        .size(18.dp),
+                                )
+                            }
+                        }
+                        Tooltip(tooltip = { Text(stringResource(R.string.assistant_page_clone)) }) {
+                            Icon(
+                                imageVector = Icons.Filled.ContentCopy,
+                                contentDescription = stringResource(R.string.assistant_page_clone),
+                                modifier = Modifier
+                                    .onClick {
+                                        onCopy()
+                                    }
+                                    .size(18.dp),
+                            )
+                        }
+                    }
                     if (assistant.enableMemory) {
                         Tag(type = TagType.SUCCESS) {
                             Text(stringResource(R.string.assistant_page_memory_count, memories.size))
@@ -259,39 +290,7 @@ private fun AssistantItem(
                 }
             }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 4.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                if (assistant.id !in DEFAULT_ASSISTANTS_IDS) {
-                    Tooltip(tooltip = { Text(stringResource(R.string.assistant_page_delete)) }) {
-                        Icon(
-                            imageVector = Icons.Filled.Delete,
-                            contentDescription = stringResource(R.string.assistant_page_delete),
-                            modifier = Modifier
-                                .onClick {
-                                    showDeleteDialog = true
-                                }
-                                .size(18.dp),
-                            tint = MaterialTheme.colorScheme.error.copy(alpha = 0.65f),
-                        )
-                    }
-                }
-                Tooltip(tooltip = { Text(stringResource(R.string.assistant_page_clone)) }) {
-                    Icon(
-                        imageVector = Icons.Filled.ContentCopy,
-                        contentDescription = stringResource(R.string.assistant_page_clone),
-                        modifier = Modifier
-                            .onClick {
-                                onCopy()
-                            }
-                            .size(18.dp),
-                        tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.75f))
-                }
-            }
+            
         }
     }
     if (showDeleteDialog) {

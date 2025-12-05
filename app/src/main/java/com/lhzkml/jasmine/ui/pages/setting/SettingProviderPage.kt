@@ -17,7 +17,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -52,7 +51,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
  
@@ -83,18 +81,9 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
     val settings by vm.settings.collectAsStateWithLifecycle()
     val navController = LocalNavController.current
     val scope = rememberCoroutineScope()
-    var searchQuery by remember { mutableStateOf("") }
     val lazyListState = rememberLazyStaggeredGridState()
 
-    val filteredProviders = remember(settings.providers, searchQuery) {
-        if (searchQuery.isBlank()) {
-            settings.providers
-        } else {
-            settings.providers.filter { provider ->
-                provider.name.contains(searchQuery, ignoreCase = true)
-            }
-        }
-    }
+    val filteredProviders = settings.providers
 
     Scaffold(
         topBar = {
@@ -124,27 +113,7 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            // Search bar
-                OutlinedTextField(
-                    value = searchQuery,
-                    onValueChange = { searchQuery = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    placeholder = { Text(stringResource(R.string.setting_provider_page_search_providers)) },
-                    leadingIcon = {
-                    Icon(Icons.Filled.Search, contentDescription = null)
-                    },
-                    trailingIcon = {
-                        if (searchQuery.isNotEmpty()) {
-                            IconButton(onClick = { searchQuery = "" }) {
-                                Icon(Icons.Filled.Close, contentDescription = "Clear")
-                            }
-                        }
-                    },
-                    singleLine = true,
-                    shape = CircleShape,
-                )
+            
 
 
             LazyVerticalStaggeredGrid(
