@@ -118,7 +118,7 @@ fun AssistantPage(vm: AssistantVM = koinViewModel()) {
                 verticalItemSpacing = 8.dp,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 state = lazyListState,
-                columns = StaggeredGridCells.Fixed(2)
+                columns = StaggeredGridCells.Fixed(1)
             ) {
                 items(filteredAssistants, key = { assistant -> assistant.id }) { assistant ->
                     val memories by vm.getMemories(assistant).collectAsStateWithLifecycle(
@@ -234,33 +234,30 @@ private fun AssistantItem(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 UIAvatar(
                     name = assistant.name.ifBlank { stringResource(R.string.assistant_page_default_assistant) },
                     value = assistant.avatar,
-                    modifier = Modifier.size(36.dp)
+                    modifier = Modifier.size(32.dp)
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                dragHandle()
-            }
-
-            Text(
-                text = assistant.name.ifBlank { stringResource(R.string.assistant_page_default_assistant) },
-                style = MaterialTheme.typography.titleLarge,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-
-            if (assistant.enableMemory) {
-                Tag(type = TagType.SUCCESS) {
-                    Text(stringResource(R.string.assistant_page_memory_count, memories.size))
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    Text(
+                        text = assistant.name.ifBlank { stringResource(R.string.assistant_page_default_assistant) },
+                        style = MaterialTheme.typography.titleLarge,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    if (assistant.enableMemory) {
+                        Tag(type = TagType.SUCCESS) {
+                            Text(stringResource(R.string.assistant_page_memory_count, memories.size))
+                        }
+                    }
                 }
             }
-
-            
 
             Row(
                 modifier = Modifier
