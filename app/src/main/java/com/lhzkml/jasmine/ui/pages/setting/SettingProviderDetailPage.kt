@@ -261,7 +261,6 @@ private fun SettingProviderConfigPage(
 ) {
     var internalProvider by remember(provider) { mutableStateOf(provider) }
     val scope = rememberCoroutineScope()
-    var showDeleteDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -299,16 +298,6 @@ private fun SettingProviderConfigPage(
 
             Spacer(Modifier.weight(1f))
 
-            if (!internalProvider.builtIn) {
-                IconButton(
-                    onClick = {
-                        showDeleteDialog = true
-                    },
-                ) {
-                    Icon(Icons.Filled.Delete, "Delete")
-                }
-            }
-
             Button(
                 onClick = {
                     onEdit(internalProvider)
@@ -328,33 +317,7 @@ private fun SettingProviderConfigPage(
         }
     }
 
-    // Delete confirmation dialog
-    if (showDeleteDialog) {
-        AlertDialog(
-            onDismissRequest = { showDeleteDialog = false },
-            title = {
-                Text(stringResource(R.string.confirm_delete))
-            },
-            text = {
-                Text(stringResource(R.string.setting_provider_page_delete_dialog_text))
-            },
-            dismissButton = {
-                TextButton(onClick = { showDeleteDialog = false }) {
-                    Text(stringResource(R.string.cancel))
-                }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        showDeleteDialog = false
-                        onDelete()
-                    }
-                ) {
-                    Text(stringResource(R.string.delete))
-                }
-            }
-        )
-    }
+    // 删除入口迁移至供应商管理页面，此处不再提供删除按钮
 }
 
 @Composable

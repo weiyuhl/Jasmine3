@@ -54,6 +54,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
  
  
 import com.dokar.sonner.ToastType
@@ -74,6 +75,8 @@ import org.koin.androidx.compose.koinViewModel
  
 import java.util.Locale
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 
 @Composable
 fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
@@ -167,6 +170,10 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
                             }
                             vm.updateSettings(settings.copy(providers = newProviders))
                         },
+                        onDelete = {
+                            val newProviders = settings.providers.filter { p -> p.id != provider.id }
+                            vm.updateSettings(settings.copy(providers = newProviders))
+                        },
                         onClick = {
                             navController.navigate(Screen.SettingProviderDetail(providerId = provider.id.toString()))
                         }
@@ -237,8 +244,10 @@ private fun ProviderItem(
     modifier: Modifier = Modifier,
     dragHandle: @Composable () -> Unit,
     onToggleEnabled: (Boolean) -> Unit,
+    onDelete: () -> Unit,
     onClick: () -> Unit
 ) {
+    var showDeleteDialog by remember { mutableStateOf(false) }
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
@@ -287,10 +296,25 @@ private fun ProviderItem(
                     }
                 },
                 tail = {
-                    Switch(
-                        checked = provider.enabled,
-                        onCheckedChange = onToggleEnabled
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (!provider.builtIn) {
+                            Icon(
+                                imageVector = Icons.Filled.Delete,
+                                contentDescription = stringResource(R.string.assistant_page_delete),
+                                modifier = Modifier.clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null
+                                ) { showDeleteDialog = true }
+                            )
+                        }
+                        Switch(
+                            checked = provider.enabled,
+                            onCheckedChange = onToggleEnabled
+                        )
+                    }
                 }
             ) {
                 FlowRow(
@@ -306,6 +330,23 @@ private fun ProviderItem(
                         )
                     }
                 }
+            }
+            if (showDeleteDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDeleteDialog = false },
+                    title = { Text(stringResource(R.string.confirm_delete)) },
+                    text = { Text(stringResource(R.string.setting_provider_page_delete_dialog_text)) },
+                    dismissButton = {
+                        TextButton(onClick = { showDeleteDialog = false }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = { showDeleteDialog = false; onDelete() }) {
+                            Text(stringResource(R.string.delete))
+                        }
+                    }
+                )
             }
         }
     }
