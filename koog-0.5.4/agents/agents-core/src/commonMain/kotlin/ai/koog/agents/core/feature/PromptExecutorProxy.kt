@@ -4,9 +4,9 @@ import ai.koog.agents.core.feature.pipeline.AIAgentPipeline
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.prompt.dsl.ModerationResult
 import ai.koog.prompt.dsl.Prompt
-import ai.koog.prompt.executor.model.LLMChoice
 import ai.koog.prompt.executor.model.PromptExecutor
 import ai.koog.prompt.llm.LLModel
+import ai.koog.prompt.message.LLMChoice
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.streaming.StreamFrame
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -74,9 +74,9 @@ public class PromptExecutorProxy(
                 logger.debug { "Starting LLM streaming call" }
                 pipeline.onLLMStreamingStarting(runId, callId, prompt, model, tools)
             }
-            .onEach {
-                logger.debug { "Received frame from LLM streaming call: $it" }
-                pipeline.onLLMStreamingFrameReceived(runId, callId, it)
+            .onEach { frame ->
+                logger.debug { "Received frame from LLM streaming call: $frame" }
+                pipeline.onLLMStreamingFrameReceived(runId, callId, frame)
             }
             .catch { error ->
                 logger.debug(error) { "Error in LLM streaming call" }

@@ -16,8 +16,6 @@ jobs:
 
   deploy-dokka-docs:
     runs-on: ubuntu-latest
-    env:
-      BRANCH_KOOG_IS_RELEASING_FROM: ${{ github.ref_name }}
     steps:
       - name: Checkout project
         uses: actions/checkout@v5
@@ -50,7 +48,6 @@ jobs:
           git commit -m "Update docs"
           git push --force origin main
 
-
   deploy-gh-pages:
     runs-on: ubuntu-latest
 
@@ -70,7 +67,7 @@ jobs:
           python-version-file: "./docs/.python-version"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
         with:
           version: "0.8.15"
           enable-cache: true

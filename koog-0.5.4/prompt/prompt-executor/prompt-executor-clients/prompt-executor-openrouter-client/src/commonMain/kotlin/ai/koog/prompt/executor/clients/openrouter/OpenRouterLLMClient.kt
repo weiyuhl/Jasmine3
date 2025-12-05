@@ -4,8 +4,10 @@ import ai.koog.prompt.dsl.ModerationResult
 import ai.koog.prompt.dsl.Prompt
 import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
 import ai.koog.prompt.executor.clients.LLMClient
+import ai.koog.prompt.executor.clients.LLMClientException
 import ai.koog.prompt.executor.clients.openai.base.AbstractOpenAILLMClient
 import ai.koog.prompt.executor.clients.openai.base.OpenAIBaseSettings
+import ai.koog.prompt.executor.clients.openai.base.OpenAICompatibleToolDescriptorSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.models.Content
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIMessage
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIStaticContent
@@ -16,9 +18,9 @@ import ai.koog.prompt.executor.clients.openrouter.models.OpenRouterChatCompletio
 import ai.koog.prompt.executor.clients.openrouter.models.OpenRouterChatCompletionResponse
 import ai.koog.prompt.executor.clients.openrouter.models.OpenRouterChatCompletionStreamResponse
 import ai.koog.prompt.executor.clients.openrouter.models.OpenRouterModelsResponse
-import ai.koog.prompt.executor.model.LLMChoice
 import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
+import ai.koog.prompt.message.LLMChoice
 import ai.koog.prompt.params.LLMParams
 import ai.koog.prompt.streaming.StreamFrameFlowBuilder
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -52,13 +54,15 @@ public class OpenRouterLLMClient(
     apiKey: String,
     private val settings: OpenRouterClientSettings = OpenRouterClientSettings(),
     baseClient: HttpClient = HttpClient(),
-    clock: Clock = Clock.System
+    clock: Clock = Clock.System,
+    toolsConverter: OpenAICompatibleToolDescriptorSchemaGenerator = OpenAICompatibleToolDescriptorSchemaGenerator()
 ) : AbstractOpenAILLMClient<OpenRouterChatCompletionResponse, OpenRouterChatCompletionStreamResponse>(
-    apiKey,
-    settings,
-    baseClient,
-    clock,
-    staticLogger
+    apiKey = apiKey,
+    settings = settings,
+    baseClient = baseClient,
+    clock = clock,
+    logger = staticLogger,
+    toolsConverter = toolsConverter
 ) {
 
     private companion object {
@@ -123,6 +127,15 @@ public class OpenRouterLLMClient(
     }
 
     override fun processProviderChatResponse(response: OpenRouterChatCompletionResponse): List<LLMChoice> {
+        // Handle error responses
+        response.error?.let { error ->
+            throw LLMClientException(
+                clientName = clientName,
+                message = "OpenRouter API error: ${error.message}${error.type?.let { " (type: $it)" } ?: ""}${error.code?.let { " (code: $it)" } ?: ""}",
+                cause = null
+            )
+        }
+
         require(response.choices.isNotEmpty()) { "Empty choices in response" }
         return response.choices.map {
             it.message.toMessageResponses(
@@ -158,7 +171,7 @@ public class OpenRouterLLMClient(
 
     /**
      * Fetches the list of available models from the OpenRouter service.
-     * https://openrouter.ai/docs/api-reference/models/get-models
+     * https://openrouter.ai/docs/api/api-reference/models/get-models
      *
      * @return A list of model IDs available from OpenRouter.
      */

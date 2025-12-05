@@ -5,7 +5,8 @@ import io.modelcontextprotocol.kotlin.sdk.JSONRPCMessage
 import io.modelcontextprotocol.kotlin.sdk.JSONRPCNotification
 import io.modelcontextprotocol.kotlin.sdk.JSONRPCRequest
 import io.modelcontextprotocol.kotlin.sdk.JSONRPCResponse
-import io.modelcontextprotocol.kotlin.sdk.RequestId
+import io.modelcontextprotocol.kotlin.sdk.shared.TransportSendOptions
+import io.modelcontextprotocol.kotlin.sdk.types.RequestId
 import io.modelcontextprotocol.kotlin.sdk.shared.AbstractTransport
 import io.modelcontextprotocol.kotlin.sdk.shared.McpJson
 import kotlinx.coroutines.CoroutineScope
@@ -73,8 +74,8 @@ class StreamableHttpClientTransport(
     /**
      * Sends a single message with optional resumption support
      */
-    override suspend fun send(message: JSONRPCMessage) {
-        send(message, null)
+    override suspend fun send(message: JSONRPCMessage, options: TransportSendOptions?) {
+        send(message, resumptionToken = null)
     }
 
     /**

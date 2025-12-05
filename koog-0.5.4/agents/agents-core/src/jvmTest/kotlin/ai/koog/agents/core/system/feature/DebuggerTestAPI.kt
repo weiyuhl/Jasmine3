@@ -29,13 +29,10 @@ import ai.koog.utils.io.use
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.http.URLProtocol
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.io.IOException
 import kotlin.reflect.typeOf
@@ -52,22 +49,6 @@ internal object DebuggerTestAPI {
     internal const val HOST = "127.0.0.1"
 
     internal val defaultClientServerTimeout = 30.seconds
-
-    internal suspend fun FeatureMessageRemoteClient.connectWithRetry(timeout: Duration) {
-        withTimeout(timeout) {
-            while (true) {
-                try {
-                    connect()
-                    return@withTimeout
-                } catch (exception: Exception) {
-                    if (exception is CancellationException) {
-                        throw exception
-                    }
-                    delay(100)
-                }
-            }
-        }
-    }
 
     internal val testBaseClient: HttpClient
         get() = HttpClient {

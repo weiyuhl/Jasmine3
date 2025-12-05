@@ -1,12 +1,11 @@
 package com.lhzkml.jasmine.data.ai.mcp
 
 import android.util.Log
-import io.modelcontextprotocol.kotlin.sdk.CallToolRequest
-import io.modelcontextprotocol.kotlin.sdk.Implementation
-import io.modelcontextprotocol.kotlin.sdk.Tool
+import io.modelcontextprotocol.kotlin.sdk.types.Implementation
+import io.modelcontextprotocol.kotlin.sdk.types.Tool
+import io.modelcontextprotocol.kotlin.sdk.types.ToolSchema
 import io.modelcontextprotocol.kotlin.sdk.client.Client
 import io.modelcontextprotocol.kotlin.sdk.shared.AbstractTransport
-import io.modelcontextprotocol.kotlin.sdk.shared.RequestOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +19,7 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.json.buildJsonObject
 import com.lhzkmlai.core.InputSchema
 import com.lhzkml.jasmine.AppScope
 import com.lhzkml.jasmine.data.datastore.SettingsStore
@@ -109,17 +109,13 @@ class McpManager(
 
         if (client.transport == null) client.connect(getTransport(config))
         val result = client.callTool(
-            request = CallToolRequest(
-                name = tool.name,
-                arguments = args,
-            ),
-            options = RequestOptions(timeout = 60.seconds),
-            compatibility = true
+            name = tool.name,
+            arguments = args
         )
         require(result != null) {
             "Result is null"
         }
-        return McpJson.encodeToJsonElement(result.content)
+        return McpJson.encodeToJsonElement(result)
     }
 
     private fun getTransport(config: McpServerConfig): AbstractTransport = when (config) {
@@ -273,6 +269,9 @@ internal val McpJson: Json by lazy {
     }
 }
 
-private fun Tool.Input.toSchema(): InputSchema {
-    return InputSchema.Obj(properties = this.properties, required = this.required)
+private fun ToolSchema.toSchema(): InputSchema {
+    return InputSchema.Obj(
+        properties = this.properties ?: buildJsonObject { },
+        required = this.required ?: emptyList()
+    )
 }

@@ -11,6 +11,7 @@ import ai.koog.prompt.executor.clients.LLMClientException
 import ai.koog.prompt.executor.clients.LLMEmbeddingProvider
 import ai.koog.prompt.executor.clients.openai.base.AbstractOpenAILLMClient
 import ai.koog.prompt.executor.clients.openai.base.OpenAIBaseSettings
+import ai.koog.prompt.executor.clients.openai.base.OpenAICompatibleToolDescriptorSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIAudioConfig
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIAudioFormat
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIAudioVoice
@@ -34,16 +35,17 @@ import ai.koog.prompt.executor.clients.openai.models.OpenAIResponsesAPIRequest
 import ai.koog.prompt.executor.clients.openai.models.OpenAIResponsesAPIRequestSerializer
 import ai.koog.prompt.executor.clients.openai.models.OpenAIResponsesAPIResponse
 import ai.koog.prompt.executor.clients.openai.models.OpenAIResponsesTool
+import ai.koog.prompt.executor.clients.openai.models.OpenAIResponsesTool.Function
 import ai.koog.prompt.executor.clients.openai.models.OpenAIResponsesToolChoice
 import ai.koog.prompt.executor.clients.openai.models.OpenAIStreamEvent
 import ai.koog.prompt.executor.clients.openai.models.OpenAITextConfig
 import ai.koog.prompt.executor.clients.openai.models.OutputContent
-import ai.koog.prompt.executor.model.LLMChoice
 import ai.koog.prompt.llm.LLMCapability
 import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
 import ai.koog.prompt.message.AttachmentContent
 import ai.koog.prompt.message.ContentPart
+import ai.koog.prompt.message.LLMChoice
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.message.ResponseMetaInfo
 import ai.koog.prompt.params.LLMParams
@@ -97,12 +99,14 @@ public open class OpenAILLMClient(
     private val settings: OpenAIClientSettings = OpenAIClientSettings(),
     baseClient: HttpClient = HttpClient(),
     clock: Clock = Clock.System,
+    private val toolsConverter: OpenAICompatibleToolDescriptorSchemaGenerator = OpenAICompatibleToolDescriptorSchemaGenerator(),
 ) : AbstractOpenAILLMClient<OpenAIChatCompletionResponse, OpenAIChatCompletionStreamResponse>(
     apiKey,
     settings,
     baseClient,
     clock,
-    staticLogger
+    staticLogger,
+    toolsConverter
 ),
     LLMEmbeddingProvider {
 
@@ -477,6 +481,12 @@ public open class OpenAILLMClient(
         return convertModerationResult(result)
     }
 
+    /**
+     * Retrieves the list of available models from OpenAI.
+     * https://platform.openai.com/docs/api-reference/models/list
+     *
+     * @return A list of model identifiers available from OpenAI.
+     */
     override suspend fun models(): List<String> {
         logger.debug { "Fetching available models from OpenAI" }
 
@@ -593,7 +603,14 @@ public open class OpenAILLMClient(
             model.requireCapability(LLMCapability.Tools)
         }
 
-        val llmTools = tools.takeIf { it.isNotEmpty() }?.map { it.toResponsesTool() }
+        val llmTools = tools.takeIf { it.isNotEmpty() }?.map {
+            Function(
+                name = it.name,
+                parameters = toolsConverter.generate(it),
+                description = it.description
+            )
+        }
+
         val messages = convertPromptToInput(prompt, model)
 
         val request = serializeResponsesAPIRequest(
@@ -612,13 +629,6 @@ public open class OpenAILLMClient(
             responseType = OpenAIResponsesAPIResponse::class
         )
     }
-
-    private fun ToolDescriptor.toResponsesTool(): OpenAIResponsesTool.Function =
-        OpenAIResponsesTool.Function(
-            name = name,
-            parameters = paramsToJsonObject(),
-            description = description
-        )
 
     @OptIn(ExperimentalUuidApi::class)
     private fun convertPromptToInput(prompt: Prompt, model: LLModel): List<Item> {

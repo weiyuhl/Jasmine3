@@ -6,6 +6,7 @@ import io.ktor.http.path
 import io.ktor.http.takeFrom
 import io.modelcontextprotocol.kotlin.sdk.JSONRPCMessage
 import io.modelcontextprotocol.kotlin.sdk.shared.AbstractTransport
+import io.modelcontextprotocol.kotlin.sdk.shared.TransportSendOptions
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -156,7 +157,7 @@ internal class SseClientTransport(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun send(message: JSONRPCMessage) {
+    override suspend fun send(message: JSONRPCMessage, options: TransportSendOptions?) {
         if (!endpoint.isCompleted) {
             error("Not connected")
         }

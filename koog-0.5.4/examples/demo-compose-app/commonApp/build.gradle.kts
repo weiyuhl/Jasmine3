@@ -1,5 +1,7 @@
-import org.gradle.kotlin.dsl.withType
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import org.jetbrains.compose.reload.gradle.ComposeHotRun
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -11,7 +13,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(libs.versions.jdkVersion.get().toInt())
+    jvmToolchain(libs.versions.javaVersion.get().toInt())
 
     android {
         namespace = "com.jetbrains.example.koog.share.ui"
@@ -47,6 +49,7 @@ kotlin {
             implementation(libs.koog.prompt.executor.llms.all)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.markdown.renderer)
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.kotlinx.serialization.json)
             implementation(project.dependencies.platform(libs.koin.bom))

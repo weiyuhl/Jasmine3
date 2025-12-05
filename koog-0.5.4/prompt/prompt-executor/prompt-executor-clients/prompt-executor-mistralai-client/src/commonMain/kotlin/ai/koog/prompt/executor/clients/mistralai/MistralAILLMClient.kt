@@ -20,6 +20,7 @@ import ai.koog.prompt.executor.clients.mistralai.models.MistralAIModerationResul
 import ai.koog.prompt.executor.clients.mistralai.models.MistralModelsResponse
 import ai.koog.prompt.executor.clients.openai.base.AbstractOpenAILLMClient
 import ai.koog.prompt.executor.clients.openai.base.OpenAIBaseSettings
+import ai.koog.prompt.executor.clients.openai.base.OpenAICompatibleToolDescriptorSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.models.Content
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIContentPart
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIMessage
@@ -27,10 +28,10 @@ import ai.koog.prompt.executor.clients.openai.base.models.OpenAIStaticContent
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAITool
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIToolChoice
 import ai.koog.prompt.executor.clients.openai.base.models.OpenAIUsage
-import ai.koog.prompt.executor.model.LLMChoice
 import ai.koog.prompt.llm.LLMCapability
 import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
+import ai.koog.prompt.message.LLMChoice
 import ai.koog.prompt.params.LLMParams
 import ai.koog.prompt.streaming.StreamFrameFlowBuilder
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -66,13 +67,15 @@ public open class MistralAILLMClient(
     apiKey: String,
     private val settings: MistralAIClientSettings = MistralAIClientSettings(),
     baseClient: HttpClient = HttpClient(),
-    clock: Clock = Clock.System
+    clock: Clock = Clock.System,
+    toolsConverter: OpenAICompatibleToolDescriptorSchemaGenerator = OpenAICompatibleToolDescriptorSchemaGenerator()
 ) : AbstractOpenAILLMClient<MistralAIChatCompletionResponse, MistralAIChatCompletionStreamResponse>(
     apiKey = apiKey,
     settings = settings,
     baseClient = baseClient,
     clock = clock,
-    logger = staticLogger
+    logger = staticLogger,
+    toolsConverter = toolsConverter,
 ),
     LLMEmbeddingProvider {
 
