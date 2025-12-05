@@ -35,6 +35,36 @@
 | 月之暗面 | `ProviderSetting.OpenAI` | `https://api.moonshot.cn/v1` | 否 | 是 |
 | 智谱AI开放平台 | `ProviderSetting.OpenAI` | `https://open.bigmodel.cn/api/paas/v4` | 否 | 否 |
 | 腾讯 Hunyuan | `ProviderSetting.OpenAI` | `https://api.hunyuan.cloud.tencent.com/v1` | 否 | 否 |
+
+## Koog 模型连接依赖清单（记录）
+
+- 网络层（HTTP 客户端）
+  - `io.ktor:ktor-client-core`
+  - `io.ktor:ktor-client-content-negotiation`
+  - `io.ktor:ktor-serialization-kotlinx-json`
+  - `io.ktor:ktor-client-sse`
+- JSON 序列化
+  - `org.jetbrains.kotlinx:kotlinx-serialization-json`
+- 并发与时间
+  - `org.jetbrains.kotlinx:kotlinx-coroutines-core`
+  - `org.jetbrains.kotlinx:kotlinx-datetime`
+- 日志
+  - `io.github.oshai:kotlin-logging`
+  - `ch.qos.logback:logback-classic` 或 `org.slf4j:slf4j-simple`
+- AWS Bedrock（仅 JVM）
+  - `aws.sdk.kotlin:bedrockruntime`
+  - 按场景：`aws.sdk.kotlin:bedrock`、`aws.sdk.kotlin:sts`
+- 传输实现（可选）
+  - 默认：`http-client-ktor`
+  - 可选：`http-client-okhttp`（搭配 `com.squareup.okhttp3:okhttp`、`com.squareup.okhttp3:okhttp-sse`）
+- 引擎/平台支持（按目标）
+  - `io.ktor:ktor-client-cio`（JVM）
+  - `io.ktor:ktor-client-darwin`（Apple）
+  - `io.ktor:ktor-client-js`（JS）
+- 客户端实现中的插件使用（示例）
+  - 安装 `SSE` 与 `ContentNegotiation(json)`（用于流式与序列化）
+- 统一封装
+  - 客户端普遍通过 `KoogHttpClient` 封装 Ktor 客户端，用于设置 `baseUrl`、`SSE`、超时、序列化等。
 | xAI | `ProviderSetting.OpenAI` | `https://api.x.ai/v1` | 否 | 否 |
 
 参考来源：`app/src/main/java/com/lhzkml/jasmine/data/datastore/DefaultProviders.kt`
