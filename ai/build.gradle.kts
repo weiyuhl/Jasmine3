@@ -73,6 +73,12 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.kotlinx.datetime)
 
+    // ktor
+    api(libs.ktor.client.core)
+    api(libs.ktor.client.content.negotiation)
+    api(libs.ktor.serialization.kotlinx.json)
+    api(libs.ktor.client.okhttp)
+
     // tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
