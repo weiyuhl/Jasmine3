@@ -64,6 +64,7 @@ import com.lhzkml.jasmine.ui.components.nav.BackButton
 import com.lhzkml.jasmine.ui.components.ui.AutoAIIcon
 import com.lhzkml.jasmine.ui.components.ui.Tag
 import com.lhzkml.jasmine.ui.components.ui.TagType
+import com.lhzkml.jasmine.ui.components.ui.FormItem
  
 import com.lhzkml.jasmine.ui.context.LocalNavController
 import com.lhzkml.jasmine.ui.context.LocalToaster
@@ -258,47 +259,53 @@ private fun ProviderItem(
                 Spacer(modifier = Modifier.weight(1f))
                 dragHandle()
             }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                AutoAIIcon(
-                    name = provider.name,
-                    modifier = Modifier.size(32.dp)
-                )
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                ) {
-                    Text(
-                        text = provider.name,
-                        style = MaterialTheme.typography.titleLarge,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    ProvideTextStyle(MaterialTheme.typography.labelSmall) {
-                        CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.7f)) {
-                            provider.shortDescription()
+            FormItem(
+                label = {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        AutoAIIcon(
+                            name = provider.name,
+                            modifier = Modifier.size(32.dp)
+                        )
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(4.dp),
+                        ) {
+                            Text(
+                                text = provider.name,
+                                style = MaterialTheme.typography.titleLarge,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            ProvideTextStyle(MaterialTheme.typography.labelSmall) {
+                                CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.7f)) {
+                                    provider.shortDescription()
+                                }
+                            }
                         }
                     }
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        Tag(type = TagType.INFO) {
-                            Text(
-                                stringResource(
-                                    R.string.setting_provider_page_model_count,
-                                    provider.models.size
-                                )
+                },
+                tail = {
+                    Switch(
+                        checked = provider.enabled,
+                        onCheckedChange = onToggleEnabled
+                    )
+                }
+            ) {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Tag(type = TagType.INFO) {
+                        Text(
+                            stringResource(
+                                R.string.setting_provider_page_model_count,
+                                provider.models.size
                             )
-                        }
+                        )
                     }
                 }
-                Switch(
-                    checked = provider.enabled,
-                    onCheckedChange = onToggleEnabled
-                )
             }
         }
     }
