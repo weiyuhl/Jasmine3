@@ -104,9 +104,15 @@ class ChatCompletionsAPI(
         val host = providerSetting.baseUrl.toHttpUrl().host
         if (
             host.contains("deepseek.com", ignoreCase = true) ||
+            host.contains("dashscope.aliyuncs.com", ignoreCase = true) ||
             host.contains("api.siliconflow.cn", ignoreCase = true) ||
             host.contains("moonshot", ignoreCase = true) ||
-            host.contains("api.moonshot.cn", ignoreCase = true)
+            host.contains("api.moonshot.cn", ignoreCase = true) ||
+            host.contains("hunyuan", ignoreCase = true) ||
+            host.contains("tencent", ignoreCase = true) ||
+            host.contains("open.bigmodel.cn", ignoreCase = true) ||
+            host.contains("x.ai", ignoreCase = true) ||
+            host.contains("api.x.ai", ignoreCase = true)
         ) {
             return@withContext generateTextKtor(providerSetting, messages, params)
         }
@@ -172,9 +178,15 @@ class ChatCompletionsAPI(
         val host = providerSetting.baseUrl.toHttpUrl().host
         if (
             host.contains("deepseek.com", ignoreCase = true) ||
+            host.contains("dashscope.aliyuncs.com", ignoreCase = true) ||
             host.contains("api.siliconflow.cn", ignoreCase = true) ||
             host.contains("moonshot", ignoreCase = true) ||
-            host.contains("api.moonshot.cn", ignoreCase = true)
+            host.contains("api.moonshot.cn", ignoreCase = true) ||
+            host.contains("hunyuan", ignoreCase = true) ||
+            host.contains("tencent", ignoreCase = true) ||
+            host.contains("open.bigmodel.cn", ignoreCase = true) ||
+            host.contains("x.ai", ignoreCase = true) ||
+            host.contains("api.x.ai", ignoreCase = true)
         ) {
             return streamTextKtor(providerSetting, messages, params)
         }
