@@ -5,6 +5,8 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.sse.SSE
+import io.ktor.client.plugins.sse.sse
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.utils.io.readUTF8Line
 import kotlinx.coroutines.channels.Channel
@@ -15,6 +17,7 @@ import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -85,6 +88,7 @@ class ChatCompletionsAPI(
     private fun newKtorClient(providerSetting: ProviderSetting.OpenAI): HttpClient {
         return HttpClient(OkHttp) {
             install(ContentNegotiation) { json(json) }
+            install(SSE)
             engine {
                 preconfigured = client.configureClientWithProxy(providerSetting.proxy)
             }
@@ -338,23 +342,21 @@ class ChatCompletionsAPI(
         )
         val url = "${providerSetting.baseUrl}${providerSetting.chatCompletionsPath}"
         val ktorClient = newKtorClient(providerSetting)
-        val response = ktorClient.post(url) {
-            headers { params.customHeaders.forEach { append(it.name, it.value) } }
-            header("Authorization", "Bearer ${keyRoulette.next(providerSetting.apiKey)}")
-            header("Content-Type", "application/json")
-            setBody(json.encodeToString(requestBody))
-        }
-        val channel = response.bodyAsChannel()
-        while (!channel.isClosedForRead && isActive) {
-            val line = channel.readUTF8Line() ?: break
-            if (line.startsWith("data:")) {
-                val payload = line.removePrefix("data:").trim()
-                if (payload == "[DONE]") {
-                    close()
-                    break
-                }
-                if (payload.isNotBlank()) {
-                    val obj = json.parseToJsonElement(payload).jsonObject
+        ktorClient.sse(urlString = url, request = {
+                method = HttpMethod.Post
+                header(HttpHeaders.Accept, ContentType.Text.EventStream.toString())
+                headers { params.customHeaders.forEach { append(it.name, it.value) } }
+                header("Authorization", "Bearer ${keyRoulette.next(providerSetting.apiKey)}")
+                contentType(ContentType.Application.Json)
+                setBody(json.encodeToString(requestBody))
+            }) {
+                incoming.collect { event ->
+                    val data = event.data?.trim() ?: return@collect
+                    if (data == "[DONE]") {
+                        close()
+                        return@collect
+                    }
+                    val obj = json.parseToJsonElement(data).jsonObject
                     if (obj["error"] != null) {
                         val error = obj["error"]!!.parseErrorDetail()
                         throw error
@@ -365,12 +367,9 @@ class ChatCompletionsAPI(
                     val choiceList = buildList {
                         if (choices.isNotEmpty()) {
                             val choice = choices[0].jsonObject
-                            val message =
-                                choice["delta"]?.jsonObject ?: choice["message"]?.jsonObject
+                            val message = choice["delta"]?.jsonObject ?: choice["message"]?.jsonObject
                                 ?: throw Exception("delta/message is null")
-                            val finishReason =
-                                choice["finish_reason"]?.jsonPrimitive?.contentOrNull
-                                    ?: "unknown"
+                            val finishReason = choice["finish_reason"]?.jsonPrimitive?.contentOrNull ?: "unknown"
                             add(
                                 UIMessageChoice(
                                     index = 0,
@@ -391,7 +390,6 @@ class ChatCompletionsAPI(
                     trySend(messageChunk)
                 }
             }
-        }
         awaitClose {}
     }
 
