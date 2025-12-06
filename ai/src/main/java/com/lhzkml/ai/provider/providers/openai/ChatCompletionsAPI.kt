@@ -102,7 +102,12 @@ class ChatCompletionsAPI(
         params: TextGenerationParams,
     ): MessageChunk = withContext(Dispatchers.IO) {
         val host = providerSetting.baseUrl.toHttpUrl().host
-        if (host.contains("deepseek.com", ignoreCase = true) || host.contains("api.siliconflow.cn", ignoreCase = true)) {
+        if (
+            host.contains("deepseek.com", ignoreCase = true) ||
+            host.contains("api.siliconflow.cn", ignoreCase = true) ||
+            host.contains("moonshot", ignoreCase = true) ||
+            host.contains("api.moonshot.cn", ignoreCase = true)
+        ) {
             return@withContext generateTextKtor(providerSetting, messages, params)
         }
         val requestBody =
@@ -165,7 +170,12 @@ class ChatCompletionsAPI(
         params: TextGenerationParams,
     ): Flow<MessageChunk> {
         val host = providerSetting.baseUrl.toHttpUrl().host
-        if (host.contains("deepseek.com", ignoreCase = true) || host.contains("api.siliconflow.cn", ignoreCase = true)) {
+        if (
+            host.contains("deepseek.com", ignoreCase = true) ||
+            host.contains("api.siliconflow.cn", ignoreCase = true) ||
+            host.contains("moonshot", ignoreCase = true) ||
+            host.contains("api.moonshot.cn", ignoreCase = true)
+        ) {
             return streamTextKtor(providerSetting, messages, params)
         }
         val requestBody = buildChatCompletionRequest(
