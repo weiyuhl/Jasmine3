@@ -18,6 +18,7 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.client.request.accept
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -26,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -100,7 +102,7 @@ class ChatCompletionsAPI(
         params: TextGenerationParams,
     ): MessageChunk = withContext(Dispatchers.IO) {
         val host = providerSetting.baseUrl.toHttpUrl().host
-        if (host.contains("deepseek.com", ignoreCase = true)) {
+        if (host.contains("deepseek.com", ignoreCase = true) || host.contains("api.siliconflow.cn", ignoreCase = true)) {
             return@withContext generateTextKtor(providerSetting, messages, params)
         }
         val requestBody =
@@ -161,15 +163,10 @@ class ChatCompletionsAPI(
         providerSetting: ProviderSetting.OpenAI,
         messages: List<UIMessage>,
         params: TextGenerationParams,
-    ): Flow<MessageChunk> = callbackFlow {
+    ): Flow<MessageChunk> {
         val host = providerSetting.baseUrl.toHttpUrl().host
-        if (host.contains("deepseek.com", ignoreCase = true)) {
-            val flow = streamTextKtor(providerSetting, messages, params)
-            withContext(Dispatchers.IO) {
-                flow.collect { trySend(it) }
-            }
-            close()
-            return@callbackFlow
+        if (host.contains("deepseek.com", ignoreCase = true) || host.contains("api.siliconflow.cn", ignoreCase = true)) {
+            return streamTextKtor(providerSetting, messages, params)
         }
         val requestBody = buildChatCompletionRequest(
             messages = messages,
@@ -194,6 +191,7 @@ class ChatCompletionsAPI(
         // just for debugging response body
         // println(client.newCall(request).await().body?.string())
 
+        return callbackFlow {
         val listener = object : EventSourceListener() {
             override fun onEvent(
                 eventSource: EventSource,
@@ -286,6 +284,7 @@ class ChatCompletionsAPI(
             println("[awaitClose] 关闭eventSource ")
             eventSource.cancel()
         }
+        }
     }
 
     private suspend fun generateTextKtor(
@@ -333,7 +332,7 @@ class ChatCompletionsAPI(
         providerSetting: ProviderSetting.OpenAI,
         messages: List<UIMessage>,
         params: TextGenerationParams,
-    ): Flow<MessageChunk> = callbackFlow {
+    ): Flow<MessageChunk> = flow {
         val requestBody = buildChatCompletionRequest(
             messages = messages,
             params = params,
@@ -343,52 +342,56 @@ class ChatCompletionsAPI(
         val url = "${providerSetting.baseUrl}${providerSetting.chatCompletionsPath}"
         val ktorClient = newKtorClient(providerSetting)
         ktorClient.sse(urlString = url, request = {
-                method = HttpMethod.Post
-                header(HttpHeaders.Accept, ContentType.Text.EventStream.toString())
-                headers { params.customHeaders.forEach { append(it.name, it.value) } }
-                header("Authorization", "Bearer ${keyRoulette.next(providerSetting.apiKey)}")
-                contentType(ContentType.Application.Json)
-                setBody(json.encodeToString(requestBody))
-            }) {
-                incoming.collect { event ->
-                    val data = event.data?.trim() ?: return@collect
-                    if (data == "[DONE]") {
-                        return@collect
-                    }
-                    val obj = json.parseToJsonElement(data).jsonObject
-                    if (obj["error"] != null) {
-                        return@collect
-                    }
-                    val id = obj["id"]?.jsonPrimitive?.contentOrNull ?: ""
-                    val model = obj["model"]?.jsonPrimitive?.contentOrNull ?: ""
-                    val choices = obj["choices"]?.jsonArray ?: JsonArray(emptyList())
-                    val choiceList = buildList {
-                        if (choices.isNotEmpty()) {
-                            val choice = choices[0].jsonObject
-                            val message = choice["delta"]?.jsonObject ?: choice["message"]?.jsonObject
-                                ?: throw Exception("delta/message is null")
-                            val finishReason = choice["finish_reason"]?.jsonPrimitive?.contentOrNull ?: "unknown"
-                            add(
-                                UIMessageChoice(
-                                    index = 0,
-                                    delta = parseMessage(message),
-                                    message = null,
-                                    finishReason = finishReason,
-                                )
-                            )
-                        }
-                    }
-                    val usage = parseTokenUsage(obj["usage"] as? JsonObject)
-                    val messageChunk = MessageChunk(
-                        id = id,
-                        model = model,
-                        choices = choiceList,
-                        usage = usage
-                    )
-                    trySend(messageChunk)
-                }
+            method = HttpMethod.Post
+            accept(ContentType.Text.EventStream)
+            headers {
+                append(HttpHeaders.CacheControl, "no-cache")
+                append(HttpHeaders.Connection, "keep-alive")
+                params.customHeaders.forEach { append(it.name, it.value) }
             }
-        awaitClose {}
+            header("Authorization", "Bearer ${keyRoulette.next(providerSetting.apiKey)}")
+            contentType(ContentType.Application.Json)
+            setBody(json.encodeToString(requestBody))
+        }) {
+            incoming.collect { event ->
+                val data = event.data?.trim() ?: return@collect
+                if (data == "[DONE]") {
+                    return@collect
+                }
+                val obj = json.parseToJsonElement(data).jsonObject
+                if (obj["error"] != null) {
+                    val error = obj["error"]!!.parseErrorDetail()
+                    throw error
+                }
+                val id = obj["id"]?.jsonPrimitive?.contentOrNull ?: ""
+                val model = obj["model"]?.jsonPrimitive?.contentOrNull ?: ""
+                val choices = obj["choices"]?.jsonArray ?: JsonArray(emptyList())
+                val choiceList = buildList {
+                    if (choices.isNotEmpty()) {
+                        val choice = choices[0].jsonObject
+                        val message = choice["delta"]?.jsonObject ?: choice["message"]?.jsonObject
+                            ?: throw Exception("delta/message is null")
+                        val finishReason = choice["finish_reason"]?.jsonPrimitive?.contentOrNull ?: "unknown"
+                        add(
+                            UIMessageChoice(
+                                index = 0,
+                                delta = parseMessage(message),
+                                message = null,
+                                finishReason = finishReason,
+                            )
+                        )
+                    }
+                }
+                val usage = parseTokenUsage(obj["usage"] as? JsonObject)
+                val messageChunk = MessageChunk(
+                    id = id,
+                    model = model,
+                    choices = choiceList,
+                    usage = usage
+                )
+                emit(messageChunk)
+            }
+        }
     }
 
 
