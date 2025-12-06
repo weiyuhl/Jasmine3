@@ -19,12 +19,6 @@ sealed class LocalToolOption {
     @Serializable
     @SerialName("javascript_engine")
     data object JavascriptEngine : LocalToolOption()
-    @Serializable
-    @SerialName("markdown_txt")
-    data object MarkdownTxt : LocalToolOption()
-    @Serializable
-    @SerialName("filesystem_tools")
-    data object FileSystem : LocalToolOption()
 }
 
 class LocalTools(private val context: Context) {
@@ -58,29 +52,14 @@ class LocalTools(private val context: Context) {
         )
     }
 
-    private val markdownTool by lazy { MarkdownFileTool(context).tool }
-    private val fileSystemTools by lazy { FileSystemTools(context) }
+    // 文件系统工具已移除
 
     fun getTools(options: List<LocalToolOption>): List<Tool> {
         val tools = mutableListOf<Tool>()
         if (options.contains(LocalToolOption.JavascriptEngine)) {
             tools.add(javascriptTool)
         }
-        if (options.contains(LocalToolOption.MarkdownTxt)) {
-            tools.add(markdownTool)
-        }
-        if (options.contains(LocalToolOption.FileSystem)) {
-            tools.add(fileSystemTools.readLocalFileTool)
-            tools.add(fileSystemTools.listDirectoryTool)
-            tools.add(fileSystemTools.getDirTreeTool)
-            tools.add(fileSystemTools.searchPathnamesOnlyTool)
-            tools.add(fileSystemTools.searchForFilesTool)
-            tools.add(fileSystemTools.searchInFileTool)
-            tools.add(fileSystemTools.createFileOrFolderTool)
-            tools.add(fileSystemTools.deleteFileOrFolderTool)
-            tools.add(fileSystemTools.editFileTool)
-            tools.add(fileSystemTools.rewriteFileTool)
-        }
+        // 文件系统工具已移除
         return tools
     }
 }

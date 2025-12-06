@@ -68,12 +68,6 @@
   <string name="setting_page_assistant_desc">Set up personalized assistants (agents)</string>
   <string name="setting_page_about">About</string>
   <string name="setting_page_about_desc">About this app</string>
-  <string name="assistant_page_local_tools_markdown_title">Markdown Document Tool</string>
-  <string name="assistant_page_local_tools_markdown_desc">Save markdown content as a local file and return URI</string>
-  <string name="assistant_page_local_tools_markdown_choose_directory">Choose directory</string>
-  <string name="assistant_page_local_tools_markdown_not_authorized">Not authorized</string>
-  <string name="assistant_page_local_tools_markdown_note_saf_restriction">• Only write within authorized SAF directory</string>
-  <string name="assistant_page_local_tools_markdown_note_utf8">• Write as UTF-8 without BOM</string>
   <string name="setting_page_config_api_title">Please configure API and model</string>
   <string name="setting_page_config_api_desc">You haven\'t configured API and model yet, please configure first</string>
   <string name="setting_page_config">Configure</string>
@@ -148,18 +142,6 @@
   <!-- Local Tools -->
   <string name="assistant_page_local_tools_javascript_engine_title">JavaScript Engine</string>
   <string name="assistant_page_local_tools_javascript_engine_desc">Execute JavaScript code with QuickJS engine for calculations and scripting</string>
-  <string name="assistant_page_local_tools_filesystem_title">File System Tools</string>
-  <string name="assistant_page_local_tools_filesystem_capability_read_file">• Read file read_local_file</string>
-  <string name="assistant_page_local_tools_filesystem_capability_list_directory">• List directory list_directory</string>
-  <string name="assistant_page_local_tools_filesystem_capability_get_dir_tree">• Directory tree get_dir_tree</string>
-  <string name="assistant_page_local_tools_filesystem_capability_search_pathnames_only">• Pathname search search_pathnames_only</string>
-  <string name="assistant_page_local_tools_filesystem_capability_search_for_files">• Content search search_for_files</string>
-  <string name="assistant_page_local_tools_filesystem_capability_search_in_file">• In-file search search_in_file</string>
-  <string name="assistant_page_local_tools_filesystem_capability_create_file_or_folder">• Create file/folder create_file_or_folder</string>
-  <string name="assistant_page_local_tools_filesystem_capability_delete_file_or_folder">• Delete file/folder delete_file_or_folder</string>
-  <string name="assistant_page_local_tools_filesystem_capability_edit_file">• Edit file edit_file</string>
-  <string name="assistant_page_local_tools_filesystem_capability_rewrite_file">• Rewrite file rewrite_file</string>
-  <string name="assistant_page_local_tools_filesystem_capability_saf_restriction">• Only allow access to authorized SAF root directory resources</string>
 
   <!-- Custom Headers and Bodies -->
   <string name="assistant_page_custom_headers">Custom Headers</string>
