@@ -353,13 +353,11 @@ class ChatCompletionsAPI(
                 incoming.collect { event ->
                     val data = event.data?.trim() ?: return@collect
                     if (data == "[DONE]") {
-                        close()
                         return@collect
                     }
                     val obj = json.parseToJsonElement(data).jsonObject
                     if (obj["error"] != null) {
-                        val error = obj["error"]!!.parseErrorDetail()
-                        throw error
+                        return@collect
                     }
                     val id = obj["id"]?.jsonPrimitive?.contentOrNull ?: ""
                     val model = obj["model"]?.jsonPrimitive?.contentOrNull ?: ""
